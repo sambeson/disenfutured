@@ -45,16 +45,27 @@ function openWindow(windowId) {
     // Hide start menu
     document.getElementById('startMenu').style.display = 'none';
     
+    // If window is already open, just bring it to front
+    if (windowElement.style.display === 'block') {
+        focusWindow(windowElement, windowId);
+        return;
+    }
+    
     // Show window
     windowElement.style.display = 'block';
     
     // Bring to front
-    zIndexCounter++;
-    windowElement.style.zIndex = zIndexCounter;
+    focusWindow(windowElement, windowId);
     
     // Add to active windows if not already there
-    if (!activeWindows.includes(windowId)) {
-        activeWindows.push(windowId);
+    if (!activeWindows.find(w => w.id === windowId)) {
+        activeWindows.push({
+            id: windowId,
+            element: windowElement,
+            title: windowElement.querySelector('.window-title').textContent.trim(),
+            minimized: false
+        });
+        updateTaskbar();
     }
     
     // Add window shake effect
@@ -81,14 +92,128 @@ function closeWindow(windowId) {
         
         // Remove from active windows
         const baseId = windowId.replace('Window', '');
-        const index = activeWindows.indexOf(baseId);
+        const index = activeWindows.findIndex(w => w.id === baseId);
         if (index > -1) {
             activeWindows.splice(index, 1);
+            updateTaskbar();
         }
     }, 200);
     
     // Play window close sound simulation
     playSound('close');
+}
+
+// Focus Window (bring to front)
+function focusWindow(windowElement, windowId) {
+    zIndexCounter++;
+    windowElement.style.zIndex = zIndexCounter;
+    
+    // Update window state
+    const windowObj = activeWindows.find(w => w.id === windowId);
+    if (windowObj) {
+        windowObj.minimized = false;
+    }
+    
+    updateTaskbar();
+}
+
+// Minimize Window
+function minimizeWindow(windowId) {
+    const windowElement = document.getElementById(windowId);
+    if (!windowElement) return;
+    
+    // Add minimize animation
+    windowElement.style.animation = 'windowMinimize 0.3s ease-in';
+    
+    setTimeout(() => {
+        windowElement.style.display = 'none';
+        windowElement.style.animation = '';
+        
+        // Update window state
+        const baseId = windowId.replace('Window', '');
+        const windowObj = activeWindows.find(w => w.id === baseId);
+        if (windowObj) {
+            windowObj.minimized = true;
+        }
+        updateTaskbar();
+    }, 300);
+    
+    playSound('minimize');
+}
+
+// Maximize/Restore Window
+function toggleMaximize(windowId) {
+    const windowElement = document.getElementById(windowId);
+    if (!windowElement) return;
+    
+    const isMaximized = windowElement.classList.contains('maximized');
+    
+    if (isMaximized) {
+        // Restore window
+        windowElement.classList.remove('maximized');
+        windowElement.style.top = windowElement.dataset.originalTop || '100px';
+        windowElement.style.left = windowElement.dataset.originalLeft || '100px';
+        windowElement.style.width = windowElement.dataset.originalWidth || '500px';
+        windowElement.style.height = windowElement.dataset.originalHeight || '400px';
+    } else {
+        // Store original position and size
+        windowElement.dataset.originalTop = windowElement.style.top;
+        windowElement.dataset.originalLeft = windowElement.style.left;
+        windowElement.dataset.originalWidth = windowElement.style.width;
+        windowElement.dataset.originalHeight = windowElement.style.height;
+        
+        // Maximize window
+        windowElement.classList.add('maximized');
+        windowElement.style.top = '0px';
+        windowElement.style.left = '0px';
+        windowElement.style.width = '100vw';
+        windowElement.style.height = 'calc(100vh - 28px)';
+    }
+    
+    playSound('maximize');
+}
+
+// Update Taskbar with active windows
+function updateTaskbar() {
+    const taskbarItems = document.querySelector('.taskbar-items');
+    taskbarItems.innerHTML = '';
+    
+    activeWindows.forEach(windowObj => {
+        const taskbarItem = document.createElement('div');
+        taskbarItem.className = `taskbar-item ${windowObj.minimized ? '' : 'active'}`;
+        taskbarItem.textContent = windowObj.title;
+        taskbarItem.onclick = () => toggleWindowFromTaskbar(windowObj.id);
+        taskbarItems.appendChild(taskbarItem);
+    });
+}
+
+// Toggle window from taskbar click
+function toggleWindowFromTaskbar(windowId) {
+    const windowElement = document.getElementById(windowId + 'Window');
+    const windowObj = activeWindows.find(w => w.id === windowId);
+    
+    if (!windowElement || !windowObj) return;
+    
+    if (windowObj.minimized || windowElement.style.display === 'none') {
+        // Restore window
+        windowElement.style.display = 'block';
+        focusWindow(windowElement, windowId);
+        windowObj.minimized = false;
+        
+        // Add restore animation
+        windowElement.style.animation = 'windowRestore 0.3s ease-out';
+        setTimeout(() => {
+            windowElement.style.animation = '';
+        }, 300);
+        
+        playSound('restore');
+    } else if (windowElement.style.zIndex == zIndexCounter) {
+        // If window is already focused, minimize it
+        minimizeWindow(windowId + 'Window');
+    } else {
+        // Just bring to front
+        focusWindow(windowElement, windowId);
+    }
 }
 
 // Make windows draggable
@@ -120,6 +245,12 @@ function makeWindowsDraggable() {
             
             // Prevent text selection
             e.preventDefault();
+        });
+        
+        // Double-click to maximize/restore
+        header.addEventListener('dblclick', function(e) {
+            if (e.target.classList.contains('window-control')) return;
+            toggleMaximize(windowElement.id);
         });
         
         document.addEventListener('mousemove', function(e) {
@@ -164,6 +295,21 @@ function playSound(type) {
             body.style.filter = 'brightness(0.9)';
             setTimeout(() => body.style.filter = '', 50);
             break;
+        case 'minimize':
+            // Brief blue tint
+            body.style.filter = 'hue-rotate(30deg)';
+            setTimeout(() => body.style.filter = '', 100);
+            break;
+        case 'maximize':
+            // Brief contrast boost
+            body.style.filter = 'contrast(1.2)';
+            setTimeout(() => body.style.filter = '', 100);
+            break;
+        case 'restore':
+            // Brief saturation boost
+            body.style.filter = 'saturate(1.3)';
+            setTimeout(() => body.style.filter = '', 100);
+            break;
         case 'startup':
             // Gradual brightness increase
             body.style.filter = 'brightness(0.8)';
@@ -185,9 +331,21 @@ function playStartupSequence() {
         playSound('startup');
     }, 100);
     
-    // Show main window after startup
+    // Show main window after startup and add to active windows
     setTimeout(() => {
-        openWindow('main');
+        const mainWindow = document.getElementById('mainWindow');
+        mainWindow.style.display = 'block';
+        
+        // Add main window to active windows
+        activeWindows.push({
+            id: 'main',
+            element: mainWindow,
+            title: 'DISENFUTURED',
+            minimized: false
+        });
+        
+        focusWindow(mainWindow, 'main');
+        updateTaskbar();
     }, 1500);
 }
 
@@ -234,6 +392,17 @@ function showError(message) {
 
 // Easter eggs and interactive elements
 document.addEventListener('keydown', function(e) {
+    // Window management shortcuts
+    if (e.altKey && e.keyCode === 9) { // Alt+Tab window switching
+        e.preventDefault();
+        switchToNextWindow();
+    }
+    
+    if (e.altKey && e.keyCode === 32) { // Alt+Space system menu
+        e.preventDefault();
+        showSystemMenu();
+    }
+    
     // Konami code easter egg
     const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     window.konamiProgress = window.konamiProgress || 0;
@@ -260,6 +429,31 @@ document.addEventListener('keydown', function(e) {
         showError('Task Manager is not available in the browser!');
     }
 });
+
+// Alt+Tab window switching
+function switchToNextWindow() {
+    if (activeWindows.length <= 1) return;
+    
+    const currentFocused = activeWindows.find(w => w.element.style.zIndex == zIndexCounter);
+    let nextIndex = 0;
+    
+    if (currentFocused) {
+        const currentIndex = activeWindows.indexOf(currentFocused);
+        nextIndex = (currentIndex + 1) % activeWindows.length;
+    }
+    
+    const nextWindow = activeWindows[nextIndex];
+    if (nextWindow.minimized) {
+        toggleWindowFromTaskbar(nextWindow.id);
+    } else {
+        focusWindow(nextWindow.element, nextWindow.id);
+    }
+}
+
+// Alt+Space system menu simulation
+function showSystemMenu() {
+    showError('System menu not implemented! Use the window controls instead.');
+}
 
 // Random window shake effect
 function randomWindowShake() {
@@ -346,8 +540,8 @@ setInterval(() => {
 const style = document.createElement('style');
 style.textContent = `
     @keyframes windowOpen {
-        0% { transform: scale(0.8) translate(-50%, -50%); opacity: 0; }
-        100% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+        0% { transform: scale(0.8); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
     }
     
     @keyframes windowClose {
@@ -355,10 +549,41 @@ style.textContent = `
         100% { transform: scale(0.8); opacity: 0; }
     }
     
+    @keyframes windowMinimize {
+        0% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0.1) translateY(500px); opacity: 0; }
+    }
+    
+    @keyframes windowRestore {
+        0% { transform: scale(0.1) translateY(500px); opacity: 0; }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    
     @keyframes windowShake {
         0%, 100% { transform: translateX(0); }
         10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
         20%, 40%, 60%, 80% { transform: translateX(2px); }
+    }
+    
+    .window.maximized {
+        transition: all 0.3s ease !important;
+    }
+    
+    .taskbar-item {
+        cursor: pointer;
+        transition: background-color 0.1s ease;
+    }
+    
+    .taskbar-item:hover {
+        background: var(--win98-light-gray);
+    }
+    
+    .window-control:hover.minimize {
+        background: #ffff00;
+    }
+    
+    .window-control:hover.maximize {
+        background: #00ff00;
     }
 `;
 document.head.appendChild(style);
@@ -388,9 +613,17 @@ console.log(`
 ╚═════╝ ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚═╝      ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
 
 Welcome to the DISENFUTURED underground experience!
-Try the Konami code (↑↑↓↓←→←→BA) for a surprise!
-Or try Alt+F4 or Ctrl+Alt+Delete for some 90s nostalgia!
-Press 'P' key to toggle pixelation levels!
+
+🎮 SHORTCUTS & EASTER EGGS:
+- Try the Konami code (↑↑↓↓←→←→BA) for a surprise!
+- Alt+F4 or Ctrl+Alt+Delete for some 90s nostalgia!
+- Press 'P' key to toggle pixelation levels!
+- Alt+Tab to switch between windows!
+- Double-click window headers to maximize/restore!
+- Click taskbar items to minimize/restore windows!
+
+🪟 WINDOW CONTROLS:
+- _ = Minimize   □ = Maximize   × = Close
 `);
 
 // Pixelation toggle function

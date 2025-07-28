@@ -16,7 +16,7 @@
             Start
         </div>
             <div class="taskbar-items">
-                <div class="taskbar-item active">DISENFUTURED</div>
+                <!-- Dynamic taskbar items will be populated here -->
             </div>
             <div class="system-tray">
                 <span class="time" id="current-time"></span>
@@ -45,8 +45,8 @@
                     DISENFUTURED
                 </div>
                 <div class="window-controls">
-                    <button class="window-control minimize">_</button>
-                    <button class="window-control maximize">□</button>
+                    <button class="window-control minimize" onclick="minimizeWindow('mainWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('mainWindow')">□</button>
                     <button class="window-control close" onclick="closeWindow('mainWindow')">×</button>
                 </div>
             </div>
@@ -84,6 +84,8 @@
                     About DISENFUTURED
                 </div>
                 <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('aboutWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('aboutWindow')">□</button>
                     <button class="window-control close" onclick="closeWindow('aboutWindow')">×</button>
                 </div>
             </div>
@@ -112,6 +114,8 @@
                     Upcoming Shows
                 </div>
                 <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('showsWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('showsWindow')">□</button>
                     <button class="window-control close" onclick="closeWindow('showsWindow')">×</button>
                 </div>
             </div>
@@ -149,6 +153,8 @@
                     DISENFUTURED Merchandise
                 </div>
                 <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('merchWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('merchWindow')">□</button>
                     <button class="window-control close" onclick="closeWindow('merchWindow')">×</button>
                 </div>
             </div>
@@ -199,6 +205,8 @@
                     Music & Social Links
                 </div>
                 <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('musicWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('musicWindow')">□</button>
                     <button class="window-control close" onclick="closeWindow('musicWindow')">×</button>
                 </div>
             </div>
@@ -267,6 +275,8 @@
                     Contact DISENFUTURED
                 </div>
                 <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('contactWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('contactWindow')">□</button>
                     <button class="window-control close" onclick="closeWindow('contactWindow')">×</button>
                 </div>
             </div>
