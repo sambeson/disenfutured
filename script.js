@@ -390,4 +390,43 @@ console.log(`
 Welcome to the DISENFUTURED underground experience!
 Try the Konami code (↑↑↓↓←→←→BA) for a surprise!
 Or try Alt+F4 or Ctrl+Alt+Delete for some 90s nostalgia!
+Press 'P' key to toggle pixelation levels!
 `);
+
+// Pixelation toggle function
+let pixelationLevel = 0;
+const maxPixelationLevels = 3;
+
+function togglePixelation() {
+    const desktop = document.querySelector('.desktop');
+    
+    // Remove existing pixelation classes
+    desktop.classList.remove('pixelated', 'mega-pixelated');
+    
+    pixelationLevel = (pixelationLevel + 1) % maxPixelationLevels;
+    
+    switch(pixelationLevel) {
+        case 0:
+            // Normal pixelation (default)
+            break;
+        case 1:
+            // Enhanced pixelation
+            desktop.classList.add('pixelated');
+            break;
+        case 2:
+            // Mega pixelation
+            desktop.classList.add('mega-pixelated');
+            break;
+    }
+    
+    // Show feedback
+    showError(`Pixelation Level: ${pixelationLevel + 1}/${maxPixelationLevels}`);
+}
+
+// Add P key listener for pixelation toggle
+document.addEventListener('keydown', function(e) {
+    // P key for pixelation toggle
+    if (e.keyCode === 80 && !e.ctrlKey && !e.altKey) {
+        togglePixelation();
+    }
+});

@@ -54,8 +54,47 @@ body::before {
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    /* Additional retro CRT effects */
-    filter: contrast(1.1) brightness(0.95);
+    /* Additional retro CRT effects with more pixelation */
+    filter: 
+        contrast(1.3) 
+        brightness(0.9) 
+        blur(0.5px)
+        saturate(1.1);
+    /* Transform to create pixel scaling effect */
+    transform: scale(1.01);
+}
+
+/* Add pixelation overlay for extra retro effect */
+.desktop::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        /* Subtle pixelation pattern */
+        repeating-conic-gradient(
+            from 0deg at 50% 50%,
+            rgba(0,0,0,0.03) 0deg,
+            transparent 1deg,
+            transparent 2deg,
+            rgba(0,0,0,0.03) 3deg
+        ),
+        /* Additional noise texture for pixelation */
+        radial-gradient(
+            circle at 25% 25%, 
+            rgba(255,255,255,0.01) 1px,
+            transparent 1px
+        );
+    background-size: 4px 4px, 2px 2px;
+    pointer-events: none;
+    z-index: 0;
+    /* Pixelated rendering */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 /* Add CRT scanline effect overlay */
@@ -834,3 +873,50 @@ h3 {
 #merchWindow { top: 140px; left: 140px; width: 650px; height: 500px; }
 #musicWindow { top: 160px; left: 160px; width: 580px; height: 480px; }
 #contactWindow { top: 180px; left: 180px; width: 520px; height: 420px; }
+
+/* Extra pixelation effects - add .pixelated class to desktop for more intense effect */
+.desktop.pixelated {
+    filter: 
+        contrast(1.5) 
+        brightness(0.85) 
+        blur(1px)
+        saturate(1.2)
+        sepia(0.1);
+    transform: scale(1.02);
+}
+
+.desktop.pixelated::before {
+    background-size: 6px 6px, 3px 3px;
+    opacity: 0.8;
+}
+
+/* Mega pixelation effect for extreme retro look */
+.desktop.mega-pixelated {
+    filter: 
+        contrast(1.8) 
+        brightness(0.8) 
+        blur(1.5px)
+        saturate(1.4)
+        sepia(0.2)
+        hue-rotate(5deg);
+    transform: scale(1.03);
+    background-size: 80% auto, 100% 100% !important;
+}
+
+.desktop.mega-pixelated::before {
+    background-size: 8px 8px, 4px 4px;
+    opacity: 1;
+    background: 
+        repeating-conic-gradient(
+            from 0deg at 50% 50%,
+            rgba(0,0,0,0.08) 0deg,
+            transparent 2deg,
+            transparent 4deg,
+            rgba(0,0,0,0.08) 6deg
+        ),
+        radial-gradient(
+            circle at 25% 25%, 
+            rgba(255,255,255,0.03) 2px,
+            transparent 2px
+        );
+}
