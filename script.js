@@ -6,6 +6,8 @@ let zIndexCounter = 100;
 document.addEventListener('DOMContentLoaded', function() {
     updateTime();
     setInterval(updateTime, 1000);
+    updateMobileTime();
+    setInterval(updateMobileTime, 1000);
     
     // Add click listeners to close start menu when clicking elsewhere
     document.addEventListener('click', function(e) {
@@ -22,6 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add some startup sounds simulation
     playStartupSequence();
+    
+    // Initialize mobile experience
+    if (window.innerWidth <= 768) {
+        initializeMobile();
+    }
 });
 
 // Update system tray time
@@ -66,6 +73,11 @@ function openWindow(windowId) {
             minimized: false
         });
         updateTaskbar();
+    }
+    
+    // Initialize browser if opening browser window
+    if (windowId === 'browser') {
+        initializeBrowser();
     }
     
     // Add window shake effect
@@ -663,3 +675,445 @@ document.addEventListener('keydown', function(e) {
         togglePixelation();
     }
 });
+
+// Mobile Functions
+function updateMobileTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    const mobileTimeElement = document.getElementById('mobile-time');
+    if (mobileTimeElement) {
+        mobileTimeElement.textContent = timeString;
+    }
+}
+
+function initializeMobile() {
+    // Add mobile-specific event listeners
+    document.addEventListener('touchstart', function(e) {
+        // Handle touch interactions for mobile
+        if (e.target.classList.contains('mobile-app')) {
+            e.target.style.opacity = '0.7';
+        }
+    });
+    
+    document.addEventListener('touchend', function(e) {
+        // Reset opacity after touch
+        if (e.target.classList.contains('mobile-app')) {
+            e.target.style.opacity = '1';
+        }
+    });
+}
+
+function openMobileApp(appName) {
+    const appView = document.getElementById('mobile' + appName.charAt(0).toUpperCase() + appName.slice(1));
+    if (appView) {
+        appView.classList.add('active');
+        // Add haptic feedback simulation
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+    }
+}
+
+function closeMobileApp() {
+    const activeApp = document.querySelector('.mobile-app-view.active');
+    if (activeApp) {
+        activeApp.classList.remove('active');
+        // Add haptic feedback simulation
+        if (navigator.vibrate) {
+            navigator.vibrate(30);
+        }
+    }
+}
+
+// Handle mobile buttons
+document.addEventListener('click', function(e) {
+    if (e.target.className === 'mobile-btn') {
+        const buttonText = e.target.textContent;
+        let message = '';
+        
+        switch(buttonText) {
+            case 'Get Tickets':
+            case 'More Info':
+            case 'Details':
+                message = 'Check our Instagram @disenfutured for show updates!';
+                break;
+            case 'Buy Now':
+                message = 'Merch store coming soon! DM us on Instagram for now!';
+                break;
+            case 'Send Email':
+            case 'Contact':
+            case 'Order Form':
+                message = 'Email us at booking@disenfutured.com or DM on Instagram!';
+                break;
+            default:
+                message = 'Feature coming soon! Follow us on social media for updates.';
+        }
+        
+        // Mobile-style alert
+        if (window.innerWidth <= 768) {
+            showMobileAlert(message);
+        } else {
+            showError(message);
+        }
+    }
+});
+
+function showMobileAlert(message) {
+    const alert = document.createElement('div');
+    alert.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 300px;
+        text-align: center;
+        z-index: 99999;
+        font-size: 16px;
+        line-height: 1.4;
+        backdrop-filter: blur(10px);
+    `;
+    
+    alert.innerHTML = `
+        <p style="margin: 0 0 16px 0;">${message}</p>
+        <button onclick="this.parentElement.remove()" style="
+            background: #007aff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        ">OK</button>
+    `;
+    
+    document.body.appendChild(alert);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (alert.parentNode) {
+            alert.remove();
+        }
+    }, 5000);
+}
+
+// Browser functionality
+let browserHistory = [];
+let currentHistoryIndex = -1;
+let currentPage = 'home';
+
+// Browser navigation functions
+function browserBack() {
+    if (currentHistoryIndex > 0) {
+        currentHistoryIndex--;
+        loadPageFromHistory();
+        updateBrowserStatus('Going back...');
+    } else {
+        updateBrowserStatus('Cannot go back');
+    }
+}
+
+function browserForward() {
+    if (currentHistoryIndex < browserHistory.length - 1) {
+        currentHistoryIndex++;
+        loadPageFromHistory();
+        updateBrowserStatus('Going forward...');
+    } else {
+        updateBrowserStatus('Cannot go forward');
+    }
+}
+
+function browserRefresh() {
+    updateBrowserStatus('Refreshing page...');
+    setTimeout(() => {
+        // Simulate random visitor count change
+        const visitorCount = document.getElementById('visitorCount');
+        if (visitorCount) {
+            const currentCount = parseInt(visitorCount.textContent);
+            visitorCount.textContent = String(currentCount + Math.floor(Math.random() * 5) + 1).padStart(6, '0');
+        }
+        updateBrowserStatus('Done');
+    }, 500);
+}
+
+function browserHome() {
+    loadPage('home');
+    updateBrowserStatus('Loading home page...');
+}
+
+function handleAddressEnter(event) {
+    if (event.key === 'Enter') {
+        navigateToUrl();
+    }
+}
+
+function navigateToUrl() {
+    const addressInput = document.getElementById('addressInput');
+    const url = addressInput.value.toLowerCase();
+    
+    updateBrowserStatus('Connecting...');
+    
+    setTimeout(() => {
+        if (url.includes('bandcamp') || url.includes('music')) {
+            loadPage('bandcamp');
+        } else if (url.includes('instagram') || url.includes('social')) {
+            loadPage('instagram');
+        } else if (url.includes('shows') || url.includes('concerts')) {
+            loadPage('shows');
+        } else if (url.includes('merch') || url.includes('store')) {
+            loadPage('merch');
+        } else if (url.includes('google') || url.includes('search')) {
+            loadPage('search');
+        } else if (url.includes('404') || url.includes('error')) {
+            loadPage('404');
+        } else {
+            loadPage('home');
+        }
+    }, 300);
+}
+
+function loadPage(pageType) {
+    const browserPage = document.getElementById('browserPage');
+    const addressInput = document.getElementById('addressInput');
+    
+    // Add to history if it's a new navigation
+    if (pageType !== currentPage) {
+        currentHistoryIndex++;
+        browserHistory = browserHistory.slice(0, currentHistoryIndex);
+        browserHistory.push(pageType);
+        currentPage = pageType;
+    }
+    
+    let content = '';
+    let address = '';
+    
+    switch(pageType) {
+        case 'bandcamp':
+            address = 'https://disenfutured.bandcamp.com';
+            content = `
+                <div class="webpage-content">
+                    <div class="webpage-header">
+                        <h1>🎵 DISENFUTURED on Bandcamp</h1>
+                        <div class="address-display">${address}</div>
+                    </div>
+                    <div class="webpage-body">
+                        <h2>Digital Decay EP</h2>
+                        <p>Our latest release featuring 5 tracks of pure hardcore energy!</p>
+                        <div class="link-section">
+                            <h3>Available Tracks:</h3>
+                            <ul style="font-size: 12px; margin-left: 20px;">
+                                <li>Disconnected Reality</li>
+                                <li>System Failure</li>
+                                <li>Digital Decay</li>
+                                <li>Underground</li>
+                                <li>Rage Against The Machine (Age)</li>
+                            </ul>
+                        </div>
+                        <p><strong>Price:</strong> $7 USD or more</p>
+                        <p style="color: #666; font-size: 10px;">* This is a simulated Bandcamp page</p>
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'instagram':
+            address = 'https://instagram.com/disenfutured';
+            content = `
+                <div class="webpage-content">
+                    <div class="webpage-header">
+                        <h1>📸 @disenfutured on Instagram</h1>
+                        <div class="address-display">${address}</div>
+                    </div>
+                    <div class="webpage-body">
+                        <h2>Follow us for updates!</h2>
+                        <div class="news-section">
+                            <h3>Recent Posts:</h3>
+                            <div class="news-item">📸 Studio session vibes #recording #hardcore</div>
+                            <div class="news-item">🎤 Last night's show was INSANE! Thanks everyone!</div>
+                            <div class="news-item">🔥 New merch designs coming soon...</div>
+                        </div>
+                        <p><strong>Followers:</strong> 1,337 • <strong>Following:</strong> 420</p>
+                        <p style="color: #666; font-size: 10px;">* This is a simulated Instagram page</p>
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'shows':
+            address = 'http://www.disenfutured.com/shows';
+            content = `
+                <div class="webpage-content">
+                    <div class="webpage-header">
+                        <h1>🎤 Upcoming Shows</h1>
+                        <div class="address-display">${address}</div>
+                    </div>
+                    <div class="webpage-body">
+                        <h2>Tour Dates</h2>
+                        <div class="link-section">
+                            <div class="news-item">
+                                <strong>Aug 15, 2025</strong> - The Underground, Local Venue<br>
+                                w/ Local Band 1, Local Band 2
+                            </div>
+                            <div class="news-item">
+                                <strong>Sep 02, 2025</strong> - Hardcore Fest, City Name<br>
+                                Festival Appearance
+                            </div>
+                            <div class="news-item">
+                                <strong>Sep 20, 2025</strong> - Dive Bar, Another City<br>
+                                All Ages Show
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'merch':
+            address = 'http://www.disenfutured.com/store';
+            content = `
+                <div class="webpage-content">
+                    <div class="webpage-header">
+                        <h1>👕 DISENFUTURED Store</h1>
+                        <div class="address-display">${address}</div>
+                    </div>
+                    <div class="webpage-body">
+                        <h2>Official Merchandise</h2>
+                        <div class="link-section">
+                            <h3>Available Items:</h3>
+                            <div class="news-item">👕 Band T-Shirt - $20.00</div>
+                            <div class="news-item">🧢 Snapback Cap - $25.00</div>
+                            <div class="news-item">🎵 Digital Decay EP (CD) - $10.00</div>
+                            <div class="news-item">📱 Sticker Pack - $5.00</div>
+                        </div>
+                        <p style="color: #800000;">🚚 Worldwide shipping available!</p>
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'search':
+            address = 'http://www.google.com';
+            content = `
+                <div class="webpage-content">
+                    <div class="webpage-header">
+                        <h1>🔍 Google Search</h1>
+                        <div class="address-display">${address}</div>
+                    </div>
+                    <div class="webpage-body">
+                        <h2>Search Results for "DISENFUTURED"</h2>
+                        <div class="link-section">
+                            <div class="web-links" style="flex-direction: column; align-items: flex-start;">
+                                <a href="#" onclick="loadPage('home')">DISENFUTURED - Official Website</a>
+                                <a href="#" onclick="loadPage('bandcamp')">DISENFUTURED | Bandcamp</a>
+                                <a href="#" onclick="loadPage('instagram')">@disenfutured • Instagram</a>
+                            </div>
+                        </div>
+                        <p style="color: #666; font-size: 10px;">About 1,337 results (0.42 seconds)</p>
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case '404':
+            address = 'http://www.error.com/404';
+            content = `
+                <div class="webpage-content">
+                    <div class="webpage-header">
+                        <h1>❌ 404 - Page Not Found</h1>
+                        <div class="address-display">${address}</div>
+                    </div>
+                    <div class="webpage-body">
+                        <h2>The requested page could not be found</h2>
+                        <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+                        <div class="link-section">
+                            <h3>What you can do:</h3>
+                            <div class="web-links" style="flex-direction: column; align-items: flex-start;">
+                                <a href="#" onclick="loadPage('home')">🏠 Go to homepage</a>
+                                <a href="#" onclick="browserBack()">◀ Go back</a>
+                                <a href="#" onclick="loadPage('search')">🔍 Search Google</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            break;
+            
+        default: // home
+            address = 'http://www.disenfutured.com';
+            content = `
+                <div class="webpage-content">
+                    <div class="webpage-header">
+                        <h1>🌐 Welcome to the DISENFUTURED Web Portal</h1>
+                        <div class="address-display">${address}</div>
+                    </div>
+                    
+                    <div class="webpage-body">
+                        <h2>🎸 Official Band Website</h2>
+                        <p>You've reached the official homepage of DISENFUTURED - New Jersey's finest hardcore punk band!</p>
+                        
+                        <div class="link-section">
+                            <h3>🔗 Quick Links</h3>
+                            <div class="web-links">
+                                <a href="#" onclick="loadPage('bandcamp')">🎵 Bandcamp</a>
+                                <a href="#" onclick="loadPage('instagram')">📸 Instagram</a>
+                                <a href="#" onclick="loadPage('shows')">🎤 Shows</a>
+                                <a href="#" onclick="loadPage('merch')">👕 Merch</a>
+                            </div>
+                        </div>
+                        
+                        <div class="news-section">
+                            <h3>📰 Latest News</h3>
+                            <div class="news-item">
+                                <strong>July 2025:</strong> New album in production! Check back for updates.
+                            </div>
+                            <div class="news-item">
+                                <strong>Summer Tour:</strong> Multiple dates announced - see Shows section.
+                            </div>
+                        </div>
+                        
+                        <div class="retro-elements">
+                            <marquee>🔥 This website is best viewed in Internet Explorer 4.0 or higher! 🔥</marquee>
+                            <div class="visitor-counter">
+                                You are visitor #<span id="visitorCount">001337</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            break;
+    }
+    
+    browserPage.innerHTML = content;
+    addressInput.value = address;
+    updateBrowserStatus('Done');
+    
+    // Simulate loading time
+    setTimeout(() => {
+        updateBrowserStatus('Done');
+    }, 800);
+}
+
+function loadPageFromHistory() {
+    const pageType = browserHistory[currentHistoryIndex];
+    currentPage = pageType;
+    loadPage(pageType);
+}
+
+function updateBrowserStatus(message) {
+    const statusText = document.getElementById('statusText');
+    if (statusText) {
+        statusText.textContent = message;
+    }
+}
+
+// Initialize browser when window opens
+function initializeBrowser() {
+    browserHistory = ['home'];
+    currentHistoryIndex = 0;
+    currentPage = 'home';
+    loadPage('home');
+}

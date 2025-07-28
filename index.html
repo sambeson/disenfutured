@@ -8,8 +8,401 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <!-- Mobile Status Bar (iPhone style) -->
+    <div class="mobile-status-bar">
+        <div class="status-left">
+            <span class="carrier">Verizon</span>
+            <div class="signal-bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <span>📶</span>
+        </div>
+        <div class="status-center">
+            <span id="mobile-time">9:41 AM</span>
+        </div>
+        <div class="status-right">
+            <span>100%</span>
+            <div class="battery">
+                <div class="battery-icon">
+                    <div class="battery-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Home Screen -->
+    <div class="mobile-home">
+        <div class="mobile-wallpaper">
+            <div class="wallpaper-logo">DISENFUTURED</div>
+        </div>
+        
+        <div class="mobile-apps">
+            <a href="#" class="mobile-app app-about" onclick="openMobileApp('about')">
+                <div class="app-icon">ℹ️</div>
+                <span class="app-name">About</span>
+            </a>
+            <a href="#" class="mobile-app app-shows" onclick="openMobileApp('shows')">
+                <div class="app-icon">🎵</div>
+                <span class="app-name">Shows</span>
+            </a>
+            <a href="#" class="mobile-app app-merch" onclick="openMobileApp('merch')">
+                <div class="app-icon">👕</div>
+                <span class="app-name">Merch</span>
+            </a>
+            <a href="#" class="mobile-app app-music" onclick="openMobileApp('music')">
+                <div class="app-icon">🎸</div>
+                <span class="app-name">Music</span>
+            </a>
+            <a href="#" class="mobile-app app-contact" onclick="openMobileApp('contact')">
+                <div class="app-icon">📧</div>
+                <span class="app-name">Contact</span>
+            </a>
+            <a href="#" class="mobile-app app-browser" onclick="openMobileApp('browser')">
+                <div class="app-icon">🌐</div>
+                <span class="app-name">Browser</span>
+            </a>
+        </div>
+        
+        <div class="mobile-dock">
+            <a href="#" class="mobile-app dock-app" onclick="openMobileApp('about')">
+                <div class="app-icon">ℹ️</div>
+            </a>
+            <a href="#" class="mobile-app dock-app" onclick="openMobileApp('music')">
+                <div class="app-icon">🎸</div>
+            </a>
+            <a href="#" class="mobile-app dock-app" onclick="openMobileApp('shows')">
+                <div class="app-icon">🎵</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile App Views -->
+    <div class="mobile-app-view" id="mobileAbout">
+        <div class="mobile-header">
+            <button class="back-btn" onclick="closeMobileApp()">← Back</button>
+            <div class="mobile-title">About DISENFUTURED</div>
+            <div></div>
+        </div>
+        <div class="mobile-content">
+            <h2>THE BAND</h2>
+            <p>DISENFUTURED is a New Jersey based punk band. We're probably a hardcore band, but we'll let the gatekeepers make their decision on that.</p>
+            <h3>MEMBERS:</h3>
+            <ul class="mobile-list">
+                <li>🎸 Guitar/Vocals - Ben Mazza</li>
+                <li>🎹 Keys/Vocals - Jack Andrus</li>
+                <li>🎸 Guitar - Sam Beson</li>
+                <li>🎸 Bass - Noah Lipton</li>
+                <li>🥁 Drums - Nico Agostini</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mobile-app-view" id="mobileShows">
+        <div class="mobile-header">
+            <button class="back-btn" onclick="closeMobileApp()">← Back</button>
+            <div class="mobile-title">Upcoming Shows</div>
+            <div></div>
+        </div>
+        <div class="mobile-content">
+            <h2>LIVE SHOWS</h2>
+            <div class="mobile-grid">
+                <div class="mobile-card">
+                    <h3>AUG 15, 2025</h3>
+                    <p><strong>The Underground - Local Venue</strong></p>
+                    <p>w/ Local Band 1, Local Band 2</p>
+                    <button class="mobile-btn">Get Tickets</button>
+                </div>
+                <div class="mobile-card">
+                    <h3>SEP 02, 2025</h3>
+                    <p><strong>Hardcore Fest - City Name</strong></p>
+                    <p>Festival Appearance</p>
+                    <button class="mobile-btn">More Info</button>
+                </div>
+                <div class="mobile-card">
+                    <h3>SEP 20, 2025</h3>
+                    <p><strong>Dive Bar - Another City</strong></p>
+                    <p>All Ages Show</p>
+                    <button class="mobile-btn">Details</button>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.7;">
+                ⚡ Check our Instagram for last-minute updates!
+            </p>
+        </div>
+    </div>
+
+    <div class="mobile-app-view" id="mobileMerch">
+        <div class="mobile-header">
+            <button class="back-btn" onclick="closeMobileApp()">← Back</button>
+            <div class="mobile-title">Merch Store</div>
+            <div></div>
+        </div>
+        <div class="mobile-content">
+            <h2>OFFICIAL MERCH</h2>
+            <div class="mobile-grid">
+                <div class="mobile-card">
+                    <div style="font-size: 48px; margin-bottom: 12px;">👕</div>
+                    <h3>Band T-Shirt</h3>
+                    <p>Classic black tee with logo</p>
+                    <p style="color: #30d158; font-weight: bold; font-size: 18px;">$20.00</p>
+                    <button class="mobile-btn">Buy Now</button>
+                </div>
+                <div class="mobile-card">
+                    <div style="font-size: 48px; margin-bottom: 12px;">🧢</div>
+                    <h3>Snapback Cap</h3>
+                    <p>Embroidered logo hat</p>
+                    <p style="color: #30d158; font-weight: bold; font-size: 18px;">$25.00</p>
+                    <button class="mobile-btn">Buy Now</button>
+                </div>
+                <div class="mobile-card">
+                    <div style="font-size: 48px; margin-bottom: 12px;">🎵</div>
+                    <h3>Digital Decay EP</h3>
+                    <p>Physical CD release</p>
+                    <p style="color: #30d158; font-weight: bold; font-size: 18px;">$10.00</p>
+                    <button class="mobile-btn">Buy Now</button>
+                </div>
+                <div class="mobile-card">
+                    <div style="font-size: 48px; margin-bottom: 12px;">📱</div>
+                    <h3>Sticker Pack</h3>
+                    <p>5 weatherproof stickers</p>
+                    <p style="color: #30d158; font-weight: bold; font-size: 18px;">$5.00</p>
+                    <button class="mobile-btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-app-view" id="mobileMusic">
+        <div class="mobile-header">
+            <button class="back-btn" onclick="closeMobileApp()">← Back</button>
+            <div class="mobile-title">Music & Links</div>
+            <div></div>
+        </div>
+        <div class="mobile-content">
+            <h2>FIND US ONLINE</h2>
+            <h3>🎵 LISTEN TO OUR MUSIC</h3>
+            <div class="mobile-links">
+                <a href="#" class="mobile-link">
+                    <span class="link-icon">🎵</span>
+                    <span>Bandcamp</span>
+                </a>
+                <a href="#" class="mobile-link">
+                    <span class="link-icon">🎧</span>
+                    <span>Spotify</span>
+                </a>
+                <a href="#" class="mobile-link">
+                    <span class="link-icon">📺</span>
+                    <span>YouTube</span>
+                </a>
+            </div>
+            
+            <h3>📱 FOLLOW US</h3>
+            <div class="mobile-links">
+                <a href="#" class="mobile-link">
+                    <span class="link-icon">📸</span>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="mobile-link">
+                    <span class="link-icon">👥</span>
+                    <span>Facebook</span>
+                </a>
+                <a href="#" class="mobile-link">
+                    <span class="link-icon">🐦</span>
+                    <span>Twitter</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-app-view" id="mobileContact">
+        <div class="mobile-header">
+            <button class="back-btn" onclick="closeMobileApp()">← Back</button>
+            <div class="mobile-title">Contact Us</div>
+            <div></div>
+        </div>
+        <div class="mobile-content">
+            <h2>GET IN TOUCH</h2>
+            <div class="mobile-grid">
+                <div class="mobile-card">
+                    <h3>📧 EMAIL</h3>
+                    <p>booking@disenfutured.com</p>
+                    <p>info@disenfutured.com</p>
+                    <button class="mobile-btn">Send Email</button>
+                </div>
+                <div class="mobile-card">
+                    <h3>🎤 BOOKING</h3>
+                    <p>For show bookings and press inquiries</p>
+                    <button class="mobile-btn">Contact</button>
+                </div>
+                <div class="mobile-card">
+                    <h3>🛒 MERCH ORDERS</h3>
+                    <p>Custom orders and bulk purchases</p>
+                    <button class="mobile-btn">Order Form</button>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.7;">
+                ⚡ For the fastest response, DM us on Instagram!
+            </p>
+        </div>
+    </div>
+
+    <div class="mobile-app-view" id="mobileBrowser">
+        <div class="mobile-header">
+            <button class="back-btn" onclick="closeMobileApp()">← Back</button>
+            <div class="mobile-title">Safari</div>
+            <div></div>
+        </div>
+        <div class="mobile-content" style="padding: 0;">
+            <div style="background: #f2f2f7; color: #000; height: 100%; overflow-y: auto;">
+                <div style="padding: 20px; max-width: 100%;">
+                    <div style="text-align: center; margin-bottom: 24px; border-bottom: 2px solid #007aff; padding-bottom: 16px;">
+                        <h1 style="color: #007aff; font-size: 24px; margin-bottom: 8px; text-shadow: none;">Welcome to DISENFUTURED's Website!</h1>
+                        <div style="font-size: 10px; color: #666; font-family: 'Courier New', monospace;">https://disenfutured.github.io</div>
+                    </div>
+                    
+                    <h2 style="color: #d70015; font-size: 18px; margin: 16px 0 8px 0; text-decoration: none;">About the Band</h2>
+                    <p style="font-size: 14px; line-height: 1.4; margin: 8px 0; color: #000;">We're a hardcore punk band from New Jersey bringing you authentic underground music.</p>
+                    
+                    <div style="margin: 20px 0; padding: 12px; background: #e8e8ed; border: 1px solid #c7c7cc; border-radius: 8px;">
+                        <h3 style="color: #007aff; font-size: 14px; margin: 0 0 8px 0;">🔗 Quick Links</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
+                            <a href="#" style="color: #007aff; text-decoration: underline; font-size: 12px;">Bandcamp</a>
+                            <a href="#" style="color: #007aff; text-decoration: underline; font-size: 12px;">Instagram</a>
+                            <a href="#" style="color: #007aff; text-decoration: underline; font-size: 12px;">Shows</a>
+                            <a href="#" style="color: #007aff; text-decoration: underline; font-size: 12px;">Merch</a>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 32px; text-align: center;">
+                        <marquee style="background: #ffcc00; color: #d70015; font-weight: bold; padding: 4px; border: 1px solid #000; font-size: 11px; border-radius: 4px;">
+                            🎸 New album coming soon! Check back for updates! 🎸
+                        </marquee>
+                    </div>
+                    
+                    <div style="margin-top: 16px; text-align: center; font-size: 10px; color: #666; font-family: 'Courier New', monospace;">
+                        👀 You are visitor #1337 | Last updated: Today
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="desktop">
-        <!-- Taskbar -->
+    <div class="desktop">        <!-- Background Elements -->
+        <div class="background-icons">
+            <div class="desktop-icon" style="top: 20px; left: 20px;" onclick="openWindow('computer')">
+                <div class="desktop-icon-img"></div>
+                <span>My Computer</span>
+            </div>
+            <div class="desktop-icon" style="top: 120px; left: 20px;">
+                <div class="desktop-icon-img"></div>
+                <span>Recycle Bin</span>
+            </div>
+            <div class="desktop-icon" style="top: 220px; left: 20px;" onclick="openWindow('browser')">
+                <div class="desktop-icon-img"></div>
+                <span>Internet Explorer</span>
+            </div>
+        </div>
+
+        <!-- Computer Window -->
+        <div class="window" id="computerWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    My Computer
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('computerWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('computerWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('computerWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>💻 SYSTEM INFO</h2>
+                <div class="system-info">
+                    <div class="system-item">
+                        <div class="system-icon">💾</div>
+                        <div class="system-details">
+                            <h3>Local Disk (C:)</h3>
+                            <p>Total Space: 666 GB</p>
+                            <p>Free Space: 13 GB</p>
+                        </div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">🎵</div>
+                        <div class="system-details">
+                            <h3>DISENFUTURED Collection</h3>
+                            <p>Contains: Demos, Live recordings</p>
+                            <p>Last Modified: Recently</p>
+                        </div>
+                    </div>
+                    <div class="system-item">
+                        <div class="system-icon">📁</div>
+                        <div class="system-details">
+                            <h3>Downloads</h3>
+                            <p>WinAmp skins, Napster files</p>
+                            <p>Size: 1.44 MB</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browser Window -->
+        <div class="window" id="browserWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    Internet Explorer
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('browserWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('browserWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('browserWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content browser-content">
+                <!-- Browser Toolbar -->
+                <div class="browser-toolbar">
+                    <button class="browser-btn" onclick="browserBack()">◀</button>
+                    <button class="browser-btn" onclick="browserForward()">▶</button>
+                    <button class="browser-btn" onclick="browserRefresh()">↻</button>
+                    <button class="browser-btn" onclick="browserHome()">🏠</button>
+                    <div class="address-bar">
+                        <input type="text" id="addressBar" value="http://disenfutured.geocities.com" readonly>
+                    </div>
+                </div>
+                
+                <!-- Browser Content Area -->
+                <div class="browser-viewport" id="browserViewport">
+                    <div class="webpage retro-webpage">
+                        <center>
+                            <h1>🌐 WELCOME TO THE WORLD WIDE WEB! 🌐</h1>
+                            <hr>
+                            <h2>DISENFUTURED OFFICIAL GEOCITIES PAGE</h2>
+                            <p><blink>*** UNDER CONSTRUCTION ***</blink></p>
+                            <img src="images/construction.gif" alt="Under Construction" style="width: 100px;">
+                            <p>You have found the underground lair of DISENFUTURED!</p>
+                            <p>This site is best viewed in Internet Explorer 4.0 with a 56k modem.</p>
+                            
+                            <h3>🎵 LATEST NEWS 🎵</h3>
+                            <marquee>NEW ALBUM COMING SOON! Check back for updates! Email webmaster@disenfutured.com</marquee>
+                            
+                            <p><a href="#" onclick="loadPage('bandcamp')">🎸 Visit our Bandcamp</a></p>
+                            <p><a href="#" onclick="loadPage('shows')">🎤 Upcoming Shows</a></p>
+                            <p><a href="#" onclick="loadPage('guestbook')">📝 Sign our Guestbook!</a></p>
+                            
+                            <hr>
+                            <p><small>Site created with Notepad | Last updated: 1999 | Visitor count: 00001337</small></p>
+                            <p><img src="images/ie-logo.gif" alt="Best viewed in IE" style="width: 80px;"></p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>    <!-- Taskbar -->
         <div class="taskbar">
                     <div class="start-button" onclick="toggleStartMenu()">
             <div class="start-logo"></div>
@@ -319,9 +712,94 @@
                 <div class="desktop-icon-img"></div>
                 <span>Recycle Bin</span>
             </div>
-            <div class="desktop-icon" style="top: 220px; left: 20px;">
+            <div class="desktop-icon" style="top: 220px; left: 20px;" onclick="openWindow('browser')">
                 <div class="desktop-icon-img"></div>
                 <span>Internet Explorer</span>
+            </div>
+        </div>
+
+        <!-- Internet Explorer Browser Window -->
+        <div class="window" id="browserWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon browser-icon"></div>
+                    Internet Explorer
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('browserWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('browserWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('browserWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content browser-content">
+                <!-- Browser Toolbar -->
+                <div class="browser-toolbar">
+                    <div class="browser-buttons">
+                        <button class="browser-btn" onclick="browserBack()" title="Back">◀</button>
+                        <button class="browser-btn" onclick="browserForward()" title="Forward">▶</button>
+                        <button class="browser-btn" onclick="browserRefresh()" title="Refresh">↻</button>
+                        <button class="browser-btn" onclick="browserHome()" title="Home">🏠</button>
+                    </div>
+                    <div class="address-bar">
+                        <span class="address-label">Address:</span>
+                        <input type="text" class="address-input" id="addressInput" value="http://www.disenfutured.com" onkeypress="handleAddressEnter(event)">
+                        <button class="browser-btn go-btn" onclick="navigateToUrl()">Go</button>
+                    </div>
+                </div>
+                
+                <!-- Browser Content Area -->
+                <div class="browser-viewport">
+                    <div class="browser-page" id="browserPage">
+                        <div class="webpage-content">
+                            <div class="webpage-header">
+                                <h1>🌐 Welcome to the DISENFUTURED Web Portal</h1>
+                                <div class="address-display">http://www.disenfutured.com</div>
+                            </div>
+                            
+                            <div class="webpage-body">
+                                <h2>🎸 Official Band Website</h2>
+                                <p>You've reached the official homepage of DISENFUTURED - New Jersey's finest hardcore punk band!</p>
+                                
+                                <div class="link-section">
+                                    <h3>🔗 Quick Links</h3>
+                                    <div class="web-links">
+                                        <a href="#" onclick="loadPage('bandcamp')">🎵 Bandcamp</a>
+                                        <a href="#" onclick="loadPage('instagram')">📸 Instagram</a>
+                                        <a href="#" onclick="loadPage('shows')">🎤 Shows</a>
+                                        <a href="#" onclick="loadPage('merch')">👕 Merch</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="news-section">
+                                    <h3>📰 Latest News</h3>
+                                    <div class="news-item">
+                                        <strong>July 2025:</strong> New album in production! Check back for updates.
+                                    </div>
+                                    <div class="news-item">
+                                        <strong>Summer Tour:</strong> Multiple dates announced - see Shows section.
+                                    </div>
+                                </div>
+                                
+                                <div class="retro-elements">
+                                    <marquee>🔥 This website is best viewed in Internet Explorer 4.0 or higher! 🔥</marquee>
+                                    <div class="visitor-counter">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Counter" style="width:1px;height:1px;">
+                                        You are visitor #<span id="visitorCount">001337</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status Bar -->
+                <div class="browser-status">
+                    <span class="status-text" id="statusText">Done</span>
+                    <div class="status-right">
+                        <span class="security-icon">🔒</span>
+                        <span class="zone-text">Internet Zone</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
