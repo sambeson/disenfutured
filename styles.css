@@ -1,0 +1,854 @@
+@import url('https://fonts.googleapis.com/css2?family=MS+Sans+Serif:wght@400;700&display=swap');
+
+/* CSS Variables for Windows 98 Colors */
+:root {
+    --win98-gray: #c0c0c0;
+    --win98-dark-gray: #808080;
+    --win98-light-gray: #dfdfdf;
+    --win98-blue: #0000ff;
+    --win98-dark-blue: #000080;
+    --win98-black: #000000;
+    --win98-white: #ffffff;
+    --win98-red: #ff0000;
+    --win98-green: #008000;
+    --win98-yellow: #ffff00;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    background: linear-gradient(45deg, #008080, #004040);
+    background-size: 100px 100px;
+    height: 100vh;
+    overflow: hidden;
+    cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAACVBMVEX///8AAAAAAABoAtTjAAAAAnRSTlMA/1uRIrUAAAAfSURBVHgBYwCC/4AAIY4ACCGGgwgEBwD///8fAMCAgP8ABCwI+gAAAABJRU5ErkJggg=='), auto;
+    /* Add subtle logo watermark effect */
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/disenfutured (1).png') center center no-repeat;
+    background-size: 800px auto;
+    opacity: 0.03;
+    z-index: -1;
+    /* Pixelated effect */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    /* Slight blur for that old CRT monitor effect */
+    filter: blur(0.5px) contrast(1.2);
+    pointer-events: none;
+    /* Subtle pulsing animation */
+    animation: logoGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+    0% { 
+        opacity: 0.02; 
+        transform: scale(1); 
+        filter: blur(0.5px) contrast(1.2);
+    }
+    50% { 
+        opacity: 0.05; 
+        transform: scale(1.01); 
+        filter: blur(0.3px) contrast(1.4);
+    }
+    100% { 
+        opacity: 0.03; 
+        transform: scale(1); 
+        filter: blur(0.5px) contrast(1.2);
+    }
+}
+
+/* Desktop */
+.desktop {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: 
+        /* Logo background - pixelated and subtle */
+        url('images/disenfutured (1).png'),
+        /* Overlay pattern for 90s aesthetic */
+        radial-gradient(circle at 25% 25%, rgba(0,255,255,0.05) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(0,128,128,0.3) 25%, transparent 25%), 
+        linear-gradient(-45deg, rgba(0,128,128,0.3) 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, rgba(0,128,128,0.3) 75%), 
+        linear-gradient(-45deg, transparent 75%, rgba(0,128,128,0.3) 75%),
+        /* Base teal gradient */
+        linear-gradient(45deg, #008080, #004040);
+    background-size: 
+        600px auto,  /* Logo size */
+        20px 20px,   /* Pattern sizes */
+        20px 20px, 
+        20px 20px, 
+        20px 20px, 
+        20px 20px,
+        100px 100px; /* Base gradient */
+    background-position: 
+        center center,  /* Logo centered */
+        0 0, 0 0, 10px 10px, 10px 10px, 0 0, 0 0;
+    background-repeat: 
+        no-repeat,  /* Logo doesn't repeat */
+        repeat, repeat, repeat, repeat, repeat, repeat;
+    /* Pixelated effect for the logo */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* Taskbar */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: var(--win98-gray);
+    border-top: 2px solid var(--win98-light-gray);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: inset 0 1px 0 var(--win98-white);
+}
+
+.start-button {
+    height: 22px;
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    margin: 2px;
+    padding: 2px 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.start-button:active {
+    border: 1px inset var(--win98-gray);
+}
+
+.start-logo {
+    width: 16px;
+    height: 16px;
+}
+
+.taskbar-items {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.taskbar-item {
+    display: inline-block;
+    height: 22px;
+    background: var(--win98-gray);
+    border: 1px inset var(--win98-gray);
+    margin: 2px;
+    padding: 2px 8px;
+    line-height: 18px;
+    min-width: 160px;
+}
+
+.taskbar-item.active {
+    border: 1px inset var(--win98-gray);
+    background: var(--win98-dark-gray);
+}
+
+.system-tray {
+    margin-right: 8px;
+    padding: 2px 8px;
+    border: 1px inset var(--win98-gray);
+    background: var(--win98-gray);
+    font-size: 10px;
+}
+
+/* Start Menu */
+.start-menu {
+    position: fixed;
+    bottom: 28px;
+    left: 2px;
+    width: 200px;
+    background: var(--win98-gray);
+    border: 2px outset var(--win98-gray);
+    display: none;
+    z-index: 1001;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.start-menu-header {
+    background: linear-gradient(90deg, var(--win98-blue) 0%, var(--win98-dark-blue) 100%);
+    color: white;
+    padding: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-menu-item {
+    padding: 4px 24px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.start-menu-item:hover {
+    background: var(--win98-blue);
+    color: white;
+}
+
+.start-menu-separator {
+    height: 1px;
+    background: var(--win98-dark-gray);
+    margin: 2px 8px;
+}
+
+/* Windows */
+.window {
+    position: absolute;
+    background: var(--win98-gray);
+    border: 2px outset var(--win98-gray);
+    min-width: 400px;
+    min-height: 300px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+.main-window {
+    width: 800px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+}
+
+.window-header {
+    height: 18px;
+    background: linear-gradient(90deg, var(--win98-blue) 0%, var(--win98-dark-blue) 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.window-title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-left: 4px;
+}
+
+.window-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.window-controls {
+    display: flex;
+}
+
+.window-control {
+    width: 16px;
+    height: 14px;
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    font-size: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-control:active {
+    border: 1px inset var(--win98-gray);
+}
+
+.window-control.close:hover {
+    background: var(--win98-red);
+    color: white;
+}
+
+.window-content {
+    padding: 16px;
+    height: calc(100% - 18px);
+    overflow-y: auto;
+    background: var(--win98-gray);
+}
+
+/* Typography */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 0px var(--win98-dark-gray);
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: var(--win98-black);
+    text-decoration: underline;
+}
+
+h3 {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--win98-dark-blue);
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+    position: relative;
+    color: var(--win98-red);
+    font-family: 'Courier New', monospace;
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    10% { transform: translate(-2px, -2px); }
+    20% { transform: translate(2px, 2px); }
+    30% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    50% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    70% { transform: translate(-2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    90% { transform: translate(-2px, -2px); }
+}
+
+/* Buttons */
+.retro-button {
+    background: var(--win98-gray);
+    border: 2px outset var(--win98-gray);
+    padding: 4px 12px;
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 2px;
+    min-width: 80px;
+}
+
+.retro-button:hover {
+    background: var(--win98-light-gray);
+}
+
+.retro-button:active {
+    border: 2px inset var(--win98-gray);
+}
+
+.retro-button.small {
+    padding: 2px 8px;
+    font-size: 10px;
+    min-width: 60px;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+    max-width: 400px;
+}
+
+.button-grid .retro-button {
+    padding: 12px;
+    font-size: 12px;
+    min-height: 50px;
+}
+
+/* Separator */
+.separator {
+    height: 2px;
+    background: var(--win98-dark-gray);
+    margin: 16px 0;
+    border-top: 1px inset var(--win98-gray);
+}
+
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.welcome-text {
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 16px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Animated Section */
+.animated-section {
+    text-align: center;
+    border: 2px inset var(--win98-gray);
+    padding: 16px;
+    background: var(--win98-white);
+    margin-top: 24px;
+}
+
+.animated-gif {
+    width: 64px;
+    height: 64px;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+.marquee-text {
+    background: var(--win98-black);
+    color: var(--win98-yellow);
+    font-weight: bold;
+    padding: 4px;
+    margin-top: 16px;
+    font-family: 'Courier New', monospace;
+}
+
+/* About Window Styles */
+.about-content {
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.member-list {
+    list-style: none;
+    margin: 12px 0;
+}
+
+.member-list li {
+    margin: 4px 0;
+    padding: 4px 8px;
+    background: var(--win98-white);
+    border: 1px inset var(--win98-gray);
+}
+
+.bio-text {
+    margin-top: 16px;
+    padding: 8px;
+    background: var(--win98-white);
+    border: 1px inset var(--win98-gray);
+    font-style: italic;
+}
+
+/* Shows Window Styles */
+.shows-list {
+    margin: 16px 0;
+}
+
+.show-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin: 8px 0;
+    background: var(--win98-white);
+    border: 1px inset var(--win98-gray);
+    gap: 12px;
+}
+
+.show-date {
+    font-weight: bold;
+    color: var(--win98-red);
+    min-width: 80px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+}
+
+.show-venue {
+    font-weight: bold;
+    flex: 1;
+}
+
+.show-details {
+    font-size: 10px;
+    color: var(--win98-dark-gray);
+    flex: 1;
+}
+
+.shows-note {
+    font-size: 10px;
+    font-style: italic;
+    color: var(--win98-dark-gray);
+    text-align: center;
+    margin-top: 16px;
+}
+
+/* Merch Window Styles */
+.merch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.merch-item {
+    text-align: center;
+    padding: 12px;
+    background: var(--win98-white);
+    border: 2px inset var(--win98-gray);
+}
+
+.merch-image {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+
+.merch-item h3 {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.merch-item p {
+    font-size: 10px;
+    color: var(--win98-dark-gray);
+    margin-bottom: 8px;
+}
+
+.price {
+    font-weight: bold;
+    color: var(--win98-green);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.merch-note {
+    margin-top: 16px;
+    padding: 8px;
+    background: var(--win98-yellow);
+    border: 1px solid var(--win98-black);
+    font-size: 10px;
+}
+
+/* Music & Links Window Styles */
+.links-section {
+    margin: 16px 0;
+}
+
+.link-category {
+    margin: 24px 0;
+}
+
+.link-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: var(--win98-black);
+    background: var(--win98-gray);
+    border: 2px outset var(--win98-gray);
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.social-button:hover {
+    background: var(--win98-light-gray);
+}
+
+.social-button:active {
+    border: 2px inset var(--win98-gray);
+}
+
+.social-button.bandcamp { background: #629aa0; color: white; }
+.social-button.spotify { background: #1db954; color: white; }
+.social-button.youtube { background: #ff0000; color: white; }
+.social-button.instagram { background: #e4405f; color: white; }
+.social-button.facebook { background: #1877f2; color: white; }
+.social-button.twitter { background: #1da1f2; color: white; }
+
+.button-icon {
+    font-size: 16px;
+}
+
+.music-player {
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--win98-black);
+    color: var(--win98-green);
+    border: 2px inset var(--win98-gray);
+    font-family: 'Courier New', monospace;
+}
+
+.player-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-title {
+    font-weight: bold;
+    color: var(--win98-yellow);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+}
+
+.track-artist {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.player-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.player-btn {
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.player-btn:hover {
+    background: var(--win98-light-gray);
+}
+
+.player-btn:active {
+    border: 1px inset var(--win98-gray);
+}
+
+/* Contact Window Styles */
+.contact-info {
+    margin: 16px 0;
+}
+
+.contact-method {
+    margin: 16px 0;
+    padding: 12px;
+    background: var(--win98-white);
+    border: 1px inset var(--win98-gray);
+}
+
+.contact-method h3 {
+    color: var(--win98-blue);
+    margin-bottom: 8px;
+}
+
+.contact-method p {
+    margin: 4px 0;
+    font-size: 11px;
+}
+
+.contact-note {
+    margin-top: 16px;
+    padding: 8px;
+    background: var(--win98-yellow);
+    border: 1px solid var(--win98-black);
+    font-size: 10px;
+}
+
+/* Placeholder images using CSS when actual images aren't available */
+.start-logo,
+.window-icon {
+    width: 16px;
+    height: 16px;
+    background: var(--win98-blue);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 8px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+}
+
+.start-logo::after {
+    content: "⊞";
+}
+
+.window-icon::after {
+    content: "D";
+}
+
+.animated-gif {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(45deg, var(--win98-red), var(--win98-black));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    animation: bounce 1s infinite alternate, rotate 2s infinite linear;
+}
+
+.animated-gif::after {
+    content: "💀";
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.desktop-icon-img {
+    width: 32px;
+    height: 32px;
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+/* Specific placeholder icons */
+.desktop-icon:nth-child(1) .desktop-icon-img::after { content: "💻"; }
+.desktop-icon:nth-child(2) .desktop-icon-img::after { content: "🗑️"; }
+.desktop-icon:nth-child(3) .desktop-icon-img::after { content: "🌐"; }
+.background-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.desktop-icon {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    text-align: center;
+    cursor: pointer;
+    pointer-events: all;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.desktop-icon:hover {
+    background: rgba(0, 0, 255, 0.2);
+}
+
+.desktop-icon img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 4px;
+}
+
+.desktop-icon span {
+    font-size: 10px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    word-wrap: break-word;
+    line-height: 1.2;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--win98-gray);
+    border: 1px inset var(--win98-gray);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--win98-light-gray);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--win98-gray);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-window {
+        width: 95vw;
+        height: 85vh;
+        top: 5vh;
+        left: 2.5vw;
+        transform: none;
+    }
+    
+    .button-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .merch-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .link-buttons {
+        flex-direction: column;
+    }
+    
+    .show-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .player-display {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* Additional Window Positioning */
+#aboutWindow { top: 100px; left: 100px; width: 500px; height: 400px; }
+#showsWindow { top: 120px; left: 120px; width: 600px; height: 450px; }
+#merchWindow { top: 140px; left: 140px; width: 650px; height: 500px; }
+#musicWindow { top: 160px; left: 160px; width: 580px; height: 480px; }
+#contactWindow { top: 180px; left: 180px; width: 520px; height: 420px; }

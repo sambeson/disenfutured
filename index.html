@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISENFUTURED - Hardcore Punk Band</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="desktop">
+        <!-- Taskbar -->
+        <div class="taskbar">
+                    <div class="start-button" onclick="toggleStartMenu()">
+            <div class="start-logo"></div>
+            Start
+        </div>
+            <div class="taskbar-items">
+                <div class="taskbar-item active">DISENFUTURED</div>
+            </div>
+            <div class="system-tray">
+                <span class="time" id="current-time"></span>
+            </div>
+        </div>
+
+        <!-- Start Menu -->
+        <div class="start-menu" id="startMenu">
+                    <div class="start-menu-header">
+            <div class="start-logo"></div>
+            <span>Windows 98</span>
+        </div>
+            <div class="start-menu-item" onclick="openWindow('about')">About Disenfutured</div>
+            <div class="start-menu-item" onclick="openWindow('shows')">Upcoming Shows</div>
+            <div class="start-menu-item" onclick="openWindow('merch')">Merchandise</div>
+            <div class="start-menu-item" onclick="openWindow('music')">Music & Links</div>
+            <div class="start-menu-separator"></div>
+            <div class="start-menu-item" onclick="openWindow('contact')">Contact</div>
+        </div>
+
+        <!-- Main Window -->
+        <div class="window main-window" id="mainWindow">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    DISENFUTURED - Hardcore Punk
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize">_</button>
+                    <button class="window-control maximize">□</button>
+                    <button class="window-control close" onclick="closeWindow('mainWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="welcome-section">
+                    <h1 class="glitch-text">DISENFUTURED</h1>
+                    <h2>HARDCORE PUNK FROM THE UNDERGROUND</h2>
+                    <div class="separator"></div>
+                    <p class="welcome-text">
+                        Welcome to the official DISENFUTURED website! 
+                        Navigate through our digital wasteland using the Start menu or the buttons below.
+                    </p>
+                    <div class="button-grid">
+                        <button class="retro-button" onclick="openWindow('shows')">🎵 SHOWS</button>
+                        <button class="retro-button" onclick="openWindow('music')">🎸 MUSIC</button>
+                        <button class="retro-button" onclick="openWindow('merch')">👕 MERCH</button>
+                        <button class="retro-button" onclick="openWindow('about')">ℹ️ ABOUT</button>
+                    </div>
+                </div>
+                
+                <!-- Animated GIF placeholder -->
+                <div class="animated-section">
+                    <div class="animated-gif"></div>
+                    <marquee behavior="scroll" direction="left" class="marquee-text">
+                        🔥 LATEST: New EP "DIGITAL DECAY" OUT NOW! 🔥 Check Bandcamp for details! 🔥
+                    </marquee>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Window -->
+        <div class="window" id="aboutWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    About DISENFUTURED
+                </div>
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeWindow('aboutWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>THE BAND</h2>
+                <div class="about-content">
+                    <p>DISENFUTURED is a hardcore punk band forged in the digital underground. 
+                    We channel the rage of a disconnected generation through crushing riffs and relentless energy.</p>
+                    
+                    <h3>MEMBERS:</h3>
+                    <ul class="member-list">
+                        <li>🎤 Vocals - [Your Name]</li>
+                        <li>🎸 Guitar - [Guitarist Name]</li>
+                        <li>🎸 Bass - [Bassist Name]</li>
+                        <li>🥁 Drums - [Drummer Name]</li>
+                    </ul>
+                    
+                    <p class="bio-text">
+                        Formed in [Year], DISENFUTURED represents the soundtrack to digital dystopia. 
+                        Our sound combines the raw power of classic hardcore with modern disillusionment.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shows Window -->
+        <div class="window" id="showsWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    Upcoming Shows
+                </div>
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeWindow('showsWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>LIVE SHOWS</h2>
+                <div class="shows-list">
+                    <div class="show-item">
+                        <div class="show-date">AUG 15, 2025</div>
+                        <div class="show-venue">The Underground - Local Venue</div>
+                        <div class="show-details">w/ Local Band 1, Local Band 2</div>
+                        <button class="retro-button small">TICKETS</button>
+                    </div>
+                    <div class="show-item">
+                        <div class="show-date">SEP 02, 2025</div>
+                        <div class="show-venue">Hardcore Fest - City Name</div>
+                        <div class="show-details">Festival Appearance</div>
+                        <button class="retro-button small">INFO</button>
+                    </div>
+                    <div class="show-item">
+                        <div class="show-date">SEP 20, 2025</div>
+                        <div class="show-venue">Dive Bar - Another City</div>
+                        <div class="show-details">All Ages Show</div>
+                        <button class="retro-button small">DETAILS</button>
+                    </div>
+                </div>
+                <p class="shows-note">* Check our Instagram for last-minute updates and venue changes!</p>
+            </div>
+        </div>
+
+        <!-- Merch Window -->
+        <div class="window" id="merchWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    DISENFUTURED Merchandise
+                </div>
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeWindow('merchWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>OFFICIAL MERCH</h2>
+                <div class="merch-grid">
+                    <div class="merch-item">
+                        <div class="merch-image">👕</div>
+                        <h3>Band T-Shirt</h3>
+                        <p>Classic black tee with logo</p>
+                        <div class="price">$20.00</div>
+                        <button class="retro-button">BUY NOW</button>
+                    </div>
+                    <div class="merch-item">
+                        <div class="merch-image">🧢</div>
+                        <h3>Snapback Cap</h3>
+                        <p>Embroidered logo hat</p>
+                        <div class="price">$25.00</div>
+                        <button class="retro-button">BUY NOW</button>
+                    </div>
+                    <div class="merch-item">
+                        <div class="merch-image">🎵</div>
+                        <h3>Digital Decay EP</h3>
+                        <p>Physical CD release</p>
+                        <div class="price">$10.00</div>
+                        <button class="retro-button">BUY NOW</button>
+                    </div>
+                    <div class="merch-item">
+                        <div class="merch-image">📱</div>
+                        <h3>Sticker Pack</h3>
+                        <p>5 weatherproof stickers</p>
+                        <div class="price">$5.00</div>
+                        <button class="retro-button">BUY NOW</button>
+                    </div>
+                </div>
+                <div class="merch-note">
+                    <p>🚚 Shipping worldwide! Contact us for bulk orders.</p>
+                    <p>💳 PayPal, Venmo, and Cash accepted at shows.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Music & Links Window -->
+        <div class="window" id="musicWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    Music & Social Links
+                </div>
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeWindow('musicWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>FIND US ONLINE</h2>
+                <div class="links-section">
+                    <div class="link-category">
+                        <h3>🎵 LISTEN TO OUR MUSIC</h3>
+                        <div class="link-buttons">
+                            <a href="#" class="social-button bandcamp" target="_blank">
+                                <span class="button-icon">🎵</span>
+                                BANDCAMP
+                            </a>
+                            <a href="#" class="social-button spotify" target="_blank">
+                                <span class="button-icon">🎧</span>
+                                SPOTIFY
+                            </a>
+                            <a href="#" class="social-button youtube" target="_blank">
+                                <span class="button-icon">📺</span>
+                                YOUTUBE
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="link-category">
+                        <h3>📱 FOLLOW US</h3>
+                        <div class="link-buttons">
+                            <a href="#" class="social-button instagram" target="_blank">
+                                <span class="button-icon">📸</span>
+                                INSTAGRAM
+                            </a>
+                            <a href="#" class="social-button facebook" target="_blank">
+                                <span class="button-icon">👥</span>
+                                FACEBOOK
+                            </a>
+                            <a href="#" class="social-button twitter" target="_blank">
+                                <span class="button-icon">🐦</span>
+                                TWITTER
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="music-player">
+                    <h3>🎶 LATEST TRACK</h3>
+                    <div class="player-display">
+                        <div class="track-info">
+                            <div class="track-title">♪ Digital Decay ♪</div>
+                            <div class="track-artist">DISENFUTURED</div>
+                        </div>
+                        <div class="player-controls">
+                            <button class="player-btn">⏮️</button>
+                            <button class="player-btn play">▶️</button>
+                            <button class="player-btn">⏭️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Window -->
+        <div class="window" id="contactWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon"></div>
+                    Contact DISENFUTURED
+                </div>
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeWindow('contactWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>GET IN TOUCH</h2>
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <h3>📧 EMAIL</h3>
+                        <p>booking@disenfutured.com</p>
+                        <p>info@disenfutured.com</p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <h3>🎤 BOOKING</h3>
+                        <p>For show bookings and press inquiries</p>
+                        <button class="retro-button">SEND MESSAGE</button>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <h3>🛒 MERCH ORDERS</h3>
+                        <p>Custom orders and bulk purchases</p>
+                        <button class="retro-button">ORDER FORM</button>
+                    </div>
+                </div>
+                
+                <div class="contact-note">
+                    <p>⚡ For the fastest response, DM us on Instagram!</p>
+                    <p>🎵 Demo submissions welcome via email.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Elements -->
+        <div class="background-icons">
+            <div class="desktop-icon" style="top: 20px; left: 20px;">
+                <div class="desktop-icon-img"></div>
+                <span>My Computer</span>
+            </div>
+            <div class="desktop-icon" style="top: 120px; left: 20px;">
+                <div class="desktop-icon-img"></div>
+                <span>Recycle Bin</span>
+            </div>
+            <div class="desktop-icon" style="top: 220px; left: 20px;">
+                <div class="desktop-icon-img"></div>
+                <span>Internet Explorer</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
