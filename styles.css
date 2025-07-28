@@ -23,54 +23,16 @@
 body {
     font-family: 'MS Sans Serif', sans-serif;
     font-size: 11px;
-    background: linear-gradient(45deg, #008080, #004040);
-    background-size: 100px 100px;
+    background: #000000;
     height: 100vh;
     overflow: hidden;
     cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAACVBMVEX///8AAAAAAABoAtTjAAAAAnRSTlMA/1uRIrUAAAAfSURBVHgBYwCC/4AAIY4ACCGGgwgEBwD///8fAMCAgP8ABCwI+gAAAABJRU5ErkJggg=='), auto;
-    /* Add subtle logo watermark effect */
     position: relative;
 }
 
+/* Remove the old watermark effect since we now have full background logo */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('images/disenfutured (1).png') center center no-repeat;
-    background-size: 800px auto;
-    opacity: 0.03;
-    z-index: -1;
-    /* Pixelated effect */
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -webkit-crisp-edges;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-    /* Slight blur for that old CRT monitor effect */
-    filter: blur(0.5px) contrast(1.2);
-    pointer-events: none;
-    /* Subtle pulsing animation */
-    animation: logoGlow 8s ease-in-out infinite alternate;
-}
-
-@keyframes logoGlow {
-    0% { 
-        opacity: 0.02; 
-        transform: scale(1); 
-        filter: blur(0.5px) contrast(1.2);
-    }
-    50% { 
-        opacity: 0.05; 
-        transform: scale(1.01); 
-        filter: blur(0.3px) contrast(1.4);
-    }
-    100% { 
-        opacity: 0.03; 
-        transform: scale(1); 
-        filter: blur(0.5px) contrast(1.2);
-    }
+    display: none;
 }
 
 /* Desktop */
@@ -79,35 +41,47 @@ body::before {
     height: 100vh;
     position: relative;
     background: 
-        /* Logo background - pixelated and subtle */
-        url('images/disenfutured (1).png'),
-        /* Overlay pattern for 90s aesthetic */
-        radial-gradient(circle at 25% 25%, rgba(0,255,255,0.05) 0%, transparent 50%),
-        linear-gradient(45deg, rgba(0,128,128,0.3) 25%, transparent 25%), 
-        linear-gradient(-45deg, rgba(0,128,128,0.3) 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, rgba(0,128,128,0.3) 75%), 
-        linear-gradient(-45deg, transparent 75%, rgba(0,128,128,0.3) 75%),
-        /* Base teal gradient */
-        linear-gradient(45deg, #008080, #004040);
+        /* Full-screen pixelated logo background */
+        url('images/sticker (1).png') center center no-repeat,
+        /* Fallback dark background */
+        linear-gradient(45deg, #000000, #1a1a1a);
     background-size: 
-        600px auto,  /* Logo size */
-        20px 20px,   /* Pattern sizes */
-        20px 20px, 
-        20px 20px, 
-        20px 20px, 
-        20px 20px,
-        100px 100px; /* Base gradient */
-    background-position: 
-        center center,  /* Logo centered */
-        0 0, 0 0, 10px 10px, 10px 10px, 0 0, 0 0;
-    background-repeat: 
-        no-repeat,  /* Logo doesn't repeat */
-        repeat, repeat, repeat, repeat, repeat, repeat;
-    /* Pixelated effect for the logo */
+        cover,  /* Logo covers entire screen */
+        100% 100%; /* Fallback gradient */
+    background-attachment: fixed;
+    /* Enhanced pixelation effects */
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    /* Additional retro CRT effects */
+    filter: contrast(1.1) brightness(0.95);
+}
+
+/* Add CRT scanline effect overlay */
+.desktop::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            rgba(0,255,0,0.01) 1px,
+            transparent 2px,
+            transparent 4px
+        );
+    pointer-events: none;
+    z-index: 1;
+    animation: scanlines 0.1s linear infinite;
+}
+
+@keyframes scanlines {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(4px); }
 }
 
 /* Taskbar */
@@ -224,8 +198,12 @@ body::before {
     border: 2px outset var(--win98-gray);
     min-width: 400px;
     min-height: 300px;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 
+        2px 2px 4px rgba(0,0,0,0.8),
+        inset 1px 1px 0 rgba(255,255,255,0.8);
     z-index: 100;
+    /* Enhanced visibility against dark background */
+    backdrop-filter: blur(2px);
 }
 
 .main-window {
@@ -235,6 +213,10 @@ body::before {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 101;
+    /* Extra shadow for main window */
+    box-shadow: 
+        4px 4px 8px rgba(0,0,0,0.9),
+        inset 1px 1px 0 rgba(255,255,255,0.8);
 }
 
 .window-header {
