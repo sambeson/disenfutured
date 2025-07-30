@@ -870,6 +870,267 @@ h3 {
 #merchWindow { top: 140px; left: 140px; width: 650px; height: 500px; }
 #musicWindow { top: 160px; left: 160px; width: 580px; height: 480px; }
 #contactWindow { top: 180px; left: 180px; width: 520px; height: 420px; }
+#myComputerWindow { top: 80px; left: 80px; width: 600px; height: 500px; }
+#recycleBinWindow { top: 200px; left: 200px; width: 550px; height: 450px; }
+#internetExplorerWindow { top: 60px; left: 150px; width: 700px; height: 550px; }
+
+/* Desktop Icon Styles */
+.desktop-icon {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    text-align: center;
+    cursor: move;
+    pointer-events: all;
+    padding: 4px;
+    border-radius: 2px;
+    user-select: none;
+}
+
+.desktop-icon:hover {
+    background: rgba(0, 0, 255, 0.2);
+}
+
+.desktop-icon.dragging {
+    opacity: 0.7;
+    z-index: 1000;
+}
+
+.desktop-icon img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 4px;
+}
+
+.desktop-icon span {
+    font-size: 10px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    word-wrap: break-word;
+    line-height: 1.2;
+    max-width: 60px;
+}
+
+/* My Computer Window Styles */
+.file-explorer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.explorer-toolbar {
+    background: var(--win98-gray);
+    border-bottom: 1px solid var(--win98-dark-gray);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.explorer-address {
+    flex: 1;
+    background: white;
+    border: 1px inset var(--win98-gray);
+    padding: 4px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.explorer-content {
+    flex: 1;
+    background: white;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 2px 0;
+}
+
+.file-item:hover {
+    background: var(--win98-blue);
+    color: white;
+    border: 1px dotted white;
+}
+
+.file-item:active {
+    background: var(--win98-dark-blue);
+}
+
+.file-icon {
+    margin-right: 8px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.file-name {
+    font-size: 11px;
+}
+
+/* Recycle Bin Window Styles */
+.recycle-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.recyclable-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.recyclable-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background: var(--win98-white);
+    border: 2px inset var(--win98-gray);
+    cursor: pointer;
+}
+
+.recyclable-item:hover {
+    background: var(--win98-light-gray);
+}
+
+.recyclable-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+
+.recyclable-name {
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--win98-dark-blue);
+}
+
+/* Internet Explorer Window Styles */
+.browser-toolbar {
+    background: var(--win98-gray);
+    border-bottom: 1px solid var(--win98-dark-gray);
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.browser-button {
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    padding: 2px 8px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.browser-button:hover {
+    background: var(--win98-light-gray);
+}
+
+.browser-button:active {
+    border: 1px inset var(--win98-gray);
+}
+
+.browser-address {
+    flex: 1;
+    background: white;
+    border: 1px inset var(--win98-gray);
+    padding: 2px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.browser-content {
+    flex: 1;
+    background: white;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.geocities-page {
+    background: linear-gradient(45deg, #ff69b4, #00ced1);
+    color: #000080;
+    font-family: 'Comic Sans MS', cursive;
+    padding: 20px;
+    text-align: center;
+    min-height: 100%;
+}
+
+.geocities-title {
+    font-size: 32px;
+    color: #ff0000;
+    text-shadow: 2px 2px #ffff00;
+    animation: rainbow 3s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes rainbow {
+    0% { color: #ff0000; }
+    16% { color: #ff8000; }
+    33% { color: #ffff00; }
+    50% { color: #00ff00; }
+    66% { color: #0080ff; }
+    83% { color: #8000ff; }
+    100% { color: #ff0000; }
+}
+
+.under-construction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    animation: blink 1s infinite;
+}
+
+.construction-gif {
+    font-size: 24px;
+    animation: bounce 0.5s infinite alternate;
+}
+
+.visitor-counter {
+    background: #000000;
+    color: #00ff00;
+    padding: 10px;
+    margin: 20px auto;
+    width: fit-content;
+    font-family: 'Courier New', monospace;
+    border: 2px solid #ffffff;
+}
+
+.guestbook {
+    background: #ffffff;
+    border: 3px solid #000000;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.guestbook h3 {
+    color: #800080;
+    text-decoration: underline;
+}
+
+.guestbook-entry {
+    margin: 10px 0;
+    padding: 8px;
+    background: #ffffe0;
+    border: 1px solid #cccccc;
+}
+
+.flame-text {
+    color: #ff4500;
+    font-weight: bold;
+    text-shadow: 2px 2px #ff0000;
+}
 
 /* Extra pixelation effects - add .pixelated class to desktop for more intense effect */
 .desktop.pixelated {

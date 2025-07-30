@@ -663,3 +663,181 @@ document.addEventListener('keydown', function(e) {
         togglePixelation();
     }
 });
+
+// Desktop Icon Drag Functionality
+let draggedIcon = null;
+let dragOffset = { x: 0, y: 0 };
+
+function startDrag(e, element) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    draggedIcon = element;
+    const rect = element.getBoundingClientRect();
+    dragOffset.x = e.clientX - rect.left;
+    dragOffset.y = e.clientY - rect.top;
+    
+    // Add dragging class for visual feedback
+    element.classList.add('dragging');
+    
+    document.addEventListener('mousemove', dragIcon);
+    document.addEventListener('mouseup', stopDrag);
+}
+
+function dragIcon(e) {
+    if (!draggedIcon) return;
+    
+    const newX = e.clientX - dragOffset.x;
+    const newY = e.clientY - dragOffset.y;
+    
+    // Keep icon within screen bounds
+    const maxX = window.innerWidth - draggedIcon.offsetWidth;
+    const maxY = window.innerHeight - draggedIcon.offsetHeight - 40; // Account for taskbar
+    
+    const constrainedX = Math.max(0, Math.min(newX, maxX));
+    const constrainedY = Math.max(0, Math.min(newY, maxY));
+    
+    draggedIcon.style.left = constrainedX + 'px';
+    draggedIcon.style.top = constrainedY + 'px';
+    draggedIcon.style.right = 'auto'; // Remove right positioning
+}
+
+function stopDrag() {
+    if (draggedIcon) {
+        draggedIcon.classList.remove('dragging');
+        draggedIcon = null;
+    }
+    
+    document.removeEventListener('mousemove', dragIcon);
+    document.removeEventListener('mouseup', stopDrag);
+}
+
+// Fake File System Functions
+function openFolder(folderId) {
+    let folderContent = '';
+    
+    switch(folderId) {
+        case 'cDrive':
+            folderContent = `
+                <div class="file-item folder">
+                    <div class="file-icon">📁</div>
+                    <span>Windows</span>
+                    <span class="file-size">2.1 GB</span>
+                </div>
+                <div class="file-item folder">
+                    <div class="file-icon">📁</div>
+                    <span>Program Files</span>
+                    <span class="file-size">1.8 GB</span>
+                </div>
+                <div class="file-item folder">
+                    <div class="file-icon">👤</div>
+                    <span>My Documents</span>
+                    <span class="file-size">156 MB</span>
+                </div>
+            `;
+            break;
+        case 'music':
+            folderContent = `
+                <div class="file-item file">
+                    <div class="file-icon">🎵</div>
+                    <span>Rigged_Demo.mp3</span>
+                    <span class="file-size">3.2 MB</span>
+                </div>
+                <div class="file-item file">
+                    <div class="file-icon">🎵</div>
+                    <span>Suit_Demo.mp3</span>
+                    <span class="file-size">2.8 MB</span>
+                </div>
+                <div class="file-item file">
+                    <div class="file-icon">📄</div>
+                    <span>Lyrics.txt</span>
+                    <span class="file-size">2 KB</span>
+                </div>
+            `;
+            break;
+        default:
+            folderContent = '<p>Folder is empty or access denied.</p>';
+    }
+    
+    const computerWindow = document.getElementById('computerWindow');
+    const fileSystem = computerWindow.querySelector('.file-system');
+    fileSystem.innerHTML = `
+        <div class="file-nav">
+            <button onclick="openComputer()">← Back</button>
+            <span>Viewing: ${folderId}</span>
+        </div>
+        ${folderContent}
+    `;
+}
+
+function openComputer() {
+    const computerWindow = document.getElementById('computerWindow');
+    const fileSystem = computerWindow.querySelector('.file-system');
+    fileSystem.innerHTML = `
+        <div class="file-item folder" onclick="openFolder('cDrive')">
+            <div class="file-icon">📁</div>
+            <span>Local Disk (C:)</span>
+            <span class="file-size">666 GB</span>
+        </div>
+        <div class="file-item folder" onclick="openFolder('dDrive')">
+            <div class="file-icon">💿</div>
+            <span>CD-ROM Drive (D:)</span>
+            <span class="file-size">---</span>
+        </div>
+        <div class="file-item folder" onclick="openFolder('music')">
+            <div class="file-icon">🎵</div>
+            <span>DISENFUTURED Collection</span>
+            <span class="file-size">1.44 MB</span>
+        </div>
+        <div class="file-item file">
+            <div class="file-icon">📄</div>
+            <span>README.TXT</span>
+            <span class="file-size">2 KB</span>
+        </div>
+        <div class="file-item file">
+            <div class="file-icon">💾</div>
+            <span>AUTOEXEC.BAT</span>
+            <span class="file-size">1 KB</span>
+        </div>
+    `;
+}
+
+// Fake Browser Functions
+function browserBack() {
+    showError('Cannot go back - this is the first page!');
+}
+
+function browserForward() {
+    showError('Cannot go forward - this is the last page!');
+}
+
+function browserRefresh() {
+    const browserPage = document.getElementById('browserPage');
+    browserPage.style.opacity = '0.5';
+    setTimeout(() => {
+        browserPage.style.opacity = '1';
+        showError('Page refreshed!');
+    }, 500);
+}
+
+function browserHome() {
+    const addressInput = document.getElementById('addressInput');
+    addressInput.value = 'http://www.disenfutured.geocities.com';
+    showError('Already at home page!');
+}
+
+// Map new window IDs to existing openWindow function
+const originalOpenWindow = openWindow;
+function openWindow(windowId) {
+    // Map new window types
+    if (windowId === 'computer') {
+        windowId = 'computer';
+        openComputer(); // Reset to main view
+    } else if (windowId === 'recycle') {
+        windowId = 'recycle';
+    } else if (windowId === 'browser') {
+        windowId = 'browser';
+    }
+    
+    return originalOpenWindow(windowId);
+}

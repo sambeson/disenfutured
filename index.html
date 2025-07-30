@@ -268,41 +268,232 @@
             </div>
         </div>
 
+        <!-- My Computer Window -->
+        <div class="window" id="computerWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">💻</div>
+                    My Computer
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('computerWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('computerWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('computerWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>💾 FILE SYSTEM</h2>
+                <div class="file-system">
+                    <div class="file-item folder" onclick="openFolder('cDrive')">
+                        <div class="file-icon">📁</div>
+                        <span>Local Disk (C:)</span>
+                        <span class="file-size">666 GB</span>
+                    </div>
+                    <div class="file-item folder" onclick="openFolder('dDrive')">
+                        <div class="file-icon">💿</div>
+                        <span>CD-ROM Drive (D:)</span>
+                        <span class="file-size">---</span>
+                    </div>
+                    <div class="file-item folder" onclick="openFolder('music')">
+                        <div class="file-icon">🎵</div>
+                        <span>DISENFUTURED Collection</span>
+                        <span class="file-size">1.44 MB</span>
+                    </div>
+                    <div class="file-item file">
+                        <div class="file-icon">📄</div>
+                        <span>README.TXT</span>
+                        <span class="file-size">2 KB</span>
+                    </div>
+                    <div class="file-item file">
+                        <div class="file-icon">💾</div>
+                        <span>AUTOEXEC.BAT</span>
+                        <span class="file-size">1 KB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recycle Bin Window -->
+        <div class="window" id="recycleWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">♻️</div>
+                    Recycle Bin
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('recycleWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('recycleWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('recycleWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <h2>♻️ RECYCLABLE MATERIALS</h2>
+                <div class="recycle-grid">
+                    <div class="recycle-item">
+                        <div class="recycle-image">🥤</div>
+                        <h3>Aluminum Cans</h3>
+                        <p>Soda cans, beer cans</p>
+                    </div>
+                    <div class="recycle-item">
+                        <div class="recycle-image">📰</div>
+                        <h3>Paper & Cardboard</h3>
+                        <p>Newspapers, magazines, boxes</p>
+                    </div>
+                    <div class="recycle-item">
+                        <div class="recycle-image">🍶</div>
+                        <h3>Glass Bottles</h3>
+                        <p>Wine bottles, jars</p>
+                    </div>
+                    <div class="recycle-item">
+                        <div class="recycle-image">🥛</div>
+                        <h3>Plastic Containers</h3>
+                        <p>Milk jugs, water bottles</p>
+                    </div>
+                    <div class="recycle-item">
+                        <div class="recycle-image">📱</div>
+                        <h3>Electronics</h3>
+                        <p>Old phones, computers</p>
+                    </div>
+                    <div class="recycle-item">
+                        <div class="recycle-image">🔋</div>
+                        <h3>Batteries</h3>
+                        <p>AA, AAA, lithium</p>
+                    </div>
+                </div>
+                <div class="recycle-note">
+                    <p>♻️ Remember: Reduce, Reuse, Recycle!</p>
+                    <p>🌍 Help save the planet one item at a time.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Internet Explorer Browser Window -->
+        <div class="window" id="browserWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">🌐</div>
+                    Internet Explorer
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('browserWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('browserWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('browserWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content browser-content">
+                <!-- Browser Toolbar -->
+                <div class="browser-toolbar">
+                    <div class="browser-buttons">
+                        <button class="browser-btn" onclick="browserBack()">◀ Back</button>
+                        <button class="browser-btn" onclick="browserForward()">Forward ▶</button>
+                        <button class="browser-btn" onclick="browserRefresh()">🔄 Refresh</button>
+                        <button class="browser-btn" onclick="browserHome()">🏠 Home</button>
+                    </div>
+                    <div class="address-bar">
+                        <span class="address-label">Address:</span>
+                        <input type="text" class="address-input" id="addressInput" value="http://www.disenfutured.geocities.com" readonly>
+                        <button class="browser-btn go-btn">Go</button>
+                    </div>
+                </div>
+                
+                <!-- Browser Content Area -->
+                <div class="browser-viewport">
+                    <div class="browser-page" id="browserPage">
+                        <div class="webpage-content">
+                            <center>
+                                <h1>🌟 Welcome to DISENFUTURED's GeoCities Page! 🌟</h1>
+                                <hr>
+                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Under Construction" style="width:80px; height:20px; background: repeating-linear-gradient(45deg, yellow, yellow 10px, black 10px, black 20px);">
+                                <marquee><blink>*** UNDER CONSTRUCTION ***</blink></marquee>
+                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Under Construction" style="width:80px; height:20px; background: repeating-linear-gradient(45deg, yellow, yellow 10px, black 10px, black 20px);">
+                                
+                                <h2>🎸 NEW JERSEY HARDCORE PUNK 🎸</h2>
+                                
+                                <table border="1" cellpadding="10" style="margin: 20px auto; background: #ffff99;">
+                                    <tr>
+                                        <td>
+                                            <h3>🔥 LATEST NEWS 🔥</h3>
+                                            <p>New demos available on Bandcamp!</p>
+                                            <p>Album coming soon in 2025!</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <h3>📧 GUESTBOOK 📧</h3>
+                                <textarea readonly style="width: 400px; height: 100px; background: #cccccc;">
+Sign our guestbook!
+
+[Previous entries would be here...]
+- CoolGuy1999: "Awesome band! 🤘"
+- MusicFan2000: "Can't wait for the album!"
+- HardcoreKid: "Best punk band ever!"
+                                </textarea>
+                                
+                                <hr>
+                                <p>
+                                    <a href="mailto:disenfutured@gmail.com">📧 Email Us</a> | 
+                                    <a href="https://disenfutured.bandcamp.com/" target="_blank">🎵 Bandcamp</a> | 
+                                    <a href="https://instagram.com/disenfutured" target="_blank">📸 Instagram</a>
+                                </p>
+                                
+                                <p style="font-size: 10px; color: #666;">
+                                    This site is best viewed in Internet Explorer 4.0 or higher<br>
+                                    Last updated: Never | Visitor count: 001337<br>
+                                    © 1999 DISENFUTURED - All rights reserved
+                                </p>
+                                
+                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Made with Notepad" style="width:80px; height:15px; background: #0000ff; color: white; line-height: 15px;" title="Made with Notepad">
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status Bar -->
+                <div class="browser-status">
+                    <span class="status-text">Done</span>
+                    <div class="status-right">
+                        <span class="security-icon">🔒</span>
+                        <span class="zone-text">Internet Zone</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Background Elements -->
         <div class="background-icons">
             <!-- System Icons -->
-            <div class="desktop-icon" style="top: 20px; left: 20px;">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 20px; left: 20px;" onclick="openWindow('computer')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img computer-icon">💻</div>
                 <span>My Computer</span>
             </div>
-            <div class="desktop-icon" style="top: 120px; left: 20px;">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 120px; left: 20px;" onclick="openWindow('recycle')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img recycle-icon">🗑️</div>
                 <span>Recycle Bin</span>
             </div>
-            <div class="desktop-icon" style="top: 220px; left: 20px;">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 220px; left: 20px;" onclick="openWindow('browser')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img browser-icon">🌐</div>
                 <span>Internet Explorer</span>
             </div>
             
             <!-- Menu Item Icons -->
-            <div class="desktop-icon" style="top: 20px; right: 20px;" onclick="openWindow('about')">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 20px; right: 20px;" onclick="openWindow('about')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img about-icon">ℹ️</div>
                 <span>About</span>
             </div>
-            <div class="desktop-icon" style="top: 120px; right: 20px;" onclick="openWindow('shows')">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 120px; right: 20px;" onclick="openWindow('shows')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img shows-icon">🎵</div>
                 <span>Shows</span>
             </div>
-            <div class="desktop-icon" style="top: 220px; right: 20px;" onclick="openWindow('merch')">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 220px; right: 20px;" onclick="openWindow('merch')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img merch-icon">👕</div>
                 <span>Merch</span>
             </div>
-            <div class="desktop-icon" style="top: 320px; right: 20px;" onclick="openWindow('music')">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 320px; right: 20px;" onclick="openWindow('music')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img music-icon">🎸</div>
                 <span>Music</span>
             </div>
-            <div class="desktop-icon" style="top: 420px; right: 20px;" onclick="openWindow('contact')">
-                <div class="desktop-icon-img"></div>
+            <div class="desktop-icon draggable" style="top: 420px; right: 20px;" onclick="openWindow('contact')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img contact-icon">📧</div>
                 <span>Contact</span>
             </div>
         </div>
