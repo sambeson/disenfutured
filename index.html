@@ -108,11 +108,17 @@
 
         <!-- Shows Window -->
         <div class="window" id="showsWindow" style="display: none;">
-                        <div class="window-header">
+            <div class="window-header">
                 <div class="window-title">
                     <div class="window-icon shows"></div>
                     Shows
                 </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('showsWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('showsWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('showsWindow')">×</button>
+                </div>
+            </div>
             <div class="window-content">
                 <h2>LIVE SHOWS</h2>
                 <div class="shows-list">
@@ -126,11 +132,17 @@
 
         <!-- Merch Window -->
         <div class="window" id="merchWindow" style="display: none;">
-                        <div class="window-header">
+            <div class="window-header">
                 <div class="window-title">
                     <div class="window-icon merch"></div>
                     Merch
                 </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('merchWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('merchWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('merchWindow')">×</button>
+                </div>
+            </div>
             <div class="window-content">
                 <h2>OFFICIAL MERCH</h2>
                 <div class="merch-grid">
@@ -270,7 +282,7 @@
                 </div>
             </div>
             <div class="window-content">
-                <h2>💾 FILE SYSTEM</h2>
+                <h2>FILE SYSTEM</h2>
                 <div class="file-system">
                     <div class="file-item folder" onclick="openFolder('cDrive')">
                         <div class="file-icon folder"></div>
@@ -278,7 +290,7 @@
                         <span class="file-size">666 GB</span>
                     </div>
                     <div class="file-item folder" onclick="openFolder('dDrive')">
-                        <div class="file-icon">💿</div>
+                        <div class="file-icon cd"></div>
                         <span>CD-ROM Drive (D:)</span>
                         <span class="file-size">---</span>
                     </div>
@@ -293,7 +305,7 @@
                         <span class="file-size">2 KB</span>
                     </div>
                     <div class="file-item file">
-                        <div class="file-icon">💾</div>
+                        <div class="file-icon system"></div>
                         <span>AUTOEXEC.BAT</span>
                         <span class="file-size">1 KB</span>
                     </div>

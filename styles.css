@@ -840,11 +840,6 @@ h3 {
     font-size: 16px;
     margin-bottom: 4px;
 }
-
-/* Specific placeholder icons */
-.desktop-icon:nth-child(1) .desktop-icon-img::after { content: "💻"; }
-.desktop-icon:nth-child(2) .desktop-icon-img::after { content: "🗑️"; }
-.desktop-icon:nth-child(3) .desktop-icon-img::after { content: "🌐"; }
 .background-icons {
     position: absolute;
     top: 0;
