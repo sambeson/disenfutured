@@ -41,7 +41,7 @@
         <div class="window main-window" id="mainWindow">
             <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon"></div>
+                    <div class="window-icon main"></div>
                     DISENFUTURED
                 </div>
                 <div class="window-controls">
@@ -56,7 +56,7 @@
                     <h2>EARTH MUSIC</h2>
                     <div class="separator"></div>
                     <p class="welcome-text">
-                        Welcome to this horrifically ai vibecoded website! While we allowed AI to design this monstrosity of nostalgia porn, we promise we're real humans who haven't migrated to AI powered skin suits, yet...
+                        Welcome to our vibecodexed website! While we allowed AI to *assist* with the design of this monstrosity of nostalgia porn, we promise we're real humans who haven't migrated to AI powered skin suits, yet...
                     </p>
                     <div class="button-grid">
                         <button class="retro-button" onclick="openWindow('shows')">SHOWS</button>
@@ -78,10 +78,10 @@
 
         <!-- About Window -->
         <div class="window" id="aboutWindow" style="display: none;">
-            <div class="window-header">
+                        <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon"></div>
-                    About DISENFUTURED
+                    <div class="window-icon about"></div>
+                    About me
                 </div>
                 <div class="window-controls">
                     <button class="window-control minimize" onclick="minimizeWindow('aboutWindow')">_</button>
@@ -108,17 +108,11 @@
 
         <!-- Shows Window -->
         <div class="window" id="showsWindow" style="display: none;">
-            <div class="window-header">
+                        <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon"></div>
-                    Upcoming Shows
+                    <div class="window-icon shows"></div>
+                    Shows
                 </div>
-                <div class="window-controls">
-                    <button class="window-control minimize" onclick="minimizeWindow('showsWindow')">_</button>
-                    <button class="window-control maximize" onclick="toggleMaximize('showsWindow')">□</button>
-                    <button class="window-control close" onclick="closeWindow('showsWindow')">×</button>
-                </div>
-            </div>
             <div class="window-content">
                 <h2>LIVE SHOWS</h2>
                 <div class="shows-list">
@@ -132,17 +126,11 @@
 
         <!-- Merch Window -->
         <div class="window" id="merchWindow" style="display: none;">
-            <div class="window-header">
+                        <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon"></div>
-                    DISENFUTURED Merchandise
+                    <div class="window-icon merch"></div>
+                    Merch
                 </div>
-                <div class="window-controls">
-                    <button class="window-control minimize" onclick="minimizeWindow('merchWindow')">_</button>
-                    <button class="window-control maximize" onclick="toggleMaximize('merchWindow')">□</button>
-                    <button class="window-control close" onclick="closeWindow('merchWindow')">×</button>
-                </div>
-            </div>
             <div class="window-content">
                 <h2>OFFICIAL MERCH</h2>
                 <div class="merch-grid">
@@ -185,7 +173,7 @@
         <div class="window" id="musicWindow" style="display: none;">
             <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon"></div>
+                    <div class="window-icon music"></div>
                     Music & Social Links
                 </div>
                 <div class="window-controls">
@@ -232,7 +220,7 @@
         <div class="window" id="contactWindow" style="display: none;">
             <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon"></div>
+                    <div class="window-icon contact"></div>
                     Contact DISENFUTURED
                 </div>
                 <div class="window-controls">
@@ -272,7 +260,7 @@
         <div class="window" id="computerWindow" style="display: none;">
             <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon">💻</div>
+                    <div class="window-icon computer"></div>
                     My Computer
                 </div>
                 <div class="window-controls">
@@ -285,7 +273,7 @@
                 <h2>💾 FILE SYSTEM</h2>
                 <div class="file-system">
                     <div class="file-item folder" onclick="openFolder('cDrive')">
-                        <div class="file-icon">📁</div>
+                        <div class="file-icon folder"></div>
                         <span>Local Disk (C:)</span>
                         <span class="file-size">666 GB</span>
                     </div>
@@ -295,12 +283,12 @@
                         <span class="file-size">---</span>
                     </div>
                     <div class="file-item folder" onclick="openFolder('music')">
-                        <div class="file-icon">🎵</div>
+                        <div class="file-icon music"></div>
                         <span>DISENFUTURED Collection</span>
                         <span class="file-size">1.44 MB</span>
                     </div>
                     <div class="file-item file">
-                        <div class="file-icon">📄</div>
+                        <div class="file-icon document"></div>
                         <span>README.TXT</span>
                         <span class="file-size">2 KB</span>
                     </div>
@@ -317,7 +305,7 @@
         <div class="window" id="recycleWindow" style="display: none;">
             <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon">♻️</div>
+                    <div class="window-icon recycle"></div>
                     Recycle Bin
                 </div>
                 <div class="window-controls">
@@ -327,7 +315,7 @@
                 </div>
             </div>
             <div class="window-content">
-                <h2>♻️ RECYCLABLE MATERIALS</h2>
+                <h2><span class="recyclable-icon"></span> RECYCLABLE MATERIALS</h2>
                 <div class="recycle-grid">
                     <div class="recycle-item">
                         <div class="recycle-image">🥤</div>
@@ -361,7 +349,7 @@
                     </div>
                 </div>
                 <div class="recycle-note">
-                    <p>♻️ Remember: Reduce, Reuse, Recycle!</p>
+                    <p><span class="recyclable-icon"></span> Remember: Reduce, Reuse, Recycle!</p>
                     <p>🌍 Help save the planet one item at a time.</p>
                 </div>
             </div>
@@ -371,7 +359,7 @@
         <div class="window" id="browserWindow" style="display: none;">
             <div class="window-header">
                 <div class="window-title">
-                    <div class="window-icon">🌐</div>
+                    <div class="window-icon browser"></div>
                     Internet Explorer
                 </div>
                 <div class="window-controls">
@@ -419,7 +407,7 @@
                                     </tr>
                                 </table>
                                 
-                                <h3>📧 GUESTBOOK 📧</h3>
+                                <h3><span class="email-icon"></span> GUESTBOOK <span class="email-icon"></span></h3>
                                 <textarea readonly style="width: 400px; height: 100px; background: #cccccc;">
 Sign our guestbook!
 
@@ -431,8 +419,8 @@ Sign our guestbook!
                                 
                                 <hr>
                                 <p>
-                                    <a href="mailto:disenfutured@gmail.com">📧 Email Us</a> | 
-                                    <a href="https://disenfutured.bandcamp.com/" target="_blank">🎵 Bandcamp</a> | 
+                                    <a href="mailto:disenfutured@gmail.com"><span class="email-icon"></span> Email Us</a> | 
+                                    <a href="https://disenfutured.bandcamp.com/" target="_blank"><span class="music-link-icon"></span> Bandcamp</a> | 
                                     <a href="https://instagram.com/disenfutured" target="_blank">📸 Instagram</a>
                                 </p>
                                 
@@ -463,37 +451,37 @@ Sign our guestbook!
         <div class="background-icons">
             <!-- System Icons -->
             <div class="desktop-icon draggable" style="top: 20px; left: 20px;" onclick="openWindow('computer')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img computer-icon">💻</div>
+                <div class="desktop-icon-img computer-icon"></div>
                 <span>My Computer</span>
             </div>
             <div class="desktop-icon draggable" style="top: 120px; left: 20px;" onclick="openWindow('recycle')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img recycle-icon">🗑️</div>
+                <div class="desktop-icon-img recycle-icon"></div>
                 <span>Recycle Bin</span>
             </div>
             <div class="desktop-icon draggable" style="top: 220px; left: 20px;" onclick="openWindow('browser')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img browser-icon">🌐</div>
+                <div class="desktop-icon-img browser-icon"></div>
                 <span>Internet Explorer</span>
             </div>
             
             <!-- Menu Item Icons -->
             <div class="desktop-icon draggable" style="top: 20px; right: 20px;" onclick="openWindow('about')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img about-icon">ℹ️</div>
+                <div class="desktop-icon-img about-icon"></div>
                 <span>About</span>
             </div>
             <div class="desktop-icon draggable" style="top: 120px; right: 20px;" onclick="openWindow('shows')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img shows-icon">🎵</div>
+                <div class="desktop-icon-img shows-icon"></div>
                 <span>Shows</span>
             </div>
             <div class="desktop-icon draggable" style="top: 220px; right: 20px;" onclick="openWindow('merch')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img merch-icon">👕</div>
+                <div class="desktop-icon-img merch-icon"></div>
                 <span>Merch</span>
             </div>
             <div class="desktop-icon draggable" style="top: 320px; right: 20px;" onclick="openWindow('music')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img music-icon">🎸</div>
+                <div class="desktop-icon-img music-icon"></div>
                 <span>Music</span>
             </div>
             <div class="desktop-icon draggable" style="top: 420px; right: 20px;" onclick="openWindow('contact')" onmousedown="startDrag(event, this)">
-                <div class="desktop-icon-img contact-icon">📧</div>
+                <div class="desktop-icon-img contact-icon"></div>
                 <span>Contact</span>
             </div>
         </div>

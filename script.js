@@ -720,17 +720,17 @@ function openFolder(folderId) {
         case 'cDrive':
             folderContent = `
                 <div class="file-item folder">
-                    <div class="file-icon">📁</div>
+                    <div class="file-icon folder"></div>
                     <span>Windows</span>
                     <span class="file-size">2.1 GB</span>
                 </div>
                 <div class="file-item folder">
-                    <div class="file-icon">📁</div>
+                    <div class="file-icon folder"></div>
                     <span>Program Files</span>
                     <span class="file-size">1.8 GB</span>
                 </div>
                 <div class="file-item folder">
-                    <div class="file-icon">👤</div>
+                    <div class="file-icon about"></div>
                     <span>My Documents</span>
                     <span class="file-size">156 MB</span>
                 </div>
@@ -739,17 +739,17 @@ function openFolder(folderId) {
         case 'music':
             folderContent = `
                 <div class="file-item file">
-                    <div class="file-icon">🎵</div>
+                    <div class="file-icon music"></div>
                     <span>Rigged_Demo.mp3</span>
                     <span class="file-size">3.2 MB</span>
                 </div>
                 <div class="file-item file">
-                    <div class="file-icon">🎵</div>
+                    <div class="file-icon music"></div>
                     <span>Suit_Demo.mp3</span>
                     <span class="file-size">2.8 MB</span>
                 </div>
                 <div class="file-item file">
-                    <div class="file-icon">📄</div>
+                    <div class="file-icon document"></div>
                     <span>Lyrics.txt</span>
                     <span class="file-size">2 KB</span>
                 </div>
@@ -775,27 +775,27 @@ function openComputer() {
     const fileSystem = computerWindow.querySelector('.file-system');
     fileSystem.innerHTML = `
         <div class="file-item folder" onclick="openFolder('cDrive')">
-            <div class="file-icon">📁</div>
+            <div class="file-icon folder"></div>
             <span>Local Disk (C:)</span>
             <span class="file-size">666 GB</span>
         </div>
         <div class="file-item folder" onclick="openFolder('dDrive')">
-            <div class="file-icon">💿</div>
+            <div class="file-icon cd"></div>
             <span>CD-ROM Drive (D:)</span>
             <span class="file-size">---</span>
         </div>
         <div class="file-item folder" onclick="openFolder('music')">
-            <div class="file-icon">🎵</div>
+            <div class="file-icon music"></div>
             <span>DISENFUTURED Collection</span>
             <span class="file-size">1.44 MB</span>
         </div>
         <div class="file-item file">
-            <div class="file-icon">📄</div>
+            <div class="file-icon document"></div>
             <span>README.TXT</span>
             <span class="file-size">2 KB</span>
         </div>
         <div class="file-item file">
-            <div class="file-icon">💾</div>
+            <div class="file-icon system"></div>
             <span>AUTOEXEC.BAT</span>
             <span class="file-size">1 KB</span>
         </div>

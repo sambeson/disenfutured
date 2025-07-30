@@ -719,14 +719,92 @@ h3 {
     font-size: 8px;
     font-weight: bold;
     font-family: 'Courier New', monospace;
+    position: relative;
 }
 
 .start-logo::after {
-    content: "⊞";
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(45deg, #ff0000 0%, #ffff00 25%, #00ff00 50%, #0000ff 75%, #ff0000 100%);
+    border: 1px solid white;
+    border-radius: 2px;
 }
 
-.window-icon::after {
-    content: "D";
+.window-icon {
+    background: transparent;
+}
+
+.window-icon.main::after {
+    content: "♫";
+    color: var(--win98-red);
+    font-size: 12px;
+    position: absolute;
+}
+
+.window-icon.about::after {
+    content: "i";
+    color: var(--win98-blue);
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+}
+
+.window-icon.shows::after {
+    content: "♪";
+    color: var(--win98-red);
+    font-size: 12px;
+    position: absolute;
+}
+
+.window-icon.merch::after {
+    content: "$";
+    color: var(--win98-green);
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+}
+
+.window-icon.music::after {
+    content: "♫";
+    color: var(--win98-blue);
+    font-size: 12px;
+    position: absolute;
+}
+
+.window-icon.contact::after {
+    content: "@";
+    color: var(--win98-red);
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+}
+
+.window-icon.computer::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 8px;
+    background: #000000;
+    border: 1px solid var(--win98-gray);
+    border-radius: 1px;
+}
+
+.window-icon.recycle::after {
+    content: "♻";
+    color: var(--win98-green);
+    font-size: 12px;
+    position: absolute;
+}
+
+.window-icon.browser::after {
+    content: "e";
+    color: var(--win98-blue);
+    font-size: 12px;
+    font-weight: bold;
+    font-style: italic;
+    position: absolute;
 }
 
 .animated-gif {
@@ -739,6 +817,7 @@ h3 {
     color: white;
     font-size: 24px;
     animation: bounce 1s infinite alternate, rotate 2s infinite linear;
+    position: relative;
 }
 
 .animated-gif::after {
@@ -913,6 +992,214 @@ h3 {
     max-width: 60px;
 }
 
+/* Windows 98 Style Desktop Icons */
+.desktop-icon-img {
+    width: 32px;
+    height: 32px;
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-bottom: 4px;
+    position: relative;
+}
+
+/* Computer Icon */
+.computer-icon {
+    background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.8),
+        inset -1px -1px 0 rgba(128,128,128,0.8);
+}
+
+.computer-icon::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 14px;
+    background: #000000;
+    border: 2px solid #c0c0c0;
+    border-radius: 2px;
+    top: 6px;
+}
+
+.computer-icon::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: #c0c0c0;
+    bottom: 6px;
+    border-radius: 1px;
+}
+
+/* Recycle Bin Icon */
+.recycle-icon {
+    background: linear-gradient(135deg, #008000 0%, #004000 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.3),
+        inset -1px -1px 0 rgba(0,64,0,0.8);
+}
+
+.recycle-icon::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 20px;
+    background: linear-gradient(to bottom, #40ff40 0%, #008000 100%);
+    border: 1px solid #004000;
+    border-radius: 0 0 4px 4px;
+    top: 8px;
+}
+
+.recycle-icon::after {
+    content: "♻";
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    top: 10px;
+}
+
+/* Internet Explorer Icon */
+.browser-icon {
+    background: linear-gradient(135deg, #0080ff 0%, #004080 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.3),
+        inset -1px -1px 0 rgba(0,64,128,0.8);
+}
+
+.browser-icon::before {
+    content: "e";
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* About Icon */
+.about-icon {
+    background: linear-gradient(135deg, #ff8000 0%, #804000 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.3),
+        inset -1px -1px 0 rgba(128,64,0,0.8);
+}
+
+.about-icon::before {
+    content: "i";
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Shows Icon */
+.shows-icon {
+    background: linear-gradient(135deg, #ff0080 0%, #800040 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.3),
+        inset -1px -1px 0 rgba(128,0,64,0.8);
+}
+
+.shows-icon::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border: 2px solid #800040;
+    border-radius: 2px;
+    top: 8px;
+}
+
+.shows-icon::after {
+    content: "♪";
+    position: absolute;
+    color: #ff0080;
+    font-size: 14px;
+    font-weight: bold;
+    top: 8px;
+}
+
+/* Merch Icon */
+.merch-icon {
+    background: linear-gradient(135deg, #8000ff 0%, #400080 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.3),
+        inset -1px -1px 0 rgba(64,0,128,0.8);
+}
+
+.merch-icon::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 12px;
+    background: white;
+    border: 1px solid #400080;
+    border-radius: 4px 4px 0 0;
+    top: 8px;
+}
+
+.merch-icon::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 8px;
+    background: #8000ff;
+    border-radius: 0 0 2px 2px;
+    bottom: 8px;
+}
+
+/* Music Icon */
+.music-icon {
+    background: linear-gradient(135deg, #ffff00 0%, #808000 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.5),
+        inset -1px -1px 0 rgba(128,128,0,0.8);
+}
+
+.music-icon::before {
+    content: "♫";
+    position: absolute;
+    color: #404000;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+
+/* Contact Icon */
+.contact-icon {
+    background: linear-gradient(135deg, #ff4000 0%, #802000 100%);
+    box-shadow: 
+        inset 1px 1px 0 rgba(255,255,255,0.3),
+        inset -1px -1px 0 rgba(128,32,0,0.8);
+}
+
+.contact-icon::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 12px;
+    background: white;
+    border: 1px solid #802000;
+    border-radius: 2px;
+    top: 8px;
+}
+
+.contact-icon::after {
+    content: "@";
+    position: absolute;
+    color: #ff4000;
+    font-size: 14px;
+    font-weight: bold;
+    top: 8px;
+}
+
 /* My Computer Window Styles */
 .file-explorer {
     display: flex;
@@ -969,6 +1256,154 @@ h3 {
     font-size: 16px;
     width: 20px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* File System Icons */
+.file-icon.folder::before {
+    content: "";
+    width: 16px;
+    height: 12px;
+    background: linear-gradient(to bottom, #ffff00 0%, #c0c000 100%);
+    border: 1px solid #808000;
+    border-radius: 2px 2px 0 0;
+    position: absolute;
+}
+
+.file-icon.folder::after {
+    content: "";
+    width: 14px;
+    height: 2px;
+    background: #c0c000;
+    border: 1px solid #808000;
+    border-top: none;
+    position: absolute;
+    bottom: 4px;
+}
+
+.file-icon.drive::before {
+    content: "";
+    width: 14px;
+    height: 10px;
+    background: linear-gradient(to bottom, #c0c0c0 0%, #808080 100%);
+    border: 1px solid #404040;
+    border-radius: 1px;
+    position: absolute;
+}
+
+.file-icon.drive::after {
+    content: "";
+    width: 8px;
+    height: 1px;
+    background: #000000;
+    position: absolute;
+    top: 8px;
+}
+
+.file-icon.cd::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle, #c0c0c0 30%, #404040 31%, #404040 35%, #c0c0c0 36%);
+    border: 1px solid #404040;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.file-icon.music::before {
+    content: "♪";
+    color: #0000ff;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+}
+
+.file-icon.text::before {
+    content: "";
+    width: 12px;
+    height: 14px;
+    background: white;
+    border: 1px solid #404040;
+    position: absolute;
+}
+
+.file-icon.text::after {
+    content: "A";
+    color: #000000;
+    font-size: 8px;
+    font-weight: bold;
+    position: absolute;
+    top: 4px;
+}
+
+.file-icon.system::before {
+    content: "";
+    width: 12px;
+    height: 14px;
+    background: #c0c0c0;
+    border: 1px solid #404040;
+    position: absolute;
+}
+
+.file-icon.system::after {
+    content: "⚙";
+    color: #404040;
+    font-size: 10px;
+    position: absolute;
+    top: 2px;
+}
+
+.file-icon.document::before {
+    content: "";
+    width: 12px;
+    height: 14px;
+    background: white;
+    border: 1px solid #404040;
+    position: absolute;
+}
+
+.file-icon.document::after {
+    content: "📄";
+    font-size: 8px;
+    position: absolute;
+    top: 3px;
+    left: 2px;
+}
+
+/* Email and Music Link Icons */
+.email-icon::before {
+    content: "✉";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(45deg, #ffffff 0%, #e0e0e0 50%, #ffffff 100%);
+    border: 1px outset #ffffff;
+    border-radius: 2px;
+    color: #800000;
+    text-align: center;
+    line-height: 14px;
+    font-size: 12px;
+    margin-right: 4px;
+    text-shadow: 1px 1px 0 #ffffff;
+}
+
+.music-link-icon::before {
+    content: "♪";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(45deg, #8080ff 0%, #4040c0 50%, #8080ff 100%);
+    border: 1px outset #8080ff;
+    border-radius: 2px;
+    color: white;
+    text-align: center;
+    line-height: 14px;
+    font-size: 12px;
+    margin-right: 4px;
+    text-shadow: 1px 1px 0 #000040;
 }
 
 .file-name {
@@ -1005,6 +1440,129 @@ h3 {
 .recyclable-icon {
     font-size: 48px;
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 48px;
+    height: 48px;
+}
+
+/* Recyclable Material Icons */
+.recyclable-icon.can::before {
+    content: "";
+    width: 20px;
+    height: 30px;
+    background: linear-gradient(to bottom, #c0c0c0 0%, #808080 100%);
+    border: 2px solid #404040;
+    border-radius: 2px 2px 4px 4px;
+    position: absolute;
+}
+
+.recyclable-icon.can::after {
+    content: "";
+    width: 24px;
+    height: 2px;
+    background: #404040;
+    position: absolute;
+    top: 8px;
+    border-radius: 1px;
+}
+
+.recyclable-icon.paper::before {
+    content: "";
+    width: 24px;
+    height: 30px;
+    background: white;
+    border: 1px solid #404040;
+    position: absolute;
+}
+
+.recyclable-icon.paper::after {
+    content: "NEWS";
+    color: #000000;
+    font-size: 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 8px;
+}
+
+.recyclable-icon.glass::before {
+    content: "";
+    width: 12px;
+    height: 24px;
+    background: linear-gradient(to bottom, rgba(0,128,0,0.3) 0%, rgba(0,64,0,0.5) 100%);
+    border: 1px solid #404040;
+    border-radius: 0 0 6px 6px;
+    position: absolute;
+}
+
+.recyclable-icon.glass::after {
+    content: "";
+    width: 14px;
+    height: 4px;
+    background: #404040;
+    position: absolute;
+    top: 10px;
+    border-radius: 2px;
+}
+
+.recyclable-icon.plastic::before {
+    content: "";
+    width: 16px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(200,200,200,0.8) 100%);
+    border: 1px solid #404040;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+}
+
+.recyclable-icon.plastic::after {
+    content: "1";
+    color: #000000;
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    top: 16px;
+}
+
+.recyclable-icon.electronics::before {
+    content: "";
+    width: 20px;
+    height: 12px;
+    background: #000000;
+    border: 1px solid #404040;
+    position: absolute;
+}
+
+.recyclable-icon.electronics::after {
+    content: "";
+    width: 16px;
+    height: 8px;
+    background: #c0c0c0;
+    border: 1px solid #404040;
+    position: absolute;
+    bottom: 14px;
+}
+
+.recyclable-icon.battery::before {
+    content: "";
+    width: 8px;
+    height: 20px;
+    background: linear-gradient(to bottom, #ff0000 0%, #800000 50%, #000000 100%);
+    border: 1px solid #404040;
+    border-radius: 2px;
+    position: absolute;
+}
+
+.recyclable-icon.battery::after {
+    content: "";
+    width: 4px;
+    height: 2px;
+    background: #c0c0c0;
+    position: absolute;
+    top: 6px;
+    border-radius: 1px;
 }
 
 .recyclable-name {
