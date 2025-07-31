@@ -669,103 +669,117 @@ let draggedIcon = null;
 let dragOffset = { x: 0, y: 0 };
 
 function startDrag(e, element) {
-    // Don't prevent the click event initially
     draggedIcon = element;
     const rect = element.getBoundingClientRect();
     dragOffset.x = e.clientX - rect.left;
     dragOffset.y = e.clientY - rect.top;
-    
-    // Track if we actually start dragging
+
     let hasMoved = false;
-    
+    let mouseDownTime = Date.now();
+
     const handleMouseMove = (moveEvent) => {
-        if (!hasMoved) {
-            // Only prevent default and add dragging class once we start moving
-            e.preventDefault();
-            e.stopPropagation();
+        // Only start dragging if mouse moved enough
+        if (!hasMoved && (Math.abs(moveEvent.clientX - e.clientX) > 5 || Math.abs(moveEvent.clientY - e.clientY) > 5)) {
             element.classList.add('dragging');
             hasMoved = true;
         }
-        
-        const newX = moveEvent.clientX - dragOffset.x;
-        const newY = moveEvent.clientY - dragOffset.y;
-        
-        // Keep icon within screen bounds
-        const maxX = window.innerWidth - element.offsetWidth;
-        const maxY = window.innerHeight - element.offsetHeight - 40; // Account for taskbar
-        
-        const constrainedX = Math.max(0, Math.min(newX, maxX));
-        const constrainedY = Math.max(0, Math.min(newY, maxY));
-        
-        element.style.left = constrainedX + 'px';
-        element.style.top = constrainedY + 'px';
-        element.style.right = 'auto'; // Remove right positioning
+        if (hasMoved) {
+            const newX = moveEvent.clientX - dragOffset.x;
+            const newY = moveEvent.clientY - dragOffset.y;
+            const maxX = window.innerWidth - element.offsetWidth;
+            const maxY = window.innerHeight - element.offsetHeight - 40;
+            const constrainedX = Math.max(0, Math.min(newX, maxX));
+            const constrainedY = Math.max(0, Math.min(newY, maxY));
+            element.style.left = constrainedX + 'px';
+            element.style.top = constrainedY + 'px';
+            element.style.right = 'auto';
+        }
     };
-    
-    const handleMouseUp = () => {
+
+    const handleMouseUp = (upEvent) => {
         if (hasMoved) {
             element.classList.remove('dragging');
+        } else {
+            // If mouseup happens quickly and no drag, treat as click
+            if (Date.now() - mouseDownTime < 300) {
+                // Find the openWindow call from the onclick attribute
+                const openAttr = element.getAttribute('onclick');
+                if (openAttr && openAttr.includes('openWindow')) {
+                    // Extract window name
+                    const match = openAttr.match(/openWindow\(['"](\w+)['"]\)/);
+                    if (match && match[1]) {
+                        openWindow(match[1]);
+                    }
+                }
+            }
         }
         draggedIcon = null;
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
     };
-    
+
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
 }
 
 // Fake File System Functions
 function openFolder(folderId) {
-    let folderContent = '';
-    
-    switch(folderId) {
-        case 'cDrive':
-            folderContent = `
-                <div class="file-item folder">
-                    <div class="file-icon folder"></div>
-                    <span>Windows</span>
-                    <span class="file-size">2.1 GB</span>
-                </div>
-                <div class="file-item folder">
-                    <div class="file-icon folder"></div>
-                    <span>Program Files</span>
-                    <span class="file-size">1.8 GB</span>
-                </div>
-                <div class="file-item folder">
-                    <div class="file-icon about"></div>
-                    <span>My Documents</span>
-                    <span class="file-size">156 MB</span>
-                </div>
-            `;
-            break;
-        case 'music':
-            folderContent = `
-                <div class="file-item file">
-                    <div class="file-icon music"></div>
-                    <span>Rigged_Demo.mp3</span>
-                    <span class="file-size">3.2 MB</span>
-                </div>
-                <div class="file-item file">
-                    <div class="file-icon music"></div>
-                    <span>Suit_Demo.mp3</span>
-                    <span class="file-size">2.8 MB</span>
-                </div>
-                <div class="file-item file">
-                    <div class="file-icon document"></div>
-                    <span>Lyrics.txt</span>
-                    <span class="file-size">2 KB</span>
-                </div>
-            `;
-            break;
-        default:
-            folderContent = '<p>Folder is empty or access denied.</p>';
-    }
-    
-    const computerWindow = document.getElementById('computerWindow');
-    const fileSystem = computerWindow.querySelector('.file-system');
-    fileSystem.innerHTML = `
-        <div class="file-nav">
+let draggedIcon = null;
+let dragOffset = { x: 0, y: 0 };
+
+function startDrag(e, element) {
+    draggedIcon = element;
+    const rect = element.getBoundingClientRect();
+    dragOffset.x = e.clientX - rect.left;
+    dragOffset.y = e.clientY - rect.top;
+
+    let hasMoved = false;
+    let mouseDownTime = Date.now();
+
+    const handleMouseMove = (moveEvent) => {
+        // Only start dragging if mouse moved enough
+        if (!hasMoved && (Math.abs(moveEvent.clientX - e.clientX) > 5 || Math.abs(moveEvent.clientY - e.clientY) > 5)) {
+            element.classList.add('dragging');
+            hasMoved = true;
+        }
+        if (hasMoved) {
+            const newX = moveEvent.clientX - dragOffset.x;
+            const newY = moveEvent.clientY - dragOffset.y;
+            const maxX = window.innerWidth - element.offsetWidth;
+            const maxY = window.innerHeight - element.offsetHeight - 40;
+            const constrainedX = Math.max(0, Math.min(newX, maxX));
+            const constrainedY = Math.max(0, Math.min(newY, maxY));
+            element.style.left = constrainedX + 'px';
+            element.style.top = constrainedY + 'px';
+            element.style.right = 'auto';
+        }
+    };
+
+    const handleMouseUp = (upEvent) => {
+        if (hasMoved) {
+            element.classList.remove('dragging');
+        } else {
+            // If mouseup happens quickly and no drag, treat as click
+            if (Date.now() - mouseDownTime < 300) {
+                // Find the openWindow call from the onclick attribute
+                const openAttr = element.getAttribute('onclick');
+                if (openAttr && openAttr.includes('openWindow')) {
+                    // Extract window name
+                    const match = openAttr.match(/openWindow\(['"](\w+)['"]\)/);
+                    if (match && match[1]) {
+                        openWindow(match[1]);
+                    }
+                }
+            }
+        }
+        draggedIcon = null;
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+}
             <button onclick="openComputer()">← Back</button>
             <span>Viewing: ${folderId}</span>
         </div>
