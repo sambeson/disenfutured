@@ -1,14 +1,10 @@
-const OpenAI = require('openai');    if (!process.env.OPNAI) {
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          response: "Bro, the vibecoding dev of this website set me up incorrectly. Stop wasting time talking to a broken chatbot and go touch grass, loser. 🤡"
-        }),
-      };
-    }penai = new OpenAI({
-  apiKey: process.env.OPNAI,
-});
+
+const OpenAI = require('openai');
+const apiKey = process.env.OPNAI || process.env.OPENAI_API_KEY;
+let openai;
+if (apiKey) {
+  openai = new OpenAI({ apiKey });
+}
 
 exports.handler = async (event, context) => {
   // Handle CORS
