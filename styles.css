@@ -1938,13 +1938,14 @@ h3 {
 
 /* Clippy Desktop Icon */
 .clippy-icon {
-    background: url('images/sticker\ \(1\).png') no-repeat center;
-    background-size: contain;
+    background: url('images/258-2580697_clippy-png-png-download-clippy-windows-transparent-png.png') no-repeat center;
+    background-size: cover;
+    width: 48px !important;
+    height: 48px !important;
 }
 
 /* Window Icon for Clippy */
 .window-icon.clippy {
-    background: url('images/sticker\ \(1\).png') no-repeat center;
+    background: url('images/258-2580697_clippy-png-png-download-clippy-windows-transparent-png.png') no-repeat center;
     background-size: contain;
-}
 }

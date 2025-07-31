@@ -669,47 +669,50 @@ let draggedIcon = null;
 let dragOffset = { x: 0, y: 0 };
 
 function startDrag(e, element) {
-    e.preventDefault();
-    e.stopPropagation();
-    
+    // Don't prevent the click event initially
     draggedIcon = element;
     const rect = element.getBoundingClientRect();
     dragOffset.x = e.clientX - rect.left;
     dragOffset.y = e.clientY - rect.top;
     
-    // Add dragging class for visual feedback
-    element.classList.add('dragging');
+    // Track if we actually start dragging
+    let hasMoved = false;
     
-    document.addEventListener('mousemove', dragIcon);
-    document.addEventListener('mouseup', stopDrag);
-}
-
-function dragIcon(e) {
-    if (!draggedIcon) return;
+    const handleMouseMove = (moveEvent) => {
+        if (!hasMoved) {
+            // Only prevent default and add dragging class once we start moving
+            e.preventDefault();
+            e.stopPropagation();
+            element.classList.add('dragging');
+            hasMoved = true;
+        }
+        
+        const newX = moveEvent.clientX - dragOffset.x;
+        const newY = moveEvent.clientY - dragOffset.y;
+        
+        // Keep icon within screen bounds
+        const maxX = window.innerWidth - element.offsetWidth;
+        const maxY = window.innerHeight - element.offsetHeight - 40; // Account for taskbar
+        
+        const constrainedX = Math.max(0, Math.min(newX, maxX));
+        const constrainedY = Math.max(0, Math.min(newY, maxY));
+        
+        element.style.left = constrainedX + 'px';
+        element.style.top = constrainedY + 'px';
+        element.style.right = 'auto'; // Remove right positioning
+    };
     
-    const newX = e.clientX - dragOffset.x;
-    const newY = e.clientY - dragOffset.y;
-    
-    // Keep icon within screen bounds
-    const maxX = window.innerWidth - draggedIcon.offsetWidth;
-    const maxY = window.innerHeight - draggedIcon.offsetHeight - 40; // Account for taskbar
-    
-    const constrainedX = Math.max(0, Math.min(newX, maxX));
-    const constrainedY = Math.max(0, Math.min(newY, maxY));
-    
-    draggedIcon.style.left = constrainedX + 'px';
-    draggedIcon.style.top = constrainedY + 'px';
-    draggedIcon.style.right = 'auto'; // Remove right positioning
-}
-
-function stopDrag() {
-    if (draggedIcon) {
-        draggedIcon.classList.remove('dragging');
+    const handleMouseUp = () => {
+        if (hasMoved) {
+            element.classList.remove('dragging');
+        }
         draggedIcon = null;
-    }
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+    };
     
-    document.removeEventListener('mousemove', dragIcon);
-    document.removeEventListener('mouseup', stopDrag);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
 }
 
 // Fake File System Functions
