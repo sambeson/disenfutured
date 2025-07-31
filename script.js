@@ -34,7 +34,7 @@ function updateTime() {
 function toggleStartMenu() {
     const startMenu = document.getElementById('startMenu');
     startMenu.style.display = startMenu.style.display === 'block' ? 'none' : 'block';
-}
+// (removed extraneous closing brace)
 
 // Open Window
 function openWindow(windowId) {
@@ -692,23 +692,18 @@ function browserHome() {
 }
 
 // Map new window IDs to existing openWindow function
-const originalOpenWindow = openWindow;
-function openWindow(windowId) {
-    // Map new window types
+// --- PATCHED OVERRIDE LOGIC ---
+const originalOpenWindow = window.openWindow || openWindow;
+window.openWindow = function(windowId) {
+    // Special cases: run extra logic, but always pass base ID to originalOpenWindow
     if (windowId === 'computer') {
-        windowId = 'computer';
         openComputer(); // Reset to main view
-    } else if (windowId === 'recycle') {
-        windowId = 'recycle';
-    } else if (windowId === 'browser') {
-        windowId = 'browser';
     } else if (windowId === 'clippy') {
-        windowId = 'clippy';
         initializeClippy();
     }
-    
+    // Always call originalOpenWindow with the base windowId
     return originalOpenWindow(windowId);
-}
+};
 
 // ===== CLIPPY CHATBOT FUNCTIONALITY =====
 
