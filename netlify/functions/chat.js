@@ -33,12 +33,13 @@ exports.handler = async (event, context) => {
   try {
     const { message } = JSON.parse(event.body);
 
-    if (!process.env.OPNAI) {
+    // Check for API key and OpenAI client
+    if (!apiKey || !openai) {
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-          response: "Ugh, seriously? You're trying to chat with me but whoever set up this website was too cheap to configure the API properly. Just... just click around the interface or something. I don't have time for this. �"
+          response: "Ugh, seriously? You're trying to chat with me but whoever set up this website was too cheap to configure the API properly. Just... just click around the interface or something. I don't have time for this. 🤡"
         }),
       };
     }
