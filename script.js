@@ -638,6 +638,7 @@ function openFolder(folderId) {
 function openComputer() {
     const computerWindow = document.getElementById('computerWindow');
     const fileSystem = computerWindow.querySelector('.file-system');
+
     fileSystem.innerHTML = `
         <div class="file-item folder" onclick="openFolder('cDrive')">
             <div class="file-icon folder"></div>
@@ -649,40 +650,7 @@ function openComputer() {
             <span>CD-ROM Drive (D:)</span>
             <span class="file-size">---</span>
         </div>
-        <div class="file-item folder" onclick="openFolder('music')">
-            <div class="file-icon music"></div>
-            <span>DISENFUTURED Collection</span>
-            <span class="file-size">1.44 MB</span>
-        </div>
-        <div class="file-item file">
-            <div class="file-icon document"></div>
-            <span>README.TXT</span>
-            <span class="file-size">2 KB</span>
-        </div>
-        <div class="file-item file">
-            <div class="file-icon system"></div>
-            <span>AUTOEXEC.BAT</span>
-            <span class="file-size">1 KB</span>
-        </div>
     `;
-}
-
-// Fake Browser Functions
-function browserBack() {
-    showError('Cannot go back - this is the first page!');
-}
-
-function browserForward() {
-    showError('Cannot go forward - this is the last page!');
-}
-
-function browserRefresh() {
-    const browserPage = document.getElementById('browserPage');
-    browserPage.style.opacity = '0.5';
-    setTimeout(() => {
-        browserPage.style.opacity = '1';
-        showError('Page refreshed!');
-    }, 500);
 }
 
 function browserHome() {
@@ -692,7 +660,6 @@ function browserHome() {
 }
 
 // Map new window IDs to existing openWindow function
-// --- PATCHED OVERRIDE LOGIC ---
 const originalOpenWindow = window.openWindow || openWindow;
 window.openWindow = function(windowId) {
     // Special cases: run extra logic, but always pass base ID to originalOpenWindow
@@ -763,8 +730,7 @@ function addUserMessage(message) {
     const chatMessages = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
     messageDiv.className = 'chat-message user-message';
-    messageDiv.innerHTML = `<span class="message-text">${escapeHtml(message)}</span>`;
-    
+    messageDiv.innerHTML = '<span class="message-text">' + escapeHtml(message) + '</span>';
     chatMessages.appendChild(messageDiv);
     scrollToBottom();
 }
@@ -774,12 +740,9 @@ function addClippyMessage(message) {
     const chatMessages = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
     messageDiv.className = 'chat-message clippy-message';
-    messageDiv.innerHTML = `<span class="message-text">${escapeHtml(message)}</span>`;
-    
+    messageDiv.innerHTML = '<span class="message-text"><img src="images/258-2580697_clippy-png-png-download-clippy-windows-transparent-png.png" alt="Clippy" style="height:24px;vertical-align:middle;margin-right:6px;" />' + escapeHtml(message) + '</span>';
     chatMessages.appendChild(messageDiv);
     scrollToBottom();
-    
-    // Add to chat history
     chatHistory.push({ sender: 'clippy', text: message });
 }
 
@@ -828,7 +791,7 @@ async function getChatGPTResponse(message) {
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error('HTTP error! status: ' + response.status);
         }
 
         const data = await response.json();
