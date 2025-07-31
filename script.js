@@ -29,14 +29,14 @@ function updateTime() {
     const now = new Date();
     const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     document.getElementById('current-time').textContent = timeString;
+}
 
-// Toggle Start Menu
 function toggleStartMenu() {
     const startMenu = document.getElementById('startMenu');
     startMenu.style.display = startMenu.style.display === 'block' ? 'none' : 'block';
+}
 // (removed extraneous closing brace)
 
-// Open Window
 function openWindow(windowId) {
     const windowElement = document.getElementById(windowId + 'Window');
     if (!windowElement) return;
@@ -75,8 +75,8 @@ function openWindow(windowId) {
     
     // Play window open sound simulation
     playSound('open');
-
-// Close Window
+}
+    playSound('open');
 function closeWindow(windowId) {
     const windowElement = document.getElementById(windowId);
     if (!windowElement) return;
@@ -97,6 +97,9 @@ function closeWindow(windowId) {
         }
     }, 200);
     
+    // Play window close sound simulation
+    playSound('close');
+}
     // Play window close sound simulation
     playSound('close');
 
@@ -623,7 +626,6 @@ document.addEventListener('keydown', function(e) {
 // Dragging for desktop icons is fully removed. Only click events should open windows.
 
 // Fake File System Functions
-function openFolder(folderId) {
 // Dragging for desktop icons is disabled. Only handle click to open window.
 // Remove startDrag and all drag logic entirely.
 function openFolder(folderId) {
@@ -863,5 +865,4 @@ function getStaticResponse(message) {
     ];
     
     return responses[Math.floor(Math.random() * responses.length)];
-}
 }
