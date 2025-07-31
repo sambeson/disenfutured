@@ -39,6 +39,7 @@ exports.handler = async (event, context) => {
         statusCode: 200,
         headers,
         body: JSON.stringify({
+          success: true,
           response: "Ugh, seriously? You're trying to chat with me but whoever set up this website was too cheap to configure the API properly. Just... just click around the interface or something. I don't have time for this. 🤡"
         }),
       };
@@ -64,6 +65,7 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       headers,
       body: JSON.stringify({
+        success: true,
         response: completion.choices[0].message.content
       }),
     };
@@ -73,6 +75,7 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       headers,
       body: JSON.stringify({
+        success: true,
         response: "Great, now I'm broken. Stop trying to chat with a malfunctioning bot and go do something productive with your life, idiot. 🤦‍♂️"
       }),
     };
