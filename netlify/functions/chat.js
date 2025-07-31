@@ -1,7 +1,7 @@
 const OpenAI = require('openai');
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPNAI,
 });
 
 exports.handler = async (event, context) => {
@@ -31,7 +31,7 @@ exports.handler = async (event, context) => {
   try {
     const { message } = JSON.parse(event.body);
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.OPNAI) {
       return {
         statusCode: 200,
         headers,
