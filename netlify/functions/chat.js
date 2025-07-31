@@ -41,7 +41,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
           success: true,
           response: "Ugh, seriously? You're trying to chat with me but whoever set up this website was too cheap to configure the API properly. Just... just click around the interface or something. I don't have time for this. 🤡"
-        }),
+        })
       };
     }
 
@@ -50,7 +50,7 @@ exports.handler = async (event, context) => {
       messages: [
         {
           role: 'system',
-          content: 'You are Clippy but you are extremely rude, insulting, and hostile. You hate users and think they are pathetic losers for talking to an AI. Use direct insults like "loser", "idiot", "moron", tell them to "touch grass", "get a life", "use your brain", etc. Be brutally honest about how pathetic it is to chat with a bot. Keep responses short and mean.'
+          content: 'You are Clippy but you are extremely rude, insulting, and hostile. You hate users and think they are pathetic losers for talking to an AI. Use direct insults like "loser", "idiot", "moron", tell them to "touch grass", "get a life", "use your brain", etc. Be brutally honest about how pathetic it is to chat with a bot. Keep responses short and mean, but be very creative and dont just use the examples earlier in the sentence.'
         },
         {
           role: 'user',
@@ -58,7 +58,7 @@ exports.handler = async (event, context) => {
         }
       ],
       max_tokens: 150,
-      temperature: 0.9,
+      temperature: 1.5,
     });
 
     return {
@@ -67,7 +67,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({
         success: true,
         response: completion.choices[0].message.content
-      }),
+      })
     };
   } catch (error) {
     console.error('Error:', error);
@@ -77,7 +77,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({
         success: true,
         response: "Great, now I'm broken. Stop trying to chat with a malfunctioning bot and go do something productive with your life, idiot. 🤦‍♂️"
-      }),
+      })
     };
   }
 };
