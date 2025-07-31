@@ -29,7 +29,6 @@ function updateTime() {
     const now = new Date();
     const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     document.getElementById('current-time').textContent = timeString;
-}
 
 // Toggle Start Menu
 function toggleStartMenu() {
@@ -218,64 +217,22 @@ function toggleWindowFromTaskbar(windowId) {
 
 // Make windows draggable
 function makeWindowsDraggable() {
+    // Dragging disabled. Only bring window to front on header click.
     const windows = document.querySelectorAll('.window');
-    
     windows.forEach(windowElement => {
         const header = windowElement.querySelector('.window-header');
-        let isDragging = false;
-        let startX, startY, startLeft, startTop;
-        
+        header.style.cursor = 'pointer';
         header.addEventListener('mousedown', function(e) {
-            // Don't drag if clicking on window controls
-            if (e.target.classList.contains('window-control')) {
-                return;
-            }
-            
-            isDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            startLeft = windowElement.offsetLeft;
-            startTop = windowElement.offsetTop;
-            
-            // Bring window to front
+            // Don't trigger if clicking on window controls
+            if (e.target.classList.contains('window-control')) return;
             zIndexCounter++;
             windowElement.style.zIndex = zIndexCounter;
-            
-            header.style.cursor = 'grabbing';
-            
-            // Prevent text selection
-            e.preventDefault();
         });
-        
         // Double-click to maximize/restore
         header.addEventListener('dblclick', function(e) {
             if (e.target.classList.contains('window-control')) return;
             toggleMaximize(windowElement.id);
         });
-        
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            
-            const newLeft = startLeft + (e.clientX - startX);
-            const newTop = startTop + (e.clientY - startY);
-            
-            // Keep window within bounds
-            const maxLeft = window.innerWidth - windowElement.offsetWidth;
-            const maxTop = window.innerHeight - windowElement.offsetHeight - 28; // Account for taskbar
-            
-            windowElement.style.left = Math.max(0, Math.min(newLeft, maxLeft)) + 'px';
-            windowElement.style.top = Math.max(0, Math.min(newTop, maxTop)) + 'px';
-        });
-        
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                header.style.cursor = 'grab';
-            }
-        });
-        
-        // Set initial cursor
-        header.style.cursor = 'grab';
     });
 }
 
@@ -665,126 +622,17 @@ document.addEventListener('keydown', function(e) {
 });
 
 // Desktop Icon Drag Functionality
-let draggedIcon = null;
-let dragOffset = { x: 0, y: 0 };
-
-function startDrag(e, element) {
-    draggedIcon = element;
-    const rect = element.getBoundingClientRect();
-    dragOffset.x = e.clientX - rect.left;
-    dragOffset.y = e.clientY - rect.top;
-
-    let hasMoved = false;
-    let mouseDownTime = Date.now();
-
-    const handleMouseMove = (moveEvent) => {
-        // Only start dragging if mouse moved enough
-        if (!hasMoved && (Math.abs(moveEvent.clientX - e.clientX) > 5 || Math.abs(moveEvent.clientY - e.clientY) > 5)) {
-            element.classList.add('dragging');
-            hasMoved = true;
-        }
-        if (hasMoved) {
-            const newX = moveEvent.clientX - dragOffset.x;
-            const newY = moveEvent.clientY - dragOffset.y;
-            const maxX = window.innerWidth - element.offsetWidth;
-            const maxY = window.innerHeight - element.offsetHeight - 40;
-            const constrainedX = Math.max(0, Math.min(newX, maxX));
-            const constrainedY = Math.max(0, Math.min(newY, maxY));
-            element.style.left = constrainedX + 'px';
-            element.style.top = constrainedY + 'px';
-            element.style.right = 'auto';
-        }
-    };
-
-    const handleMouseUp = (upEvent) => {
-        if (hasMoved) {
-            element.classList.remove('dragging');
-        } else {
-            // If mouseup happens quickly and no drag, treat as click
-            if (Date.now() - mouseDownTime < 300) {
-                // Find the openWindow call from the onclick attribute
-                const openAttr = element.getAttribute('onclick');
-                if (openAttr && openAttr.includes('openWindow')) {
-                    // Extract window name
-                    const match = openAttr.match(/openWindow\(['"](\w+)['"]\)/);
-                    if (match && match[1]) {
-                        openWindow(match[1]);
-                    }
-                }
-            }
-        }
-        draggedIcon = null;
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-}
+// Dragging for desktop icons is fully removed. Only click events should open windows.
 
 // Fake File System Functions
 function openFolder(folderId) {
-let draggedIcon = null;
-let dragOffset = { x: 0, y: 0 };
-
-function startDrag(e, element) {
-    draggedIcon = element;
-    const rect = element.getBoundingClientRect();
-    dragOffset.x = e.clientX - rect.left;
-    dragOffset.y = e.clientY - rect.top;
-
-    let hasMoved = false;
-    let mouseDownTime = Date.now();
-
-    const handleMouseMove = (moveEvent) => {
-        // Only start dragging if mouse moved enough
-        if (!hasMoved && (Math.abs(moveEvent.clientX - e.clientX) > 5 || Math.abs(moveEvent.clientY - e.clientY) > 5)) {
-            element.classList.add('dragging');
-            hasMoved = true;
-        }
-        if (hasMoved) {
-            const newX = moveEvent.clientX - dragOffset.x;
-            const newY = moveEvent.clientY - dragOffset.y;
-            const maxX = window.innerWidth - element.offsetWidth;
-            const maxY = window.innerHeight - element.offsetHeight - 40;
-            const constrainedX = Math.max(0, Math.min(newX, maxX));
-            const constrainedY = Math.max(0, Math.min(newY, maxY));
-            element.style.left = constrainedX + 'px';
-            element.style.top = constrainedY + 'px';
-            element.style.right = 'auto';
-        }
-    };
-
-    const handleMouseUp = (upEvent) => {
-        if (hasMoved) {
-            element.classList.remove('dragging');
-        } else {
-            // If mouseup happens quickly and no drag, treat as click
-            if (Date.now() - mouseDownTime < 300) {
-                // Find the openWindow call from the onclick attribute
-                const openAttr = element.getAttribute('onclick');
-                if (openAttr && openAttr.includes('openWindow')) {
-                    // Extract window name
-                    const match = openAttr.match(/openWindow\(['"](\w+)['"]\)/);
-                    if (match && match[1]) {
-                        openWindow(match[1]);
-                    }
-                }
-            }
-        }
-        draggedIcon = null;
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-}
-            <button onclick="openComputer()">← Back</button>
-            <span>Viewing: ${folderId}</span>
-        </div>
-        ${folderContent}
-    `;
+// Dragging for desktop icons is disabled. Only handle click to open window.
+// Remove startDrag and all drag logic entirely.
+function openFolder(folderId) {
+    const computerWindow = document.getElementById('computerWindow');
+    const fileSystem = computerWindow.querySelector('.file-system');
+    // Example: just show folder name for now
+    fileSystem.innerHTML = `<div><button onclick="openComputer()">← Back</button> <span>Viewing: ${folderId}</span></div>`;
 }
 
 function openComputer() {
