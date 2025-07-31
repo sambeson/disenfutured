@@ -1,0 +1,26 @@
+{
+  "name": "disenfutured-website",
+  "version": "1.0.0",
+  "description": "Windows 98 styled website with Clippy chatbot",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "echo 'No build step required'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": ["windows-98", "chatbot", "clippy", "retro", "web"],
+  "author": "DISENFUTURED",
+  "license": "MIT"
+}
