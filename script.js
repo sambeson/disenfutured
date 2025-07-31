@@ -75,7 +75,6 @@ function openWindow(windowId) {
     
     // Play window open sound simulation
     playSound('open');
-}
 
 // Close Window
 function closeWindow(windowId) {
@@ -100,7 +99,6 @@ function closeWindow(windowId) {
     
     // Play window close sound simulation
     playSound('close');
-}
 
 // Focus Window (bring to front)
 function focusWindow(windowElement, windowId) {
@@ -865,4 +863,5 @@ function getStaticResponse(message) {
     ];
     
     return responses[Math.floor(Math.random() * responses.length)];
+}
 }

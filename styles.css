@@ -956,7 +956,7 @@ h3 {
     align-items: center;
     width: 64px;
     text-align: center;
-    cursor: move;
+    cursor: pointer;
     pointer-events: all;
     padding: 4px;
     border-radius: 2px;
