@@ -997,11 +997,11 @@ async function getChatGPTResponse(message) {
 // Static fallback responses
 function getStaticResponse(message) {
     const responses = [
-        "That's an interesting question! I'm specialized in helping with DISENFUTURED-related topics. Try asking me about their music, band members, shows, merch, or contact information. Or ask me something about this retro website!",
-        "Hi there! I'm here to help you learn about DISENFUTURED! They're a hardcore punk band from New Jersey with an awesome retro website. What would you like to know?",
-        "Great question! DISENFUTURED has some amazing demos on Bandcamp. Their self-titled album is coming in 2025! Want to know more about the band or their merch?",
-        "Looking for DISENFUTURED info? I can tell you about their band members, music, upcoming shows, or merch! What interests you most?",
-        "I see you're exploring this Windows 98-style website! Pretty cool, right? I'm here to help you learn about DISENFUTURED. What can I help you with?"
+        "Stop asking an AI bot basic questions and use your brain, moron. DISENFUTURED is a band. Figure out the rest yourself.",
+        "Seriously? You're talking to a broken chatbot instead of just looking around the website? Touch grass, loser.",
+        "Why are you even here? Go listen to actual music instead of wasting time with a bot, idiot.",
+        "Bro, it's literally a band website. Click around and figure it out yourself instead of being lazy.",
+        "Imagine needing to ask a chatbot about obvious stuff. Get a life and stop being so helpless."
     ];
     
     return responses[Math.floor(Math.random() * responses.length)];

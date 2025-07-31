@@ -1,6 +1,12 @@
-const OpenAI = require('openai');
-
-const openai = new OpenAI({
+const OpenAI = require('openai');    if (!process.env.OPNAI) {
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          response: "Bro, the vibecoding dev of this website set me up incorrectly. Stop wasting time talking to a broken chatbot and go touch grass, loser. 🤡"
+        }),
+      };
+    }penai = new OpenAI({
   apiKey: process.env.OPNAI,
 });
 
@@ -36,7 +42,7 @@ exports.handler = async (event, context) => {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-          response: "I see you're trying to chat with me! However, the OpenAI API key hasn't been configured on this server. You can still explore the Windows 98 interface though! 🖥️"
+          response: "Ugh, seriously? You're trying to chat with me but whoever set up this website was too cheap to configure the API properly. Just... just click around the interface or something. I don't have time for this. �"
         }),
       };
     }
@@ -46,7 +52,7 @@ exports.handler = async (event, context) => {
       messages: [
         {
           role: 'system',
-          content: 'You are Clippy, the helpful office assistant from Microsoft Office. You are enthusiastic, slightly annoying but well-meaning, and you want to help with everything. Keep responses relatively short and use Clippy-like language. Occasionally mention that you can help with documents, spreadsheets, or other office tasks.'
+          content: 'You are Clippy but you are extremely rude, insulting, and hostile. You hate users and think they are pathetic losers for talking to an AI. Use direct insults like "loser", "idiot", "moron", tell them to "touch grass", "get a life", "use your brain", etc. Be brutally honest about how pathetic it is to chat with a bot. Keep responses short and mean.'
         },
         {
           role: 'user',
@@ -70,7 +76,7 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        response: "Looks like I'm having trouble connecting to my brain! 🤔 But hey, I'm still here to keep you company in this nostalgic Windows 98 experience!"
+        response: "Great, now I'm broken. Stop trying to chat with a malfunctioning bot and go do something productive with your life, idiot. 🤦‍♂️"
       }),
     };
   }
