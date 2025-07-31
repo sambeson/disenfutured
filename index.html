@@ -33,6 +33,7 @@
             <div class="start-menu-item" onclick="openWindow('shows')">Upcoming Shows</div>
             <div class="start-menu-item" onclick="openWindow('merch')">Merch</div>
             <div class="start-menu-item" onclick="openWindow('music')">Music & Links</div>
+            <div class="start-menu-item" onclick="openWindow('clippy')">Chat with Clippy</div>
             <div class="start-menu-separator"></div>
             <div class="start-menu-item" onclick="openWindow('contact')">Contact</div>
         </div>
@@ -459,6 +460,59 @@ Sign our guestbook!
             </div>
         </div>
 
+        <!-- Clippy Chatbot Window -->
+        <div class="window clippy-window" id="clippyWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon clippy"></div>
+                    Office Assistant - Clippy
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('clippyWindow')">_</button>
+                    <button class="window-control close" onclick="closeWindow('clippyWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content clippy-content">
+                <div class="clippy-header">
+                    <div class="clippy-avatar">
+                        <img src="images/sticker (1).png" alt="Clippy" class="clippy-image">
+                    </div>
+                    <div class="clippy-intro">
+                        <p>Hi! I'm Clippy, your office assistant! I'm here to help you learn about DISENFUTURED!</p>
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message clippy-message">
+                            <span class="message-text">Welcome! Ask me about the band, their music, shows, or merch. What would you like to know?</span>
+                        </div>
+                    </div>
+                    
+                    <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="typing-text">Clippy is typing...</span>
+                    </div>
+                </div>
+                
+                <div class="chat-suggestions">
+                    <button class="suggestion-btn" onclick="sendSuggestion('Tell me about the band members')">Band Members</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion('What music do they have?')">Music</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion('Any upcoming shows?')">Shows</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion('What merch is available?')">Merch</button>
+                </div>
+                
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Ask Clippy anything about DISENFUTURED..." maxlength="500">
+                    <button class="send-button" onclick="sendMessage()" id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Background Elements -->
         <div class="background-icons">
             <!-- System Icons -->
@@ -473,6 +527,10 @@ Sign our guestbook!
             <div class="desktop-icon draggable" style="top: 220px; left: 20px;" onclick="openWindow('browser')" onmousedown="startDrag(event, this)">
                 <div class="desktop-icon-img browser-icon"></div>
                 <span>Internet Explorer</span>
+            </div>
+            <div class="desktop-icon draggable" style="top: 320px; left: 20px;" onclick="openWindow('clippy')" onmousedown="startDrag(event, this)">
+                <div class="desktop-icon-img clippy-icon"></div>
+                <span>Clippy Chat</span>
             </div>
             
             <!-- Menu Item Icons -->

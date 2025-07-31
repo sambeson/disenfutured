@@ -837,7 +837,172 @@ function openWindow(windowId) {
         windowId = 'recycle';
     } else if (windowId === 'browser') {
         windowId = 'browser';
+    } else if (windowId === 'clippy') {
+        windowId = 'clippy';
+        initializeClippy();
     }
     
     return originalOpenWindow(windowId);
+}
+
+// ===== CLIPPY CHATBOT FUNCTIONALITY =====
+
+let chatHistory = [];
+let isClippyTyping = false;
+
+// Initialize Clippy when window opens
+function initializeClippy() {
+    const chatInput = document.getElementById('chatInput');
+    const sendButton = document.getElementById('sendButton');
+    
+    // Add enter key listener
+    chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+    
+    // Add input listener for send button state
+    chatInput.addEventListener('input', function() {
+        sendButton.disabled = this.value.trim() === '';
+    });
+}
+
+// Send user message
+function sendMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const message = chatInput.value.trim();
+    
+    if (message === '' || isClippyTyping) return;
+    
+    // Add user message to chat
+    addUserMessage(message);
+    
+    // Clear input
+    chatInput.value = '';
+    document.getElementById('sendButton').disabled = true;
+    
+    // Add to chat history
+    chatHistory.push({ sender: 'user', text: message });
+    
+    // Show typing indicator and get response
+    showTypingIndicator();
+    getChatGPTResponse(message);
+}
+
+// Send suggestion message
+function sendSuggestion(message) {
+    const chatInput = document.getElementById('chatInput');
+    chatInput.value = message;
+    sendMessage();
+}
+
+// Add user message to chat
+function addUserMessage(message) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'chat-message user-message';
+    messageDiv.innerHTML = `<span class="message-text">${escapeHtml(message)}</span>`;
+    
+    chatMessages.appendChild(messageDiv);
+    scrollToBottom();
+}
+
+// Add Clippy message to chat
+function addClippyMessage(message) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'chat-message clippy-message';
+    messageDiv.innerHTML = `<span class="message-text">${escapeHtml(message)}</span>`;
+    
+    chatMessages.appendChild(messageDiv);
+    scrollToBottom();
+    
+    // Add to chat history
+    chatHistory.push({ sender: 'clippy', text: message });
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+    isClippyTyping = true;
+    const typingIndicator = document.getElementById('typingIndicator');
+    typingIndicator.style.display = 'flex';
+    scrollToBottom();
+}
+
+// Hide typing indicator
+function hideTypingIndicator() {
+    isClippyTyping = false;
+    const typingIndicator = document.getElementById('typingIndicator');
+    typingIndicator.style.display = 'none';
+}
+
+// Scroll chat to bottom
+function scrollToBottom() {
+    const chatContainer = document.querySelector('.chat-container');
+    setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }, 100);
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Get ChatGPT response from backend
+async function getChatGPTResponse(message) {
+    try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: message,
+                chatHistory: chatHistory.slice(-10) // Send last 10 messages for context
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Simulate typing delay
+        setTimeout(() => {
+            hideTypingIndicator();
+            
+            if (data.success && data.response) {
+                addClippyMessage(data.response);
+            } else {
+                addClippyMessage("I'm having trouble connecting right now. Try asking me about DISENFUTURED's music, shows, or merch!");
+            }
+        }, 1000 + Math.random() * 2000); // Random delay between 1-3 seconds
+
+    } catch (error) {
+        console.error('Chat error:', error);
+        
+        setTimeout(() => {
+            hideTypingIndicator();
+            addClippyMessage(getStaticResponse(message));
+        }, 1500);
+    }
+}
+
+// Static fallback responses
+function getStaticResponse(message) {
+    const responses = [
+        "That's an interesting question! I'm specialized in helping with DISENFUTURED-related topics. Try asking me about their music, band members, shows, merch, or contact information. Or ask me something about this retro website!",
+        "Hi there! I'm here to help you learn about DISENFUTURED! They're a hardcore punk band from New Jersey with an awesome retro website. What would you like to know?",
+        "Great question! DISENFUTURED has some amazing demos on Bandcamp. Their self-titled album is coming in 2025! Want to know more about the band or their merch?",
+        "Looking for DISENFUTURED info? I can tell you about their band members, music, upcoming shows, or merch! What interests you most?",
+        "I see you're exploring this Windows 98-style website! Pretty cool, right? I'm here to help you learn about DISENFUTURED. What can I help you with?"
+    ];
+    
+    return responses[Math.floor(Math.random() * responses.length)];
 }

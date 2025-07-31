@@ -1729,3 +1729,222 @@ h3 {
             transparent 2px
         );
 }
+
+/* ===== CLIPPY CHATBOT STYLES ===== */
+
+/* Clippy Window Specific Styles */
+.clippy-window {
+    width: 400px;
+    height: 500px;
+    max-width: 90vw;
+    max-height: 80vh;
+}
+
+.clippy-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 8px;
+    gap: 8px;
+}
+
+/* Clippy Header */
+.clippy-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px;
+    background: var(--win98-light-gray);
+    border: 1px inset var(--win98-gray);
+    margin-bottom: 8px;
+}
+
+.clippy-avatar {
+    flex-shrink: 0;
+}
+
+.clippy-image {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.clippy-intro {
+    flex: 1;
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+/* Chat Container */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px inset var(--win98-gray);
+    background: var(--win98-white);
+    overflow: hidden;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+/* Chat Messages */
+.chat-message {
+    display: flex;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    align-self: flex-end;
+    justify-content: flex-end;
+}
+
+.user-message .message-text {
+    background: var(--win98-blue);
+    color: var(--win98-white);
+    padding: 6px 10px;
+    border-radius: 2px;
+    border: 1px outset var(--win98-blue);
+}
+
+.clippy-message {
+    align-self: flex-start;
+}
+
+.clippy-message .message-text {
+    background: var(--win98-light-gray);
+    color: var(--win98-black);
+    padding: 6px 10px;
+    border: 1px inset var(--win98-gray);
+    border-radius: 2px;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    font-size: 10px;
+    color: var(--win98-dark-gray);
+}
+
+.typing-dots {
+    display: flex;
+    gap: 2px;
+}
+
+.typing-dots span {
+    width: 4px;
+    height: 4px;
+    background: var(--win98-dark-gray);
+    border-radius: 50%;
+    animation: typing-pulse 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing-pulse {
+    0%, 60%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    30% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* Chat Suggestions */
+.chat-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px 0;
+}
+
+.suggestion-btn {
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    padding: 4px 8px;
+    font-size: 10px;
+    font-family: 'MS Sans Serif', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.suggestion-btn:hover {
+    background: var(--win98-light-gray);
+}
+
+.suggestion-btn:active {
+    border: 1px inset var(--win98-gray);
+}
+
+/* Chat Input */
+.chat-input-container {
+    display: flex;
+    gap: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--win98-dark-gray);
+}
+
+.chat-input {
+    flex: 1;
+    padding: 4px;
+    border: 1px inset var(--win98-gray);
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    background: var(--win98-white);
+}
+
+.send-button {
+    background: var(--win98-gray);
+    border: 1px outset var(--win98-gray);
+    padding: 4px 12px;
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.send-button:hover:not(:disabled) {
+    background: var(--win98-light-gray);
+}
+
+.send-button:active:not(:disabled) {
+    border: 1px inset var(--win98-gray);
+}
+
+.send-button:disabled {
+    color: var(--win98-dark-gray);
+    cursor: not-allowed;
+}
+
+/* Clippy Desktop Icon */
+.clippy-icon {
+    background: url('images/sticker\ \(1\).png') no-repeat center;
+    background-size: contain;
+}
+
+/* Window Icon for Clippy */
+.window-icon.clippy {
+    background: url('images/sticker\ \(1\).png') no-repeat center;
+    background-size: contain;
+}
+}
