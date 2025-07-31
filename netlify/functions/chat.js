@@ -1,6 +1,6 @@
 
 const OpenAI = require('openai');
-const apiKey = process.env.OPNAI || process.env.OPENAI_API_KEY;
+const apiKey = process.env.opnai;
 let openai;
 if (apiKey) {
   openai = new OpenAI({ apiKey });
