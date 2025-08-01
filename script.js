@@ -681,7 +681,7 @@ function addClippyMessage(message) {
     const chatMessages = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
     messageDiv.className = 'chat-message clippy-message';
-    messageDiv.innerHTML = '<span class="message-text"><img src="images/258-2580697_clippy-png-png-download-clippy-windows-transparent-png.png" alt="Clippy" style="height:24px;vertical-align:middle;margin-right:6px;" />' + escapeHtml(message) + '</span>';
+    messageDiv.innerHTML = '<span class="message-text"><img src="images/258-2580697_clippy-png-png-download-clippy-windows-transparent-png.png" alt="Clippy" style="height:24px;vertical-align:middle;margin-right:6px;background:transparent;" />' + escapeHtml(message) + '</span>';
     chatMessages.appendChild(messageDiv);
     scrollToBottom();
     chatHistory.push({ sender: 'clippy', text: message });
