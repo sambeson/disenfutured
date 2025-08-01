@@ -669,6 +669,12 @@ function sendMessage() {
     getChatGPTResponse(message);
 // Big Chungus Easter Egg
 function triggerBigChungus() {
+    // Hide all windows and desktop
+    const desktop = document.querySelector('.desktop');
+    if (desktop) desktop.style.display = 'none';
+    const windows = document.querySelectorAll('.window');
+    windows.forEach(win => win.style.display = 'none');
+
     // Create overlay
     let chungusOverlay = document.getElementById('chungusOverlay');
     if (!chungusOverlay) {
@@ -677,6 +683,7 @@ function triggerBigChungus() {
         chungusOverlay.style.cssText = `
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #222;
             pointer-events: none;
             z-index: 99999;
         `;
@@ -691,8 +698,8 @@ function triggerBigChungus() {
         position: absolute;
         left: 50vw;
         top: 50vh;
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
         transform: translate(-50%, -50%) rotate(0deg);
         will-change: transform;
         transition: none;
@@ -704,13 +711,13 @@ function triggerBigChungus() {
     chungusText.textContent = 'BIG CHUNGUS';
     chungusText.style.cssText = `
         position: fixed;
-        top: 20%;
+        top: 18%;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 6vw;
+        font-size: 8vw;
         font-family: Impact, Arial Black, sans-serif;
         color: #ff00ff;
-        text-shadow: 0 0 20px #fff, 0 0 40px #ff00ff;
+        text-shadow: 0 0 40px #fff, 0 0 80px #ff00ff;
         font-weight: bold;
         animation: chungus-flash 0.2s alternate infinite;
         z-index: 999999;
@@ -719,17 +726,17 @@ function triggerBigChungus() {
     chungusOverlay.appendChild(chungusText);
     // Animate image bouncing and spinning
     let angle = 0;
-    let vx = (Math.random() > 0.5 ? 1 : -1) * 6;
-    let vy = (Math.random() > 0.5 ? 1 : -1) * 5;
-    let x = window.innerWidth / 2 - 100;
-    let y = window.innerHeight / 2 - 100;
+    let vx = (Math.random() > 0.5 ? 1 : -1) * 10;
+    let vy = (Math.random() > 0.5 ? 1 : -1) * 8;
+    let x = window.innerWidth / 2 - 150;
+    let y = window.innerHeight / 2 - 150;
     function animateChungus() {
-        angle += 12;
+        angle += 18;
         x += vx;
         y += vy;
         // Bounce off edges
-        if (x < 0 || x > window.innerWidth - 200) vx *= -1;
-        if (y < 0 || y > window.innerHeight - 200) vy *= -1;
+        if (x < 0 || x > window.innerWidth - 300) vx *= -1;
+        if (y < 0 || y > window.innerHeight - 300) vy *= -1;
         chungusImg.style.left = x + 'px';
         chungusImg.style.top = y + 'px';
         chungusImg.style.transform = `rotate(${angle}deg)`;
@@ -743,6 +750,9 @@ function triggerBigChungus() {
         if (frame > 150) {
             chungusOverlay.innerHTML = '';
             clearInterval(interval);
+            // Restore desktop and windows
+            if (desktop) desktop.style.display = '';
+            windows.forEach(win => win.style.display = '');
         }
     }, 33);
 }
