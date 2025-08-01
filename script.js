@@ -734,15 +734,17 @@ function triggerBigChungus() {
     let angle = 0;
     let vx = (Math.random() > 0.5 ? 1 : -1) * 14;
     let vy = (Math.random() > 0.5 ? 1 : -1) * 12;
-    let x = window.innerWidth / 2 - 160;
-    let y = window.innerHeight / 2 - 160;
+    let x = Math.random() * (window.innerWidth - 320);
+    let y = Math.random() * (window.innerHeight - 320);
     function animateChungus() {
         angle += 24;
         x += vx;
         y += vy;
         // Bounce off edges
-        if (x < 0 || x > window.innerWidth - 320) vx *= -1;
-        if (y < 0 || y > window.innerHeight - 320) vy *= -1;
+        if (x < 0) { x = 0; vx *= -1; }
+        if (x > window.innerWidth - 320) { x = window.innerWidth - 320; vx *= -1; }
+        if (y < 0) { y = 0; vy *= -1; }
+        if (y > window.innerHeight - 320) { y = window.innerHeight - 320; vy *= -1; }
         chungusImg.style.left = x + 'px';
         chungusImg.style.top = y + 'px';
         chungusImg.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
