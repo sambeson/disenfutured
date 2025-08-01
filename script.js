@@ -669,11 +669,14 @@ function sendMessage() {
     getChatGPTResponse(message);
 // Big Chungus Easter Egg
 function triggerBigChungus() {
-    // Hide all windows and desktop
+    // Hide everything
+    document.body.style.background = '#000';
     const desktop = document.querySelector('.desktop');
     if (desktop) desktop.style.display = 'none';
     const windows = document.querySelectorAll('.window');
     windows.forEach(win => win.style.display = 'none');
+    const backgroundIcons = document.querySelector('.background-icons');
+    if (backgroundIcons) backgroundIcons.style.display = 'none';
 
     // Create overlay
     let chungusOverlay = document.getElementById('chungusOverlay');
@@ -683,27 +686,28 @@ function triggerBigChungus() {
         chungusOverlay.style.cssText = `
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #222;
+            background: #000;
             pointer-events: none;
             z-index: 99999;
         `;
         document.body.appendChild(chungusOverlay);
     }
     chungusOverlay.innerHTML = '';
-    // Add Big Chungus image
+    // Add Big Chungus image (PNG)
     const chungusImg = document.createElement('img');
-    chungusImg.src = 'images/Big_chungus.webp';
+    chungusImg.src = 'images/Big_chungus.png';
     chungusImg.alt = 'Big Chungus';
     chungusImg.style.cssText = `
         position: absolute;
         left: 50vw;
         top: 50vh;
-        width: 300px;
-        height: 300px;
+        width: 320px;
+        height: 320px;
         transform: translate(-50%, -50%) rotate(0deg);
         will-change: transform;
         transition: none;
         pointer-events: none;
+        filter: drop-shadow(0 0 40px #fff);
     `;
     chungusOverlay.appendChild(chungusImg);
     // Add flashing text
@@ -714,10 +718,10 @@ function triggerBigChungus() {
         top: 18%;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 8vw;
+        font-size: 9vw;
         font-family: Impact, Arial Black, sans-serif;
         color: #ff00ff;
-        text-shadow: 0 0 40px #fff, 0 0 80px #ff00ff;
+        text-shadow: 0 0 60px #fff, 0 0 120px #ff00ff;
         font-weight: bold;
         animation: chungus-flash 0.2s alternate infinite;
         z-index: 999999;
@@ -726,20 +730,20 @@ function triggerBigChungus() {
     chungusOverlay.appendChild(chungusText);
     // Animate image bouncing and spinning
     let angle = 0;
-    let vx = (Math.random() > 0.5 ? 1 : -1) * 10;
-    let vy = (Math.random() > 0.5 ? 1 : -1) * 8;
-    let x = window.innerWidth / 2 - 150;
-    let y = window.innerHeight / 2 - 150;
+    let vx = (Math.random() > 0.5 ? 1 : -1) * 14;
+    let vy = (Math.random() > 0.5 ? 1 : -1) * 12;
+    let x = window.innerWidth / 2 - 160;
+    let y = window.innerHeight / 2 - 160;
     function animateChungus() {
-        angle += 18;
+        angle += 24;
         x += vx;
         y += vy;
         // Bounce off edges
-        if (x < 0 || x > window.innerWidth - 300) vx *= -1;
-        if (y < 0 || y > window.innerHeight - 300) vy *= -1;
+        if (x < 0 || x > window.innerWidth - 320) vx *= -1;
+        if (y < 0 || y > window.innerHeight - 320) vy *= -1;
         chungusImg.style.left = x + 'px';
         chungusImg.style.top = y + 'px';
-        chungusImg.style.transform = `rotate(${angle}deg)`;
+        chungusImg.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
         chungusImg.style.transition = 'none';
     }
     let frame = 0;
@@ -751,8 +755,10 @@ function triggerBigChungus() {
             chungusOverlay.innerHTML = '';
             clearInterval(interval);
             // Restore desktop and windows
+            document.body.style.background = '';
             if (desktop) desktop.style.display = '';
             windows.forEach(win => win.style.display = '');
+            if (backgroundIcons) backgroundIcons.style.display = '';
         }
     }, 33);
 }
