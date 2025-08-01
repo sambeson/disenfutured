@@ -644,6 +644,16 @@ function sendMessage() {
     
     if (message === '' || isClippyTyping) return;
     
+    // Big Chungus Easter Egg
+    if (message.trim().toLowerCase() === 'chunguschunguschungus') {
+        triggerBigChungus();
+        addUserMessage(message);
+        chatInput.value = '';
+        document.getElementById('sendButton').disabled = true;
+        chatHistory.push({ sender: 'user', text: message });
+        return;
+    }
+    
     // Add user message to chat
     addUserMessage(message);
     
@@ -657,6 +667,89 @@ function sendMessage() {
     // Show typing indicator and get response
     showTypingIndicator();
     getChatGPTResponse(message);
+// Big Chungus Easter Egg
+function triggerBigChungus() {
+    // Create overlay
+    let chungusOverlay = document.getElementById('chungusOverlay');
+    if (!chungusOverlay) {
+        chungusOverlay = document.createElement('div');
+        chungusOverlay.id = 'chungusOverlay';
+        chungusOverlay.style.cssText = `
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 99999;
+        `;
+        document.body.appendChild(chungusOverlay);
+    }
+    chungusOverlay.innerHTML = '';
+    // Add Big Chungus image
+    const chungusImg = document.createElement('img');
+    chungusImg.src = 'images/Big_chungus.webp';
+    chungusImg.alt = 'Big Chungus';
+    chungusImg.style.cssText = `
+        position: absolute;
+        left: 50vw;
+        top: 50vh;
+        width: 200px;
+        height: 200px;
+        transform: translate(-50%, -50%) rotate(0deg);
+        will-change: transform;
+        transition: none;
+        pointer-events: none;
+    `;
+    chungusOverlay.appendChild(chungusImg);
+    // Add flashing text
+    const chungusText = document.createElement('div');
+    chungusText.textContent = 'BIG CHUNGUS';
+    chungusText.style.cssText = `
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 6vw;
+        font-family: Impact, Arial Black, sans-serif;
+        color: #ff00ff;
+        text-shadow: 0 0 20px #fff, 0 0 40px #ff00ff;
+        font-weight: bold;
+        animation: chungus-flash 0.2s alternate infinite;
+        z-index: 999999;
+        pointer-events: none;
+    `;
+    chungusOverlay.appendChild(chungusText);
+    // Animate image bouncing and spinning
+    let angle = 0;
+    let vx = (Math.random() > 0.5 ? 1 : -1) * 6;
+    let vy = (Math.random() > 0.5 ? 1 : -1) * 5;
+    let x = window.innerWidth / 2 - 100;
+    let y = window.innerHeight / 2 - 100;
+    function animateChungus() {
+        angle += 12;
+        x += vx;
+        y += vy;
+        // Bounce off edges
+        if (x < 0 || x > window.innerWidth - 200) vx *= -1;
+        if (y < 0 || y > window.innerHeight - 200) vy *= -1;
+        chungusImg.style.left = x + 'px';
+        chungusImg.style.top = y + 'px';
+        chungusImg.style.transform = `rotate(${angle}deg)`;
+        chungusImg.style.transition = 'none';
+    }
+    let frame = 0;
+    const interval = setInterval(() => {
+        animateChungus();
+        frame++;
+        // Remove after 5 seconds
+        if (frame > 150) {
+            chungusOverlay.innerHTML = '';
+            clearInterval(interval);
+        }
+    }, 33);
+}
+// Add flashing text animation
+const chungusStyle = document.createElement('style');
+chungusStyle.textContent = `@keyframes chungus-flash { 0% { opacity: 1; color: #ff00ff; } 100% { opacity: 0.2; color: #ffff00; } }`;
+document.head.appendChild(chungusStyle);
 }
 
 // Send suggestion message
