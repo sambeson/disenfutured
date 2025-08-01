@@ -1938,16 +1938,23 @@ h3 {
 
 /* Clippy Desktop Icon */
 .clippy-icon {
-    width: 96px !important;
-    height: 128px !important;
+    width: 220px !important;
+    height: 300px !important;
     background: none !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
+    position: absolute;
+    left: 55%;
+    top: 18%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .clippy-icon img {
-    width: 100%;
-    height: 100%;
+    width: 220px;
+    height: 300px;
     object-fit: contain;
     display: block;
     background: none;
