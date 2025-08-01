@@ -670,6 +670,8 @@ function sendMessage() {
 // Big Chungus Easter Egg
 function triggerBigChungus() {
     // Hide everything
+    // Save original background
+    const originalBg = document.body.style.background;
     document.body.style.background = '#000';
     const desktop = document.querySelector('.desktop');
     if (desktop) desktop.style.display = 'none';
@@ -755,7 +757,7 @@ function triggerBigChungus() {
             chungusOverlay.innerHTML = '';
             clearInterval(interval);
             // Restore desktop and windows
-            document.body.style.background = '';
+            document.body.style.background = originalBg;
             if (desktop) desktop.style.display = '';
             windows.forEach(win => win.style.display = '');
             if (backgroundIcons) backgroundIcons.style.display = '';
