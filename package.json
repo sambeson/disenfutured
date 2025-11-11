@@ -1,7 +1,7 @@
 {
   "name": "disenfutured-website",
   "version": "1.0.0",
-  "description": "Windows 98 styled website with Clippy chatbot",
+  "description": "Windows 98 styled band website",
   "main": "server.js",
   "scripts": {
     "start": "echo 'This is a static site - open index.html in browser'",
@@ -10,7 +10,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "openai": "^4.76.1",
     "express": "^4.21.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7"
@@ -21,7 +20,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "keywords": ["windows-98", "chatbot", "clippy", "retro", "web"],
+  "keywords": ["windows-98", "retro", "web"],
   "author": "DISENFUTURED",
   "license": "MIT"
 }

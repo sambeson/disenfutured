@@ -218,17 +218,54 @@ function toggleWindowFromTaskbar(windowId) {
 
 // Make windows draggable
 function makeWindowsDraggable() {
-    // Dragging disabled. Only bring window to front on header click.
     const windows = document.querySelectorAll('.window');
     windows.forEach(windowElement => {
         const header = windowElement.querySelector('.window-header');
-        header.style.cursor = 'pointer';
+        header.style.cursor = 'move';
+        
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+        
         header.addEventListener('mousedown', function(e) {
             // Don't trigger if clicking on window controls
             if (e.target.classList.contains('window-control')) return;
+            
+            // Bring window to front
             zIndexCounter++;
             windowElement.style.zIndex = zIndexCounter;
+            
+            // Start dragging
+            isDragging = true;
+            
+            const rect = windowElement.getBoundingClientRect();
+            initialX = e.clientX - rect.left;
+            initialY = e.clientY - rect.top;
+            
+            e.preventDefault();
         });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging && windowElement.style.display === 'block') {
+                e.preventDefault();
+                
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+                
+                windowElement.style.left = currentX + 'px';
+                windowElement.style.top = currentY + 'px';
+                windowElement.style.position = 'fixed';
+            }
+        });
+        
+        document.addEventListener('mouseup', function(e) {
+            isDragging = false;
+        });
+        
         // Double-click to maximize/restore
         header.addEventListener('dblclick', function(e) {
             if (e.target.classList.contains('window-control')) return;
@@ -606,280 +643,10 @@ window.openWindow = function(windowId) {
     // Special cases: run extra logic, but always pass base ID to originalOpenWindow
     if (windowId === 'computer') {
         openComputer(); // Reset to main view
-    } else if (windowId === 'clippy') {
-        initializeClippy();
     }
     // Always call originalOpenWindow with the base windowId
     return originalOpenWindow(windowId);
 };
 
-// ===== CLIPPY CHATBOT FUNCTIONALITY =====
-
-let chatHistory = [];
-let isClippyTyping = false;
-
-// Initialize Clippy when window opens
-function initializeClippy() {
-    const chatInput = document.getElementById('chatInput');
-    const sendButton = document.getElementById('sendButton');
-    
-    // Add enter key listener
-    chatInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
-    
-    // Add input listener for send button state
-    chatInput.addEventListener('input', function() {
-        sendButton.disabled = this.value.trim() === '';
-    });
-}
-
-// Send user message
-function sendMessage() {
-    const chatInput = document.getElementById('chatInput');
-    const message = chatInput.value.trim();
-    
-    if (message === '' || isClippyTyping) return;
-    
-    // Big Chungus Easter Egg
-    if (message.trim().toLowerCase() === 'chunguschunguschungus') {
-        triggerBigChungus();
-        addUserMessage(message);
-        chatInput.value = '';
-        document.getElementById('sendButton').disabled = true;
-        chatHistory.push({ sender: 'user', text: message });
-        return;
-    }
-    
-    // Add user message to chat
-    addUserMessage(message);
-    
-    // Clear input
-    chatInput.value = '';
-    document.getElementById('sendButton').disabled = true;
-    
-    // Add to chat history
-    chatHistory.push({ sender: 'user', text: message });
-    
-    // Show typing indicator and get response
-    showTypingIndicator();
-    getChatGPTResponse(message);
-// Big Chungus Easter Egg
-function triggerBigChungus() {
-    // Hide everything
-    // Save original background
-    const originalBg = document.body.style.background;
-    document.body.style.background = '#000';
-    const desktop = document.querySelector('.desktop');
-    if (desktop) desktop.style.display = 'none';
-    const windows = document.querySelectorAll('.window');
-    windows.forEach(win => win.style.display = 'none');
-    const backgroundIcons = document.querySelector('.background-icons');
-    if (backgroundIcons) backgroundIcons.style.display = 'none';
-
-    // Create overlay
-    let chungusOverlay = document.getElementById('chungusOverlay');
-    if (!chungusOverlay) {
-        chungusOverlay = document.createElement('div');
-        chungusOverlay.id = 'chungusOverlay';
-        chungusOverlay.style.cssText = `
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000;
-            pointer-events: none;
-            z-index: 99999;
-        `;
-        document.body.appendChild(chungusOverlay);
-    }
-    chungusOverlay.innerHTML = '';
-    // Add Big Chungus image (PNG)
-    const chungusImg = document.createElement('img');
-    chungusImg.src = 'images/Big_chungus.png';
-    chungusImg.alt = 'Big Chungus';
-    chungusImg.style.cssText = `
-        position: absolute;
-        left: 50vw;
-        top: 50vh;
-        width: 320px;
-        height: 320px;
-        transform: translate(-50%, -50%) rotate(0deg);
-        will-change: transform;
-        transition: none;
-        pointer-events: none;
-        filter: drop-shadow(0 0 40px #fff);
-    `;
-    chungusOverlay.appendChild(chungusImg);
-    // Add flashing text
-    const chungusText = document.createElement('div');
-    chungusText.textContent = 'BIG CHUNGUS';
-    chungusText.style.cssText = `
-        position: fixed;
-        top: 18%;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 9vw;
-        font-family: Impact, Arial Black, sans-serif;
-        color: #ff00ff;
-        text-shadow: 0 0 60px #fff, 0 0 120px #ff00ff;
-        font-weight: bold;
-        animation: chungus-flash 0.2s alternate infinite;
-        z-index: 999999;
-        pointer-events: none;
-    `;
-    chungusOverlay.appendChild(chungusText);
-    // Animate image bouncing and spinning
-    let angle = 0;
-    let vx = (Math.random() > 0.5 ? 1 : -1) * 14;
-    let vy = (Math.random() > 0.5 ? 1 : -1) * 12;
-    let x = Math.random() * (window.innerWidth - 320);
-    let y = Math.random() * (window.innerHeight - 320);
-    function animateChungus() {
-        angle += 24;
-        x += vx;
-        y += vy;
-        // Bounce off edges
-        if (x < 0) { x = 0; vx *= -1; }
-        if (x > window.innerWidth - 320) { x = window.innerWidth - 320; vx *= -1; }
-        if (y < 0) { y = 0; vy *= -1; }
-        if (y > window.innerHeight - 320) { y = window.innerHeight - 320; vy *= -1; }
-        chungusImg.style.left = x + 'px';
-        chungusImg.style.top = y + 'px';
-        chungusImg.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-        chungusImg.style.transition = 'none';
-    }
-    let frame = 0;
-    const interval = setInterval(() => {
-        animateChungus();
-        frame++;
-        // Remove after 5 seconds
-        if (frame > 150) {
-            chungusOverlay.innerHTML = '';
-            clearInterval(interval);
-            // Restore desktop and windows
-            document.body.style.background = originalBg;
-            if (desktop) desktop.style.display = '';
-            windows.forEach(win => win.style.display = '');
-            if (backgroundIcons) backgroundIcons.style.display = '';
-        }
-    }, 33);
-}
-// Add flashing text animation
-const chungusStyle = document.createElement('style');
-chungusStyle.textContent = `@keyframes chungus-flash { 0% { opacity: 1; color: #ff00ff; } 100% { opacity: 0.2; color: #ffff00; } }`;
-document.head.appendChild(chungusStyle);
-}
-
-// Send suggestion message
-function sendSuggestion(message) {
-    const chatInput = document.getElementById('chatInput');
-    chatInput.value = message;
-    sendMessage();
-}
-
-// Add user message to chat
-function addUserMessage(message) {
-    const chatMessages = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'chat-message user-message';
-    messageDiv.innerHTML = '<span class="message-text">' + escapeHtml(message) + '</span>';
-    chatMessages.appendChild(messageDiv);
-    scrollToBottom();
-}
-
-// Add Clippy message to chat
-function addClippyMessage(message) {
-    const chatMessages = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'chat-message clippy-message';
-    messageDiv.innerHTML = '<span class="message-text"><img src="images/258-2580697_clippy-png-png-download-clippy-windows-transparent-png.png" alt="Clippy" style="height:24px;vertical-align:middle;margin-right:6px;background:transparent;" />' + escapeHtml(message) + '</span>';
-    chatMessages.appendChild(messageDiv);
-    scrollToBottom();
-    chatHistory.push({ sender: 'clippy', text: message });
-}
-
-// Show typing indicator
-function showTypingIndicator() {
-    isClippyTyping = true;
-    const typingIndicator = document.getElementById('typingIndicator');
-    typingIndicator.style.display = 'flex';
-    scrollToBottom();
-}
-
-// Hide typing indicator
-function hideTypingIndicator() {
-    isClippyTyping = false;
-    const typingIndicator = document.getElementById('typingIndicator');
-    typingIndicator.style.display = 'none';
-}
-
-// Scroll chat to bottom
-function scrollToBottom() {
-    const chatContainer = document.querySelector('.chat-container');
-    setTimeout(() => {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }, 100);
-}
-
-// Escape HTML to prevent XSS
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-// Get ChatGPT response from backend
-async function getChatGPTResponse(message) {
-    try {
-        const response = await fetch('/.netlify/functions/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                message: message,
-                chatHistory: chatHistory.slice(-10) // Send last 10 messages for context
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('HTTP error! status: ' + response.status);
-        }
-
-        const data = await response.json();
-        
-        // Simulate typing delay
-        setTimeout(() => {
-            hideTypingIndicator();
-            
-            if (data.success && data.response) {
-                addClippyMessage(data.response);
-            } else {
-                addClippyMessage("I'm having trouble connecting right now. Try asking me about DISENFUTURED's music, shows, or merch!");
-            }
-        }, 1000 + Math.random() * 2000); // Random delay between 1-3 seconds
-
-    } catch (error) {
-        console.error('Chat error:', error);
-        
-        setTimeout(() => {
-            hideTypingIndicator();
-            addClippyMessage(getStaticResponse(message));
-        }, 1500);
-    }
-}
-
-// Static fallback responses
-function getStaticResponse(message) {
-    const responses = [
-        "Stop asking an AI bot basic questions and use your brain, moron. DISENFUTURED is a band. Figure out the rest yourself.",
-        "Seriously? You're talking to a broken chatbot instead of just looking around the website? Touch grass, loser.",
-        "Why are you even here? Go listen to actual music instead of wasting time with a bot, idiot.",
-        "Bro, it's literally a band website. Click around and figure it out yourself instead of being lazy.",
-        "Imagine needing to ask a chatbot about obvious stuff. Get a life and stop being so helpless."
-    ];
-    
-    return responses[Math.floor(Math.random() * responses.length)];
-}
+// Clippy chatbot removed.
+// Any Clippy-related UI or backend calls were removed per project cleanup.

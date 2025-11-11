@@ -33,7 +33,7 @@
             <div class="start-menu-item" onclick="openWindow('shows')">Upcoming Shows</div>
             <div class="start-menu-item" onclick="openWindow('merch')">Merch</div>
             <div class="start-menu-item" onclick="openWindow('music')">Music & Links</div>
-            <div class="start-menu-item" onclick="openWindow('clippy')">Chat with Clippy</div>
+            <!-- Clippy removed -->
             <div class="start-menu-separator"></div>
             <div class="start-menu-item" onclick="openWindow('contact')">Contact</div>
         </div>
@@ -163,21 +163,12 @@
                     </div>
                     <div class="merch-item">
                         <div class="merch-image">Vinyl</div>
-                        <h3>Self Titled Album Coming Soon - Preorder Now!</h3>
+                        <h3>Self Titled Album Coming Soon</h3>
                         <p></p>
-                        <div class="price">$30.00</div>
-                        <button class="retro-button">BUY NOW</button>
-                    </div>
-                    <div class="merch-item">
-                        <div class="merch-image">STICKERS</div>
-                        <h3>Disenfutured Sticker</h3>
-                        <div class="price">$3.00</div>
-                        <button class="retro-button">BUY NOW</button>
                     </div>
                 </div>
                 <div class="merch-note">
-                    <p>Shipping worldwide!</p>
-                    <p>PayPal, Venmo, and Cash accepted at shows.</p>
+                    <p>We Ship!</p>
                 </div>
             </div>
         </div>
@@ -328,42 +319,9 @@
                 </div>
             </div>
             <div class="window-content">
-                <h2><span class="recyclable-icon"></span> RECYCLABLE MATERIALS</h2>
-                <div class="recycle-grid">
-                    <div class="recycle-item">
-                        <div class="recycle-image">🥤</div>
-                        <h3>Aluminum Cans</h3>
-                        <p>Soda cans, beer cans</p>
-                    </div>
-                    <div class="recycle-item">
-                        <div class="recycle-image">📰</div>
-                        <h3>Paper & Cardboard</h3>
-                        <p>Newspapers, magazines, boxes</p>
-                    </div>
-                    <div class="recycle-item">
-                        <div class="recycle-image">🍶</div>
-                        <h3>Glass Bottles</h3>
-                        <p>Wine bottles, jars</p>
-                    </div>
-                    <div class="recycle-item">
-                        <div class="recycle-image">🥛</div>
-                        <h3>Plastic Containers</h3>
-                        <p>Milk jugs, water bottles</p>
-                    </div>
-                    <div class="recycle-item">
-                        <div class="recycle-image">📱</div>
-                        <h3>Electronics</h3>
-                        <p>Old phones, computers</p>
-                    </div>
-                    <div class="recycle-item">
-                        <div class="recycle-image">🔋</div>
-                        <h3>Batteries</h3>
-                        <p>AA, AAA, lithium</p>
-                    </div>
-                </div>
-                <div class="recycle-note">
-                    <p><span class="recyclable-icon"></span> Remember: Reduce, Reuse, Recycle!</p>
-                    <p>🌍 Help save the planet one item at a time.</p>
+                <h2>Recycle Bin</h2>
+                <div class="empty-state">
+                    <p>The Recycle Bin is empty.</p>
                 </div>
             </div>
         </div>
@@ -390,61 +348,13 @@
                         <button class="browser-btn" onclick="browserRefresh()">🔄 Refresh</button>
                         <button class="browser-btn" onclick="browserHome()">🏠 Home</button>
                     </div>
-                    <div class="address-bar">
-                        <span class="address-label">Address:</span>
-                        <input type="text" class="address-input" id="addressInput" value="http://www.disenfutured.geocities.com" readonly>
-                        <button class="browser-btn go-btn">Go</button>
-                    </div>
                 </div>
                 
                 <!-- Browser Content Area -->
                 <div class="browser-viewport">
                     <div class="browser-page" id="browserPage">
-                        <div class="webpage-content">
-                            <center>
-                                <h1>🌟 Welcome to DISENFUTURED's GeoCities Page! 🌟</h1>
-                                <hr>
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Under Construction" style="width:80px; height:20px; background: repeating-linear-gradient(45deg, yellow, yellow 10px, black 10px, black 20px);">
-                                <marquee><blink>*** UNDER CONSTRUCTION ***</blink></marquee>
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Under Construction" style="width:80px; height:20px; background: repeating-linear-gradient(45deg, yellow, yellow 10px, black 10px, black 20px);">
-                                
-                                <h2>🎸 NEW JERSEY HARDCORE PUNK 🎸</h2>
-                                
-                                <table border="1" cellpadding="10" style="margin: 20px auto; background: #ffff99;">
-                                    <tr>
-                                        <td>
-                                            <h3>🔥 LATEST NEWS 🔥</h3>
-                                            <p>New demos available on Bandcamp!</p>
-                                            <p>Album coming soon in 2025!</p>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                                <h3><span class="email-icon"></span> GUESTBOOK <span class="email-icon"></span></h3>
-                                <textarea readonly style="width: 400px; height: 100px; background: #cccccc;">
-Sign our guestbook!
-
-[Previous entries would be here...]
-- CoolGuy1999: "Awesome band! 🤘"
-- MusicFan2000: "Can't wait for the album!"
-- HardcoreKid: "Best punk band ever!"
-                                </textarea>
-                                
-                                <hr>
-                                <p>
-                                    <a href="mailto:disenfutured@gmail.com"><span class="email-icon"></span> Email Us</a> | 
-                                    <a href="https://disenfutured.bandcamp.com/" target="_blank"><span class="music-link-icon"></span> Bandcamp</a> | 
-                                    <a href="https://instagram.com/disenfutured" target="_blank">📸 Instagram</a>
-                                </p>
-                                
-                                <p style="font-size: 10px; color: #666;">
-                                    This site is best viewed in Internet Explorer 4.0 or higher<br>
-                                    Last updated: Never | Visitor count: 001337<br>
-                                    © 1999 DISENFUTURED - All rights reserved
-                                </p>
-                                
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Made with Notepad" style="width:80px; height:15px; background: #0000ff; color: white; line-height: 15px;" title="Made with Notepad">
-                            </center>
+                        <div class="webpage-content" style="padding: 20px; text-align: center;">
+                            <p>Internet Explorer cannot display the webpage.</p>
                         </div>
                     </div>
                 </div>
@@ -460,58 +370,7 @@ Sign our guestbook!
             </div>
         </div>
 
-        <!-- Clippy Chatbot Window -->
-        <div class="window clippy-window" id="clippyWindow" style="display: none;">
-            <div class="window-header">
-                <div class="window-title">
-                    <div class="window-icon clippy"></div>
-                    Office Assistant - Clippy
-                </div>
-                <div class="window-controls">
-                    <button class="window-control minimize" onclick="minimizeWindow('clippyWindow')">_</button>
-                    <button class="window-control close" onclick="closeWindow('clippyWindow')">×</button>
-                </div>
-            </div>
-            <div class="window-content clippy-content">
-                <div class="clippy-header">
-                    <div class="clippy-avatar">
-                        <img src="images/sticker (1).png" alt="Clippy" class="clippy-image">
-                    </div>
-                    <div class="clippy-intro">
-                        <p>Hi! I'm Clippy, your office assistant! I'm here to help you learn about DISENFUTURED!</p>
-                    </div>
-                </div>
-                
-                <div class="chat-container">
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="chat-message clippy-message">
-                            <span class="message-text">Welcome! Ask me about the band, their music, shows, or merch. What would you like to know?</span>
-                        </div>
-                    </div>
-                    
-                    <div class="typing-indicator" id="typingIndicator" style="display: none;">
-                        <div class="typing-dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <span class="typing-text">Clippy is typing...</span>
-                    </div>
-                </div>
-                
-                <div class="chat-suggestions">
-                    <button class="suggestion-btn" onclick="sendSuggestion('Tell me about the band members')">Band Members</button>
-                    <button class="suggestion-btn" onclick="sendSuggestion('What music do they have?')">Music</button>
-                    <button class="suggestion-btn" onclick="sendSuggestion('Any upcoming shows?')">Shows</button>
-                    <button class="suggestion-btn" onclick="sendSuggestion('What merch is available?')">Merch</button>
-                </div>
-                
-                <div class="chat-input-container">
-                    <input type="text" id="chatInput" class="chat-input" placeholder="Ask Clippy anything about DISENFUTURED..." maxlength="500">
-                    <button class="send-button" onclick="sendMessage()" id="sendButton">Send</button>
-                </div>
-            </div>
-        </div>
+        <!-- Clippy removed -->
 
         <!-- Background Elements -->
         <div class="background-icons">
@@ -528,12 +387,7 @@ Sign our guestbook!
                 <div class="desktop-icon-img browser-icon"></div>
                 <span>Internet Explorer</span>
             </div>
-            <div class="desktop-icon" style="top: 320px; left: 20px;" onclick="openWindow('clippy')">
-                <div class="desktop-icon-img clippy-icon">
-                    <img src="images/258-2580697_clippy-png-png-download-clippy-windows-transparent-png.png" alt="Clippy" style="background:transparent;border:none;box-shadow:none;outline:none;" />
-                </div>
-                <span>Clippy Chat</span>
-            </div>
+            <!-- Clippy icon removed -->
             
             <!-- Menu Item Icons -->
             <div class="desktop-icon" style="top: 20px; right: 20px;" onclick="openWindow('about')">
