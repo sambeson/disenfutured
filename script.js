@@ -82,7 +82,7 @@ function openWindow(windowId) {
     // Play window open sound simulation
     playSound('open');
 }
-    playSound('open');
+
 // Track if user manually closed the main window
 let mainWindowClosed = false;
 
@@ -123,8 +123,6 @@ function closeWindow(windowId) {
     // Play window close sound simulation
     playSound('close');
 }
-    // Play window close sound simulation
-    playSound('close');
 
 // Focus Window (bring to front)
 function focusWindow(windowElement, windowId) {
@@ -401,26 +399,33 @@ function showMainWindow() {
 // Startup sequence simulation
 function playStartupSequence() {
     const desktop = document.querySelector('.desktop');
-    desktop.style.opacity = '0';
     
-    // Fade in desktop
-    setTimeout(() => {
-        desktop.style.transition = 'opacity 1s ease-in';
-        desktop.style.opacity = '1';
-        playSound('startup');
-    }, 100);
-    
-    // If splash is visible, don't auto-show main window — wait for splash close
-    const splash = document.getElementById('splashOverlay');
-    if (splash && splash.style.display !== 'none') {
-        // Main window will be shown when splash is dismissed
-        return;
-    }
+    try {
+        desktop.style.opacity = '0';
+        
+        // Fade in desktop
+        setTimeout(() => {
+            desktop.style.transition = 'opacity 1s ease-in';
+            desktop.style.opacity = '1';
+            playSound('startup');
+        }, 100);
+        
+        // If splash is visible, don't auto-show main window — wait for splash close
+        const splash = document.getElementById('splashOverlay');
+        if (splash && getComputedStyle(splash).display !== 'none') {
+            // Main window will be shown when splash is dismissed
+            return;
+        }
 
-    // No splash — show main window after startup
-    setTimeout(() => {
+        // No splash — show main window after startup
+        setTimeout(() => {
+            showMainWindow();
+        }, 1500);
+    } catch (e) {
+        // If anything fails, make sure the site is still usable
+        desktop.style.opacity = '1';
         showMainWindow();
-    }, 1500);
+    }
 }
 
 // Error dialog simulation (for fun)
@@ -905,6 +910,3 @@ window.openWindow = function(windowId) {
     // Always call originalOpenWindow with the base windowId
     return originalOpenWindow(windowId);
 };
-
-// Clippy chatbot removed.
-// Any Clippy-related UI or backend calls were removed per project cleanup.
