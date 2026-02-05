@@ -959,16 +959,19 @@ h3 {
         height: auto !important;
         max-height: 75vh !important;
         top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
+        left: 4vw !important;
+        transform: translateY(-50%) !important;
         border: 2px outset var(--win98-gray) !important;
         border-radius: 0;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .main-window .window-content {
         max-height: calc(75vh - 36px);
-        overflow-y: auto;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+        overscroll-behavior: contain;
     }
 
     /* Larger window header for touch */
