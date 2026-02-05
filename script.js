@@ -83,9 +83,17 @@ function openWindow(windowId) {
     playSound('open');
 }
     playSound('open');
+// Track if user manually closed the main window
+let mainWindowClosed = false;
+
 function closeWindow(windowId) {
     const windowElement = document.getElementById(windowId);
     if (!windowElement) return;
+    
+    // Track if user closed the main window
+    if (windowId === 'mainWindow') {
+        mainWindowClosed = true;
+    }
     
     // Add closing animation
     windowElement.style.animation = 'windowClose 0.2s ease-in';
@@ -102,8 +110,8 @@ function closeWindow(windowId) {
             updateTaskbar();
         }
         
-        // On mobile, re-show main window when closing a sub-window
-        if (isMobile() && windowId !== 'mainWindow') {
+        // On mobile, re-show main window when closing a sub-window (only if user didn't close it)
+        if (isMobile() && windowId !== 'mainWindow' && !mainWindowClosed) {
             const mainWindow = document.getElementById('mainWindow');
             if (mainWindow) {
                 mainWindow.style.display = 'block';
@@ -233,7 +241,7 @@ function toggleWindowFromTaskbar(windowId) {
 
 // Check if we're on a mobile device
 function isMobile() {
-    return window.innerWidth <= 768;
+    return window.matchMedia('(max-width: 768px)').matches && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 }
 
 // Make windows draggable

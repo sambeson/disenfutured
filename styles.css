@@ -1103,7 +1103,7 @@ h3 {
     .background-icons {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 8px;
         padding: 10px;
         position: fixed;
@@ -1213,6 +1213,7 @@ h3 {
 #merchWindow { top: 140px; left: 140px; width: 650px; height: 500px; }
 #musicWindow { top: 160px; left: 160px; width: 580px; height: 480px; }
 #contactWindow { top: 180px; left: 180px; width: 520px; height: 420px; }
+#imageViewerWindow { top: 80px; left: 200px; width: 500px; height: 450px; }
 #myComputerWindow { top: 80px; left: 80px; width: 600px; height: 500px; }
 #recycleBinWindow { top: 200px; left: 200px; width: 550px; height: 450px; }
 #internetExplorerWindow { top: 60px; left: 150px; width: 700px; height: 550px; }
@@ -2082,9 +2083,17 @@ h3 {
 
 /* Splash responsive */
 @media (max-width: 768px) {
+    .splash-overlay {
+        align-items: flex-start;
+        padding: 8px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
     .splash-modal {
         max-width: 100%;
-        max-height: 85vh;
+        max-height: none;
+        margin: 8px 0;
     }
 
     .splash-title {
@@ -2093,6 +2102,15 @@ h3 {
 
     .splash-content {
         padding: 14px;
+    }
+
+    .splash-embeds {
+        gap: 14px;
+        margin: 12px 0 16px;
+    }
+
+    .splash-embed-block {
+        padding: 8px;
     }
 }
 
