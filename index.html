@@ -140,7 +140,7 @@
                 <div class="animated-section">
                     <div class="animated-gif"></div>
                     <div class="marquee-text">
-                        <span class="marquee-inner">"Suit" out now. Self Titled Album coming soon.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Suit" out now. Self Titled Album coming soon.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span class="marquee-inner">"Suit" out now. Self Titled Album coming soon.</span>
                     </div>
                 </div>
             </div>
@@ -228,7 +228,7 @@
                         <div class="merch-image">HAT</div>
                         <h3>Black Dad Hat</h3>
                         <p>Embroidered logo hat</p>
-                        <div class="price">$27.00</div>
+                        <div class="price" style="color: red;">SOLD OUT</div>
                         <button class="retro-button">BUY NOW</button>
                     </div>
                     <div class="merch-item">
@@ -415,7 +415,7 @@
         </div>
 
         <!-- Internet Explorer Browser Window -->
-        <div class="window" id="browserWindow" style="display: none;">
+        <div class="window" id="browserWindow" style="display: none; width: 420px; height: 85vh;">
             <div class="window-header">
                 <div class="window-title">
                     <div class="window-icon browser"></div>
@@ -436,14 +436,16 @@
                         <button class="browser-btn" onclick="browserRefresh()">🔄 Refresh</button>
                         <button class="browser-btn" onclick="browserHome()">🏠 Home</button>
                     </div>
+                    <div class="browser-address-bar">
+                        <span style="font-size:11px; margin-right:4px;">Address</span>
+                        <input type="text" class="browser-address" value="http://www.tetris.com/play" readonly>
+                    </div>
                 </div>
                 
                 <!-- Browser Content Area -->
                 <div class="browser-viewport">
                     <div class="browser-page" id="browserPage">
-                        <div class="webpage-content" style="padding: 20px; text-align: center;">
-                            <p>Internet Explorer cannot display the webpage.</p>
-                        </div>
+                        <iframe id="browserIframe" src="tetris.html" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                     </div>
                 </div>
                 

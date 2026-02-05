@@ -876,10 +876,26 @@ function openComputer() {
     `;
 }
 
+function browserBack() {
+    // No-op in embedded mode
+}
+
+function browserForward() {
+    // No-op in embedded mode
+}
+
+function browserRefresh() {
+    const iframe = document.getElementById('browserIframe');
+    if (iframe) {
+        iframe.src = iframe.src;
+    }
+}
+
 function browserHome() {
-    const addressInput = document.getElementById('addressInput');
-    addressInput.value = 'http://www.disenfutured.geocities.com';
-    showError('Already at home page!');
+    const iframe = document.getElementById('browserIframe');
+    if (iframe) {
+        iframe.src = 'tetris.html';
+    }
 }
 
 function openImageViewer() {
