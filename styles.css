@@ -2033,8 +2033,8 @@ h3 {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
     background: rgba(0, 0, 0, 0.92);
     z-index: 99999;
     display: flex;
@@ -2147,9 +2147,9 @@ h3 {
 /* Splash responsive */
 @media (max-width: 768px) {
     .splash-overlay {
-        align-items: flex-start;
+        display: block;
         padding: 8px;
-        overflow-y: auto;
+        overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
         overscroll-behavior: contain;
@@ -2158,7 +2158,7 @@ h3 {
     .splash-modal {
         max-width: 100%;
         max-height: none;
-        margin: 8px 0;
+        margin: 8px auto;
         flex-shrink: 0;
     }
 
