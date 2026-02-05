@@ -53,6 +53,12 @@ function openWindow(windowId) {
     // Show window
     windowElement.style.display = 'block';
     
+    // On mobile, close the main window when opening a sub-window to reduce clutter
+    if (isMobile() && windowId !== 'main') {
+        const mainWindow = document.getElementById('mainWindow');
+        if (mainWindow) mainWindow.style.display = 'none';
+    }
+    
     // Bring to front
     focusWindow(windowElement, windowId);
     
@@ -94,6 +100,15 @@ function closeWindow(windowId) {
         if (index > -1) {
             activeWindows.splice(index, 1);
             updateTaskbar();
+        }
+        
+        // On mobile, re-show main window when closing a sub-window
+        if (isMobile() && windowId !== 'mainWindow') {
+            const mainWindow = document.getElementById('mainWindow');
+            if (mainWindow) {
+                mainWindow.style.display = 'block';
+                focusWindow(mainWindow, 'main');
+            }
         }
     }, 200);
     
@@ -216,6 +231,11 @@ function toggleWindowFromTaskbar(windowId) {
     }
 }
 
+// Check if we're on a mobile device
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
 // Make windows draggable
 function makeWindowsDraggable() {
     const windows = document.querySelectorAll('.window');
@@ -231,31 +251,26 @@ function makeWindowsDraggable() {
         let xOffset = 0;
         let yOffset = 0;
         
+        // --- Mouse events (desktop) ---
         header.addEventListener('mousedown', function(e) {
-            // Don't trigger if clicking on window controls
             if (e.target.classList.contains('window-control')) return;
+            if (isMobile()) return; // skip drag on mobile
             
-            // Bring window to front
             zIndexCounter++;
             windowElement.style.zIndex = zIndexCounter;
-            
-            // Start dragging
             isDragging = true;
             
             const rect = windowElement.getBoundingClientRect();
             initialX = e.clientX - rect.left;
             initialY = e.clientY - rect.top;
-            
             e.preventDefault();
         });
         
         document.addEventListener('mousemove', function(e) {
             if (isDragging && windowElement.style.display === 'block') {
                 e.preventDefault();
-                
                 currentX = e.clientX - initialX;
                 currentY = e.clientY - initialY;
-                
                 windowElement.style.left = currentX + 'px';
                 windowElement.style.top = currentY + 'px';
                 windowElement.style.position = 'fixed';
@@ -263,6 +278,36 @@ function makeWindowsDraggable() {
         });
         
         document.addEventListener('mouseup', function(e) {
+            isDragging = false;
+        });
+        
+        // --- Touch events (mobile) ---
+        header.addEventListener('touchstart', function(e) {
+            if (e.target.classList.contains('window-control')) return;
+            if (isMobile()) return; // on mobile, windows are fullscreen — no drag needed
+            
+            zIndexCounter++;
+            windowElement.style.zIndex = zIndexCounter;
+            isDragging = true;
+            
+            const touch = e.touches[0];
+            const rect = windowElement.getBoundingClientRect();
+            initialX = touch.clientX - rect.left;
+            initialY = touch.clientY - rect.top;
+        }, { passive: true });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (isDragging && windowElement.style.display === 'block') {
+                const touch = e.touches[0];
+                currentX = touch.clientX - initialX;
+                currentY = touch.clientY - initialY;
+                windowElement.style.left = currentX + 'px';
+                windowElement.style.top = currentY + 'px';
+                windowElement.style.position = 'fixed';
+            }
+        }, { passive: true });
+        
+        document.addEventListener('touchend', function(e) {
             isDragging = false;
         });
         
@@ -314,6 +359,37 @@ function playSound(type) {
     }
 }
 
+// Close the new-single splash modal
+function closeSplash() {
+    const overlay = document.getElementById('splashOverlay');
+    if (overlay) {
+        overlay.style.transition = 'opacity 0.3s ease';
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            // Now show the main window
+            showMainWindow();
+        }, 300);
+    }
+}
+
+function showMainWindow() {
+    const mainWindow = document.getElementById('mainWindow');
+    mainWindow.style.display = 'block';
+
+    if (!activeWindows.find(w => w.id === 'main')) {
+        activeWindows.push({
+            id: 'main',
+            element: mainWindow,
+            title: 'DISENFUTURED',
+            minimized: false
+        });
+    }
+
+    focusWindow(mainWindow, 'main');
+    updateTaskbar();
+}
+
 // Startup sequence simulation
 function playStartupSequence() {
     const desktop = document.querySelector('.desktop');
@@ -326,21 +402,16 @@ function playStartupSequence() {
         playSound('startup');
     }, 100);
     
-    // Show main window after startup and add to active windows
+    // If splash is visible, don't auto-show main window — wait for splash close
+    const splash = document.getElementById('splashOverlay');
+    if (splash && splash.style.display !== 'none') {
+        // Main window will be shown when splash is dismissed
+        return;
+    }
+
+    // No splash — show main window after startup
     setTimeout(() => {
-        const mainWindow = document.getElementById('mainWindow');
-        mainWindow.style.display = 'block';
-        
-        // Add main window to active windows
-        activeWindows.push({
-            id: 'main',
-            element: mainWindow,
-            title: 'DISENFUTURED',
-            minimized: false
-        });
-        
-        focusWindow(mainWindow, 'main');
-        updateTaskbar();
+        showMainWindow();
     }, 1500);
 }
 
@@ -609,8 +680,169 @@ document.addEventListener('click', function(e) {
 function openFolder(folderId) {
     const computerWindow = document.getElementById('computerWindow');
     const fileSystem = computerWindow.querySelector('.file-system');
-    // Example: just show folder name for now
-    fileSystem.innerHTML = `<div><button onclick="openComputer()">← Back</button> <span>Viewing: ${folderId}</span></div>`;
+    
+    const folders = {
+        cDrive: `
+            <div><button class="retro-button small" onclick="openComputer()">← Back</button> <span>C:\\</span></div>
+            <div class="file-item folder" onclick="openFolder('program_files')">
+                <div class="file-icon folder"></div>
+                <span>Program Files</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder" onclick="openFolder('windows')">
+                <div class="file-icon folder"></div>
+                <span>WINDOWS</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder" onclick="openFolder('users')">
+                <div class="file-icon folder"></div>
+                <span>Users</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon system"></div>
+                <span>AUTOEXEC.BAT</span>
+                <span class="file-size">1 KB</span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon system"></div>
+                <span>CONFIG.SYS</span>
+                <span class="file-size">1 KB</span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon document"></div>
+                <span>BOOT.INI</span>
+                <span class="file-size">1 KB</span>
+            </div>
+        `,
+        program_files: `
+            <div><button class="retro-button small" onclick="openFolder('cDrive')">← Back</button> <span>C:\\Program Files</span></div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>Internet Explorer</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>Windows Media Player</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>Accessories</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>WinRAR</span>
+                <span class="file-size"></span>
+            </div>
+        `,
+        windows: `
+            <div><button class="retro-button small" onclick="openFolder('cDrive')">← Back</button> <span>C:\\WINDOWS</span></div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>System</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>System32</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>Fonts</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>Temp</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon system"></div>
+                <span>explorer.exe</span>
+                <span class="file-size">593 KB</span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon system"></div>
+                <span>notepad.exe</span>
+                <span class="file-size">52 KB</span>
+            </div>
+        `,
+        users: `
+            <div><button class="retro-button small" onclick="openFolder('cDrive')">← Back</button> <span>C:\\Users</span></div>
+            <div class="file-item folder" onclick="openFolder('user_home')">
+                <div class="file-icon folder"></div>
+                <span>disenfutured</span>
+                <span class="file-size"></span>
+            </div>
+        `,
+        user_home: `
+            <div><button class="retro-button small" onclick="openFolder('users')">← Back</button> <span>C:\\Users\\disenfutured</span></div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>Desktop</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>Documents</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder" onclick="openFolder('downloads')">
+                <div class="file-icon folder"></div>
+                <span>Downloads</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>My Music</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item folder">
+                <div class="file-icon folder"></div>
+                <span>My Pictures</span>
+                <span class="file-size"></span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon document"></div>
+                <span>README.TXT</span>
+                <span class="file-size">2 KB</span>
+            </div>
+        `,
+        downloads: `
+            <div><button class="retro-button small" onclick="openFolder('user_home')">← Back</button> <span>C:\\Users\\disenfutured\\Downloads</span></div>
+            <div class="file-item file" onclick="openImageViewer()">
+                <div class="file-icon document"></div>
+                <span>the big man.jpg</span>
+                <span class="file-size">1.3 MB</span>
+            </div>
+        `,
+        dDrive: `
+            <div><button class="retro-button small" onclick="openComputer()">← Back</button> <span>D:\\</span></div>
+            <p style="padding: 8px; color: #808080; font-style: italic;">Drive is empty. Please insert a disc.</p>
+        `,
+        music: `
+            <div><button class="retro-button small" onclick="openComputer()">← Back</button> <span>DISENFUTURED Collection</span></div>
+            <div class="file-item file">
+                <div class="file-icon music"></div>
+                <span>Suit.mp3</span>
+                <span class="file-size">4.2 MB</span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon music"></div>
+                <span>Rigged (Demo).mp3</span>
+                <span class="file-size">3.8 MB</span>
+            </div>
+        `
+    };
+
+    fileSystem.innerHTML = folders[folderId] || `
+        <div><button class="retro-button small" onclick="openComputer()">← Back</button></div>
+        <p style="padding: 8px; color: #808080;">This folder is empty.</p>
+    `;
 }
 
 function openComputer() {
@@ -635,6 +867,24 @@ function browserHome() {
     const addressInput = document.getElementById('addressInput');
     addressInput.value = 'http://www.disenfutured.geocities.com';
     showError('Already at home page!');
+}
+
+function openImageViewer() {
+    const viewer = document.getElementById('imageViewerWindow');
+    if (!viewer) return;
+    viewer.style.display = 'block';
+    zIndexCounter++;
+    viewer.style.zIndex = zIndexCounter;
+
+    if (!activeWindows.find(w => w.id === 'imageViewer')) {
+        activeWindows.push({
+            id: 'imageViewer',
+            element: viewer,
+            title: 'the big man.jpg',
+            minimized: false
+        });
+        updateTaskbar();
+    }
 }
 
 // Map new window IDs to existing openWindow function

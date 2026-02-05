@@ -8,6 +8,61 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <!-- New Single Splash Modal -->
+    <div class="splash-overlay" id="splashOverlay">
+        <div class="splash-modal">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon music"></div>
+                    🔊 NEW SINGLE OUT NOW
+                </div>
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeSplash()">×</button>
+                </div>
+            </div>
+            <div class="splash-content">
+                <h1 class="splash-title">DISENFUTURED</h1>
+                <h2 class="splash-subtitle">NEW SINGLE OUT NOW</h2>
+                <h2 class="splash-track-name">SUIT</h2>
+                <div class="splash-embeds">
+                    <!-- Spotify Embed Placeholder -->
+                    <div class="splash-embed-block">
+                        <h3>LISTEN ON SPOTIFY</h3>
+                        <iframe 
+                            style="border-radius:12px" 
+                            src="about:blank" 
+                            data-src="https://open.spotify.com/embed/track/PLACEHOLDER_TRACK_ID?utm_source=generator&theme=0" 
+                            width="100%" 
+                            height="152" 
+                            frameBorder="0" 
+                            allowfullscreen="" 
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            loading="lazy">
+                        </iframe>
+                        <p class="placeholder-note">⏳ Spotify embed loading soon — replace PLACEHOLDER_TRACK_ID in index.html</p>
+                    </div>
+                    <!-- YouTube Embed Placeholder -->
+                    <div class="splash-embed-block">
+                        <h3>WATCH THE VIDEO</h3>
+                        <div class="video-container">
+                            <iframe 
+                                src="about:blank" 
+                                data-src="https://www.youtube.com/embed/PLACEHOLDER_VIDEO_ID" 
+                                width="100%" 
+                                height="315" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <p class="placeholder-note">⏳ YouTube embed loading soon — replace PLACEHOLDER_VIDEO_ID in index.html</p>
+                    </div>
+                </div>
+                <button class="retro-button splash-close-btn" onclick="closeSplash()">ENTER SITE</button>
+            </div>
+        </div>
+    </div>
+
     <div class="desktop">
         <!-- Taskbar -->
         <div class="taskbar">
@@ -123,9 +178,10 @@
             <div class="window-content">
                 <h2>LIVE SHOWS</h2>
                 <div class="shows-list">
-                    <div class="no-shows">
-                        <p>No shows currently scheduled.</p>
-                        <p>Check our Instagram for upcoming announcements!</p>
+                    <div class="show-item">
+                        <span class="show-date">02/13</span>
+                        <span class="show-venue">Gametime Sportzbar</span>
+                        <span class="show-details">Westville, NJ</span>
                     </div>
                 </div>
             </div>
@@ -192,6 +248,12 @@
                     <div class="link-category">
                         <h3>LISTEN TO OUR MUSIC</h3>
                         <div class="link-buttons">
+                            <a href="https://open.spotify.com/artist/PLACEHOLDER_ARTIST_ID" class="social-button spotify" target="_blank">
+                                SPOTIFY
+                            </a>
+                            <a href="https://youtube.com/@PLACEHOLDER_CHANNEL" class="social-button youtube" target="_blank">
+                                YOUTUBE
+                            </a>
                             <a href="https://disenfutured.bandcamp.com/" class="social-button bandcamp" target="_blank">
                                 BANDCAMP
                             </a>
@@ -210,11 +272,11 @@
                 
                 <div class="music-player">
                     <h3>LATEST TRACK</h3>
-                    <div class="bandcamp-embed">
-                        <iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/track=2991060710/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="https://disenfutured.bandcamp.com/track/rigged-demo">Rigged (Demo) by Disenfutured</a></iframe>
+                    <div class="spotify-embed">
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/PLACEHOLDER_TRACK_ID?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <p style="text-align: center; margin-top: 10px; font-size: 12px;">
-                        <a href="https://disenfutured.bandcamp.com/" target="_blank" style="color: #0f91ff;">Visit our Bandcamp page</a>
+                        <a href="https://open.spotify.com/artist/PLACEHOLDER_ARTIST_ID" target="_blank" style="color: #1db954;">Listen on Spotify</a>
                     </p>
                 </div>
             </div>
@@ -246,16 +308,10 @@
                         <p>For show bookings and press inquiries</p>
                         <button class="retro-button">SEND MESSAGE</button>
                     </div>
-                    
-                    <div class="contact-method">
-                        <h3>MERCH</h3>
-                        <button class="retro-button">ORDER FORM</button>
-                    </div>
                 </div>
                 
                 <div class="contact-note">
                     <p>For the fastest response, DM us on Instagram!</p>
-                    <p>Demo submissions welcome via email.</p>
                 </div>
             </div>
         </div>
@@ -302,6 +358,24 @@
                         <span class="file-size">1 KB</span>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Image Viewer Window -->
+        <div class="window" id="imageViewerWindow" style="display: none;">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon computer"></div>
+                    the big man.jpg
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize" onclick="minimizeWindow('imageViewerWindow')">_</button>
+                    <button class="window-control maximize" onclick="toggleMaximize('imageViewerWindow')">□</button>
+                    <button class="window-control close" onclick="closeWindow('imageViewerWindow')">×</button>
+                </div>
+            </div>
+            <div class="window-content" style="display:flex; align-items:center; justify-content:center; background:#000;">
+                <img src="images/Big_chungus.png" alt="the big man" class="big-man-spin">
             </div>
         </div>
 
