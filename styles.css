@@ -451,6 +451,18 @@ h3 {
     padding: 4px;
     margin-top: 16px;
     font-family: 'Courier New', monospace;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee-inner {
+    display: inline-block;
+    animation: marqueeScroll 12s linear infinite;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* About Window Styles */
@@ -1992,13 +2004,15 @@ h3 {
     width: 100%;
     max-width: 560px;
     max-height: 90vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
 }
 
 .splash-content {
-    padding: 20px;
+    padding: 16px;
     text-align: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .splash-title {
@@ -2030,14 +2044,14 @@ h3 {
 .splash-embeds {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin: 16px 0 24px;
+    gap: 12px;
+    margin: 10px 0 14px;
 }
 
 .splash-embed-block {
     background: var(--win98-white);
     border: 2px inset var(--win98-gray);
-    padding: 12px;
+    padding: 8px;
 }
 
 .splash-embed-block h3 {
@@ -2054,7 +2068,7 @@ h3 {
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 */
+    padding-bottom: 45%; /* Shorter than full 16:9 to save space */
     height: 0;
     overflow: hidden;
 }
@@ -2075,10 +2089,11 @@ h3 {
 }
 
 .splash-close-btn {
-    padding: 12px 32px;
-    font-size: 14px;
+    padding: 10px 28px;
+    font-size: 13px;
     font-weight: bold;
-    min-height: 44px;
+    min-height: 38px;
+    margin-top: 4px;
 }
 
 /* Splash responsive */
