@@ -2041,6 +2041,8 @@ h3 {
     align-items: center;
     justify-content: center;
     padding: 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .splash-modal {
@@ -2149,12 +2151,15 @@ h3 {
         padding: 8px;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+        overscroll-behavior: contain;
     }
 
     .splash-modal {
         max-width: 100%;
         max-height: none;
         margin: 8px 0;
+        flex-shrink: 0;
     }
 
     .splash-title {
