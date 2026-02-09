@@ -670,7 +670,7 @@ document.head.appendChild(style);
 // Placeholder functions for merch buttons (to be replaced with real functionality)
 document.addEventListener('click', function(e) {
     if (e.target.textContent === 'BUY NOW') {
-        showError('Merch store coming soon! DM us on Instagram for now!');
+        window.open('https://instagram.com/disenfutured', '_blank');
     }
     
     if (e.target.textContent === 'TICKETS' || e.target.textContent === 'INFO' || e.target.textContent === 'DETAILS') {
@@ -678,7 +678,7 @@ document.addEventListener('click', function(e) {
     }
     
     if (e.target.textContent === 'SEND MESSAGE' || e.target.textContent === 'ORDER FORM') {
-        showError('Email us at booking@disenfutured.com or DM on Instagram!');
+        window.open('https://instagram.com/disenfutured', '_blank');
     }
 });
 
