@@ -81,6 +81,14 @@ function openWindow(windowId) {
     
     // Play window open sound simulation
     playSound('open');
+    
+    // Auto-focus Tetris iframe when browser window opens
+    if (windowId === 'browser') {
+        setTimeout(function() {
+            var iframe = document.getElementById('browserIframe');
+            if (iframe) iframe.focus();
+        }, 400);
+    }
 }
 
 // Track if user manually closed the main window
@@ -176,19 +184,31 @@ function toggleMaximize(windowId) {
         windowElement.style.left = windowElement.dataset.originalLeft || '100px';
         windowElement.style.width = windowElement.dataset.originalWidth || '500px';
         windowElement.style.height = windowElement.dataset.originalHeight || '400px';
+        windowElement.style.transform = windowElement.dataset.originalTransform || '';
+        windowElement.style.right = windowElement.dataset.originalRight || '';
+        windowElement.style.bottom = windowElement.dataset.originalBottom || '';
+        windowElement.style.margin = windowElement.dataset.originalMargin || '';
     } else {
-        // Store original position and size
+        // Store original position, size and transform
         windowElement.dataset.originalTop = windowElement.style.top;
         windowElement.dataset.originalLeft = windowElement.style.left;
         windowElement.dataset.originalWidth = windowElement.style.width;
         windowElement.dataset.originalHeight = windowElement.style.height;
+        windowElement.dataset.originalTransform = windowElement.style.transform || getComputedStyle(windowElement).transform;
+        windowElement.dataset.originalRight = windowElement.style.right;
+        windowElement.dataset.originalBottom = windowElement.style.bottom;
+        windowElement.dataset.originalMargin = windowElement.style.margin;
         
-        // Maximize window
+        // Maximize window — clear transform and positioning tricks
         windowElement.classList.add('maximized');
         windowElement.style.top = '0px';
         windowElement.style.left = '0px';
-        windowElement.style.width = '100vw';
-        windowElement.style.height = 'calc(100vh - 28px)';
+        windowElement.style.right = '0px';
+        windowElement.style.bottom = '28px';
+        windowElement.style.width = '100%';
+        windowElement.style.height = 'auto';
+        windowElement.style.transform = 'none';
+        windowElement.style.margin = '0';
     }
     
     playSound('maximize');
@@ -839,6 +859,11 @@ function openFolder(folderId) {
         `,
         music: `
             <div><button class="retro-button small" onclick="openComputer()">← Back</button> <span>DISENFUTURED Collection</span></div>
+            <div class="file-item file">
+                <div class="file-icon music"></div>
+                <span>Mist.mp3</span>
+                <span class="file-size">3.6 MB</span>
+            </div>
             <div class="file-item file">
                 <div class="file-icon music"></div>
                 <span>Suit.mp3</span>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=MS+Sans+Serif:wght@400;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@700&display=swap');
 
 /* CSS Variables for Windows 98 Colors */
 :root {
@@ -257,14 +258,14 @@ body::before {
 }
 
 .window-header {
-    height: 18px;
+    height: 24px;
     background: linear-gradient(90deg, var(--win98-blue) 0%, var(--win98-dark-blue) 100%);
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2px;
-    font-size: 11px;
+    padding: 3px 4px;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -285,17 +286,24 @@ body::before {
 }
 
 .window-control {
-    width: 16px;
-    height: 14px;
+    width: 22px;
+    height: 20px;
     background: var(--win98-gray);
     border: 1px outset var(--win98-gray);
-    font-size: 8px;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
-    margin-left: 1px;
+    margin-left: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1;
+    padding: 0;
+    text-align: center;
+}
+
+.window-control.maximize {
+    padding-bottom: 2px;
 }
 
 .window-control:active {
@@ -312,6 +320,7 @@ body::before {
     flex: 1;
     overflow-y: auto;
     background: var(--win98-gray);
+    min-height: 0;
 }
 
 /* Typography */
@@ -342,7 +351,7 @@ h3 {
 .glitch-text {
     position: relative;
     color: var(--win98-red);
-    font-family: 'Courier New', monospace;
+    font-family: 'Clash Display', sans-serif;
     font-size: 36px;
     font-weight: bold;
     text-transform: uppercase;
@@ -986,9 +995,9 @@ h3 {
 
     /* Bigger close/min/max buttons for touch */
     .window-control {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
         margin-left: 4px;
     }
 
@@ -1170,7 +1179,7 @@ h3 {
     }
 
     .marquee-text {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     /* Member list */
@@ -1235,7 +1244,25 @@ h3 {
 #aboutWindow { top: 100px; left: 100px; width: 500px; height: 400px; }
 #showsWindow { top: 120px; left: 120px; width: 600px; height: 450px; }
 #merchWindow { top: 140px; left: 140px; width: 650px; height: 500px; }
-#musicWindow { top: 160px; left: 160px; width: 580px; height: 480px; }
+#musicWindow { top: 80px; left: 120px; width: 620px; height: 600px; }
+#musicWindow .window-content {
+    overflow-y: scroll !important;
+    max-height: calc(600px - 28px);
+    min-height: 0;
+    scrollbar-width: auto;
+    scrollbar-color: var(--win98-gray) var(--win98-light-gray);
+}
+#musicWindow .window-content::-webkit-scrollbar {
+    width: 16px;
+    display: block;
+}
+#musicWindow .window-content::-webkit-scrollbar-track {
+    background: var(--win98-light-gray);
+}
+#musicWindow .window-content::-webkit-scrollbar-thumb {
+    background: var(--win98-gray);
+    border: 2px outset var(--win98-gray);
+}
 #contactWindow { top: 180px; left: 180px; width: 520px; height: 420px; }
 #imageViewerWindow { top: 80px; left: 200px; width: 500px; height: 450px; }
 #myComputerWindow { top: 80px; left: 80px; width: 600px; height: 500px; }
@@ -1904,12 +1931,13 @@ h3 {
 
 .browser-content {
     flex: 1 !important;
-    background: white;
+    background: black;
     overflow: hidden;
     padding: 0 !important;
     display: flex;
     flex-direction: column;
     min-height: 0;
+    height: 100%;
 }
 
 .browser-viewport {
@@ -2070,7 +2098,7 @@ h3 {
 }
 
 .splash-title {
-    font-family: 'Courier New', monospace;
+    font-family: 'Clash Display', sans-serif;
     font-size: 28px;
     color: var(--win98-red);
     letter-spacing: 3px;
@@ -2087,7 +2115,7 @@ h3 {
 }
 
 .splash-track-name {
-    font-family: 'Courier New', monospace;
+    font-family: 'Clash Display', sans-serif;
     font-size: 22px;
     color: var(--win98-black);
     text-decoration: none;
