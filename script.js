@@ -385,6 +385,17 @@ function playSound(type) {
     }
 }
 
+// Reopen the splash modal
+function openSplash() {
+    const overlay = document.getElementById('splashOverlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => { overlay.style.opacity = '1'; }, 10);
+    }
+}
+
 // Close the new-single splash modal
 function closeSplash() {
     const overlay = document.getElementById('splashOverlay');
