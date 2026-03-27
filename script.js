@@ -872,6 +872,11 @@ function openFolder(folderId) {
             <div><button class="retro-button small" onclick="openComputer()">← Back</button> <span>DISENFUTURED Collection</span></div>
             <div class="file-item file">
                 <div class="file-icon music"></div>
+                <span>Bump.mp3</span>
+                <span class="file-size">3.4 MB</span>
+            </div>
+            <div class="file-item file">
+                <div class="file-icon music"></div>
                 <span>Mist.mp3</span>
                 <span class="file-size">3.6 MB</span>
             </div>
