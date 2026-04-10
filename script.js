@@ -887,8 +887,8 @@ function openFolder(folderId) {
             </div>
             <div class="file-item file">
                 <div class="file-icon music"></div>
-                <span>Rigged (Demo).mp3</span>
-                <span class="file-size">3.8 MB</span>
+                <span>Rigged.mp3</span>
+                <span class="file-size">4.1 MB</span>
             </div>
         `
     };
